@@ -1,0 +1,1 @@
+# Kabar Covid Sumba Timur

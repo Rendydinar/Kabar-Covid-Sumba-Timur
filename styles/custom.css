@@ -1,0 +1,103 @@
+:root {
+  --color-primary: '#28DF99';
+  --color-secondary: '#99F3BD';
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-black-2: #050505;
+  --font-primary: 'Assistant', sans-serif;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+a {
+  background-color: transparent;
+  color: inherit;
+  text-decoration: inherit;
+}
+
+body {
+  font-family: var(--font-primary);
+}
+
+input {
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  outline: none !important;
+}
+/* 
+button::before,
+button::after {
+  outline: none !important;
+} */
+
+button:focus {
+  outline: none;
+}
+
+@media screen and (min-width: 992px) {
+  .container-app {
+    border-radius: 10px;
+  }
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+}
+
+.recharts-wrapper {
+  margin-top: -70px;
+}
+
+.pswp-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .pswp-thumbnails {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+}
+
+@keyframes lds-ripple {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
+  }
+}
+/*End*/
