@@ -18,7 +18,13 @@ const Layout: React.FC<IProps> = (props) => {
         <meta name='og:title' content='Kabar Covid Sumba Timur' />
         <meta name='twitter:card' content='summary_large_image' />
       </Head>
-      <main>{props.children}</main>
+      <main
+        style={{
+          minHeight: '100vh',
+        }}
+      >
+        {props.children}
+      </main>
       <Footer />
     </div>
   );

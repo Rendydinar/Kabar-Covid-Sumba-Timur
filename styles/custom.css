@@ -101,3 +101,12 @@ button:focus {
   }
 }
 /*End*/
+
+.containerDonation {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 2rem;
+}

@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { IKecamatan, IKelurahan } from '../../interfaces/index';
 import { getHariIni } from '../../utils/date';
 import Jumbotron from '../Jumbotron';
-import useStyles from '../Top10Kecamatan/styles';
+import useStyles from './styles';
 import Row from './Row';
 
 interface IProps {
@@ -47,12 +47,7 @@ const DataCovidPerkecamatan: React.FC<IProps> = (props) => {
         title='Data Covid Per-Kecamatan'
         description={`Update: ${getHariIni()}`}
       />
-      <div
-        style={{
-          marginTop: '20px',
-          padding: '0 40px',
-        }}
-      >
+      <div className={classes.containerContent}>
         <TableContainer component={Paper}>
           <Table size='small' aria-label='a dense table'>
             <TableHead>

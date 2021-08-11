@@ -1,7 +1,7 @@
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Drawer from '@material-ui/core/Drawer';
-import Link from '@material-ui/core/Link';
+import LinkMUI from '@material-ui/core/Link';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -13,6 +13,8 @@ import { GiFamilyHouse, GiTripleNeedle } from 'react-icons/gi';
 import { HiInformationCircle } from 'react-icons/hi';
 import { RiVirusFill } from 'react-icons/ri';
 import useStyles from './styles';
+import { BiDonateHeart } from 'react-icons/bi';
+import { Typography } from '@material-ui/core';
 
 interface IProps {}
 interface IListMore {
@@ -24,7 +26,7 @@ const ListMore: IListMore[] = [
   {
     label: 'Tentang',
     value: 'tentang',
-    icon: <HiInformationCircle />,
+    icon: <HiInformationCircle size={26} />,
   },
 ];
 
@@ -65,9 +67,9 @@ const Footer: React.FC<IProps> = (): ReactElement => {
       setState({ ...state, [anchor]: open });
     };
 
-  const list = (anchor: 'right') => (
+  const list = () => (
     <div className={classes.list} role='presentation'>
-      <List>
+      <List className={classes.containerList}>
         {ListMore.map((list: IListMore, index: number) => (
           <ListItem
             button
@@ -80,10 +82,22 @@ const Footer: React.FC<IProps> = (): ReactElement => {
         ))}
       </List>
       <footer className={classes.footer}>
+        {/* <div className='containerDonation'>
+          <LinkMUI
+            href='https://saweria.co/r3ndydinar'
+            target='_blank'
+            rel='noopener'
+            className={classes.linkDonation}
+          >
+            <BiDonateHeart size={24} />
+            <Typography>Donate Me</Typography>
+          </LinkMUI>
+        </div> */}
+
         <div>
           Copyright &copy; {new Date().getFullYear()} Kabar Covid Sumba Timur.
           All Rights Reserved Designed and Powered By
-          <Link
+          <LinkMUI
             href='https://linktr.ee/Rendy_Dinar'
             target='_blank'
             rel='noopener'
@@ -91,7 +105,7 @@ const Footer: React.FC<IProps> = (): ReactElement => {
           >
             {' '}
             RendyDinar
-          </Link>
+          </LinkMUI>
         </div>
       </footer>
     </div>
@@ -105,7 +119,7 @@ const Footer: React.FC<IProps> = (): ReactElement => {
         onClose={toggleDrawer('right', false)}
         style={{ overflow: 'hidden' }}
       >
-        {list('right')}
+        {list()}
       </Drawer>
       <BottomNavigation
         value={value}
@@ -121,7 +135,7 @@ const Footer: React.FC<IProps> = (): ReactElement => {
           }}
           label='Kabar Covid'
           value='/'
-          icon={<RiVirusFill />}
+          icon={<RiVirusFill size={26} />}
         />
         <BottomNavigationAction
           classes={{
@@ -131,7 +145,7 @@ const Footer: React.FC<IProps> = (): ReactElement => {
           }}
           label='Kabar Vaksin'
           value='kabar-vaksin'
-          icon={<GiTripleNeedle />}
+          icon={<GiTripleNeedle size={26} />}
         />
         <BottomNavigationAction
           classes={{
@@ -141,7 +155,7 @@ const Footer: React.FC<IProps> = (): ReactElement => {
           }}
           label='Kabar Isolasi'
           value='kabar-isolasi'
-          icon={<GiFamilyHouse />}
+          icon={<GiFamilyHouse size={26} />}
         />
         <BottomNavigationAction
           label='More'

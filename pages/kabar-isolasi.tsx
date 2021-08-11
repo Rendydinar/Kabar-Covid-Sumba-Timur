@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core';
+import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
 import Head from 'next/head';
 import React, { ReactElement, useEffect, useState } from 'react';
 import CardIsolasi from '../components/CardIsolasi';
@@ -10,8 +10,59 @@ interface IProps {
   data: any;
 }
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      paddingTop: '15px',
+    },
+    dateUpdate: {
+      textAlign: 'center',
+      fontSize: '20px',
+      fontWeight: 700,
+      textDecoration: 'underline',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '18px',
+      },
+    },
+    containerContent: {
+      padding: '0 130px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      [theme.breakpoints.down('sm')]: {
+        padding: '0 10px',
+      },
+    },
+    cardKasusAktif: {
+      fontSize: '20px',
+      fontWeight: 600,
+      textAlign: 'center',
+      width: '180px',
+      backgroundColor: '#D2F6C5',
+      padding: '5px',
+      borderRadius: '15px',
+      color: '#000',
+      boxShadow:
+        'rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '18px',
+      },
+    },
+    totalKasusAktif: {
+      fontSize: '26px',
+      fontWeight: 'bold',
+      color: '#e44933',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '22px',
+      },
+    },
+  })
+);
+
 const KabarIsolasi: React.FC<IProps> = (props): ReactElement => {
+  const classes = useStyles();
   const [totalKasus, setTotalKasus] = useState<number>(0);
+
   useEffect(() => {
     let tempTotalKasus: number = 0;
     props.data.data.isolasi_terpusat.map((isolasi: IIsolasi) => {
@@ -29,71 +80,34 @@ const KabarIsolasi: React.FC<IProps> = (props): ReactElement => {
         <title>Kabar Isolasi</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main>
-        <Jumbotron
-          title='Kabar Isolasi'
-          description='Informasi seputar isolasi passien covid-19 di Sumba Timur'
-        />
-        <div>
-          <Typography
-            style={{
-              textAlign: 'center',
-              fontSize: '20px',
-              fontWeight: 700,
-              textDecoration: 'underline',
-            }}
-          >
-            Update Time: {props.data.date}
+      <Jumbotron
+        title='Kabar Isolasi'
+        description='Informasi seputar isolasi passien covid-19 di Sumba Timur'
+      />
+      <div className={classes.root}>
+        <Typography className={classes.dateUpdate}>
+          Update Time: {props.data.date}
+        </Typography>
+        <div className={classes.containerContent}>
+          <Typography className={classes.cardKasusAktif}>
+            <span className={classes.totalKasusAktif}>{totalKasus}</span> Kasus
+            Aktif
           </Typography>
           <div
             style={{
-              padding: '0 130px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
+              width: '100%',
             }}
           >
-            <Typography
-              style={{
-                fontSize: '20px',
-                fontWeight: 600,
-                textAlign: 'center',
-                width: '180px',
-                backgroundColor: '#D2F6C5',
-                padding: '5px',
-                borderRadius: '15px',
-                color: '#000',
-                boxShadow:
-                  'rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px',
-              }}
-            >
-              <span
-                style={{
-                  fontSize: '26px',
-                  fontWeight: 'bold',
-                  color: '#e44933',
-                }}
-              >
-                {totalKasus}
-              </span>{' '}
-              Kasus Aktif
-            </Typography>
-            <div
-              style={{
-                width: '100%',
-              }}
-            >
-              {props.data.data.isolasi_terpusat.map(
-                (isolasi: IIsolasi, index: number) => (
-                  <CardIsolasi isolasi={isolasi} key={index} />
-                )
-              )}
-              <CardIsolasi isolasi={props.data.data.rawat_rsud} />
-              <CardIsolasi isolasi={props.data.data.isolasi_mandiri} />
-            </div>
+            {props.data.data.isolasi_terpusat.map(
+              (isolasi: IIsolasi, index: number) => (
+                <CardIsolasi isolasi={isolasi} key={index} />
+              )
+            )}
+            <CardIsolasi isolasi={props.data.data.rawat_rsud} />
+            <CardIsolasi isolasi={props.data.data.isolasi_mandiri} />
           </div>
         </div>
-      </main>
+      </div>
     </Layout>
   );
 };
