@@ -1,6 +1,6 @@
-import { createStyles, makeStyles } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme:Theme) =>
   createStyles({
     card: {
       width: '35%',
@@ -10,21 +10,34 @@ const useStyles = makeStyles(() =>
       boxShadow: 'rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px',
       justifyContent: 'center',
       flexDirection: 'column',
-      display: 'flex'
+      display: 'flex',
+      [theme.breakpoints.down('sm')]: {
+        width: '145px'
+      },
     },
     cardIcon: {
       fontSize: '50px',
       textAlign: 'center',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '40px',
+      },
     },
     cardTitle: {
       fontSize: '26px',
-      fontWeight: 800,      color: '#e44933',
+      fontWeight: 800,      
+      color: '#e44933',
       textAlign: 'center',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '22px',
+      },
     },
     cardInfo: {
       fontSize: '24px',
       fontWeight: 600,
-      textAlign: 'center'
+      textAlign: 'center',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '20px',
+      },
     },
     cardTotalKasus:{
       fontWeight: 'bold',

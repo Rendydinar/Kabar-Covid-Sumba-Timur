@@ -18,12 +18,7 @@ interface IProps {
 const Top10Kecamatan: React.FC<IProps> = (props) => {
   const classes = useStyles();
   return (
-    <div
-      style={{
-        marginTop: '20px',
-        padding: '0 40px',
-      }}
-    >
+    <div className={classes.root}>
       <Typography
         style={{
           fontSize: '20px',
@@ -58,7 +53,15 @@ const Top10Kecamatan: React.FC<IProps> = (props) => {
                 <TableRow key={1}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>{kelurahan.name}</TableCell>
-                  <TableCell align='right'>{kelurahan.total}</TableCell>
+                  <TableCell
+                    align='right'
+                    style={{
+                      color: '#e44933',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {kelurahan.total}
+                  </TableCell>
                 </TableRow>
               )
             )}

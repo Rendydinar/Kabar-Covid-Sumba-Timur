@@ -1,6 +1,6 @@
-import { createStyles, makeStyles } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     icon: {
       width: '60px !important',
@@ -12,20 +12,31 @@ const useStyles = makeStyles(() =>
       alignItems: 'center',
       width: '100%',
       padding: '0 20px',
+      [theme.breakpoints.down('md')]: {
+        padding: '0 10px',
+      },
     },
     headerContent: {
       padding: '15px 0',
       width: '100%',
+      [theme.breakpoints.down('md')]: {
+        padding: '10px 0',
+      },
     },
     headerTitle: {
       textAlign: 'center',
       fontWeight: 700,
       fontSize: 24,
+      [theme.breakpoints.down('md')]: {
+        fontSize: 22,
+      },
     },
     headerDescription: {
       textAlign: 'center',
       fontWeight: 600,
-      fontSize: 16,
+      [theme.breakpoints.down('md')]: {
+        fontSize: 14,
+      },
     },
   })
 );

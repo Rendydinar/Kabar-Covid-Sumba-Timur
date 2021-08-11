@@ -18,80 +18,31 @@ const CardIsolasi: React.FC<IProps> = (props) => {
   };
 
   return (
-    <div
-      style={{
-        margin: '20px 0',
-      }}
-    >
-      <div
-        style={{
-          height: '100px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          margin: '20px 0',
-          padding: '10px 0px 10px 15px',
-          border: 'solid 0.1px #F6F7D4',
-          borderRadius: '10px',
-          boxShadow:
-            'rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px',
-        }}
-      >
+    <div className={classes.root}>
+      <div className={classes.cardContentContainer}>
         <div>
-          <Typography
-            style={{
-              fontSize: '20px',
-              fontWeight: 600,
-            }}
-          >
+          <Typography className={classes.cardTitle}>
             {props.isolasi.name}
           </Typography>
           {props.isolasi.kasus_terkonfirmasi && (
-            <Typography
-              style={{
-                fontWeight: 700,
-                color: '#388e3c',
-              }}
-            >
-              <span
-                style={{
-                  color: '#e44933',
-                }}
-              >
+            <Typography className={classes.cardKasus}>
+              <span className={classes.totalKasus}>
                 {props.isolasi.kasus_terkonfirmasi} Kasus
               </span>{' '}
               Terkonfirmasi
             </Typography>
           )}
           {props.isolasi.terkonfirmasi && (
-            <Typography
-              style={{
-                fontWeight: 700,
-                color: '#388e3c',
-              }}
-            >
-              <span
-                style={{
-                  color: '#e44933',
-                }}
-              >
+            <Typography className={classes.cardKasus}>
+              <span className={classes.totalKasus}>
                 {props.isolasi.terkonfirmasi} Kasus
               </span>{' '}
               Terkonfirmasi
             </Typography>
           )}
           {props.isolasi.menunggu_hasil_pcr && (
-            <Typography
-              style={{
-                fontWeight: 700,
-                color: '#ffb74d',
-              }}
-            >
-              <span
-                style={{
-                  color: '#e44933',
-                }}
-              >
+            <Typography className={classes.kasusSedangDiProses}>
+              <span className={classes.totalKasus}>
                 {props.isolasi.menunggu_hasil_pcr} Kasus
               </span>{' '}
               Menunggu Hasil PCR

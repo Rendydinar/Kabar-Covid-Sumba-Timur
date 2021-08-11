@@ -1,13 +1,16 @@
 import {
   Collapse,
+  IconButton,
   Table,
   TableBody,
   TableCell,
   TableRow,
-  Typography,
 } from '@material-ui/core';
 import React, { Fragment, useState } from 'react';
+import { MdExpandMore } from 'react-icons/md';
 import { IKecamatan, IKelurahan } from '../../../interfaces/index';
+import { classNames } from '../../../lib/classNames';
+import useStyles from './styles';
 
 interface IProps {
   index: number;
@@ -15,19 +18,23 @@ interface IProps {
 }
 
 const Row: React.FC<IProps> = (props) => {
+  const classes = useStyles();
   const [open, setOpen] = useState<boolean>(false);
 
   return (
     <Fragment>
-      <TableCell component='th' scope='row'>
+      <TableCell component='th' scope='row' className={classes.thNo}>
         {props.index + 1}
-        <div onClick={() => setOpen(!open)}>
-          {open ? (
-            <Typography>Close</Typography>
-          ) : (
-            <Typography>Open</Typography>
-          )}
-        </div>
+        <IconButton
+          className={classNames(classes.expand, {
+            [classes.expandOpen]: open,
+          })}
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-label='show more'
+        >
+          <MdExpandMore />
+        </IconButton>
       </TableCell>
       <TableCell>{props.kecamatan.name}</TableCell>
       <TableCell align='right'>{props.kecamatan.total}</TableCell>
