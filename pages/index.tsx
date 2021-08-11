@@ -12,6 +12,7 @@ import Top10Kecamatan from '../components/Top10Kecamatan';
 import { IKecamatan, IKelurahan } from '../interfaces';
 import { getHariIni } from '../utils/date';
 import { createStyles, makeStyles } from '@material-ui/core';
+import { GetStaticProps } from 'next';
 
 const s = makeStyles(() =>
   createStyles({
@@ -250,7 +251,7 @@ const Home: React.FC<IProps> = (props): ReactElement => {
 
 export default Home;
 
-export const getServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = () => {
   // const { username } = params
   // const profile = await getProfileData(username)
   // if (!profile) {

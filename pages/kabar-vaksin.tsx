@@ -8,6 +8,8 @@ import Layout from '../components/Layout';
 import { getDataVaksin } from '../fetchData/getDataVaksin';
 import { IVaksin } from '../interfaces';
 import { createStyles, makeStyles } from '@material-ui/core';
+import { ContactSupportOutlined } from '@material-ui/icons';
+import { GetStaticProps } from 'next';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -20,6 +22,8 @@ const useStyles = makeStyles(() =>
 interface IProps {
   data: IVaksin[];
   success: boolean;
+  revalidate: number;
+  fallback: boolean;
 }
 
 const toBase64 = (str: string) =>
@@ -42,7 +46,7 @@ const shimmer = (w: number, h: number) => `
 
 const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
   const classes = useStyles();
-
+  console.log('props', props);
   return (
     <Layout>
       <Head>
@@ -102,10 +106,11 @@ const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
 
 export default KabarVaksin;
 
-export const getServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   try {
     let dataVaksin: IVaksin[] = [];
     let responseGetDataVaksin = await getDataVaksin();
+    console.log('responseGetDataVaksin', responseGetDataVaksin);
     responseGetDataVaksin.map((vaksin: any) => {
       dataVaksin.push({
         date: vaksin.data().date,
