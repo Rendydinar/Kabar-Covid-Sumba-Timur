@@ -17,9 +17,8 @@ const clientCredentials = {
 
 if (!FirebaseApp.apps.length) {
   FirebaseApp.initializeApp(clientCredentials)
-  console.log('firebase successfully init')
   // Check that `window` is in scope for the analytics module!
-  if (typeof window !== 'undefined') {
+  // if (typeof window !== 'undefined') {
     // Enable analytics. https://firebase.google.com/docs/analytics/get-started
     if ('measurementId' in clientCredentials) {
       FirebaseApp.analytics()
@@ -27,7 +26,7 @@ if (!FirebaseApp.apps.length) {
       FirebaseApp.firestore().settings({ experimentalForceLongPolling: true, merge: true });
 
     }
-  }
+  // }
 }
 export default FirebaseApp
 export const Firestore = FirebaseApp.firestore();

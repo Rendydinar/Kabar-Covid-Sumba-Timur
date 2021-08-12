@@ -22,7 +22,7 @@ const CardIsolasi: React.FC<IProps> = (props) => {
       <div className={classes.cardContentContainer}>
         <div>
           <Typography className={classes.cardTitle}>
-            {props.isolasi.name}
+            {props.isolasi.nama_tempat}
           </Typography>
           {props.isolasi.kasus_terkonfirmasi && (
             <Typography className={classes.cardKasus}>
