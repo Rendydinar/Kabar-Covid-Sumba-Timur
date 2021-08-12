@@ -10,7 +10,7 @@ export interface IKecamatan {
 }
 
 export interface IIsolasi {
-  name: string;
+  nama_tempat: string;
   kasus_terkonfirmasi: number;
   place_map: string;
   terkonfirmasi?:number;

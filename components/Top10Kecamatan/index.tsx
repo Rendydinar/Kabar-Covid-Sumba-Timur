@@ -50,7 +50,7 @@ const Top10Kecamatan: React.FC<IProps> = (props) => {
           <TableBody>
             {props.top10Kelurahan.map(
               (kelurahan: IKelurahan, index: number) => (
-                <TableRow key={1}>
+                <TableRow key={index}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>{kelurahan.name}</TableCell>
                   <TableCell

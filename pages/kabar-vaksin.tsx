@@ -62,8 +62,7 @@ export default KabarVaksin;
 export const getStaticProps: GetStaticProps = async () => {
   try {
     let dataVaksin: IVaksin[] = [];
-    let responseGetDataVaksin = await getDataVaksin();
-    console.log('responseGetDataVaksin', responseGetDataVaksin);
+    let responseGetDataVaksin: any = await getDataVaksin();
     responseGetDataVaksin.map((vaksin: any) => {
       dataVaksin.push({
         date: vaksin.data().date,
