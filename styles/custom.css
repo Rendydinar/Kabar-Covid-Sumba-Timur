@@ -2,7 +2,7 @@
   --color-primary: '#28DF99';
   --color-secondary: '#99F3BD';
   --color-white: #ffffff;
-  --color-black: #000000;
+  --color-black: #111827;
   --color-black-2: #050505;
   --font-primary: 'Assistant', sans-serif;
 }
@@ -109,4 +109,11 @@ button:focus {
   border-radius: 10px;
   overflow: hidden;
   padding: 2rem;
+}
+
+.imageVaksin {
+  object-fit: contain;
+  width: 100% !important;
+  position: relative !important;
+  height: unset !important;
 }

@@ -11,15 +11,16 @@ const useStyles = makeStyles((theme:Theme) => createStyles({
   titleMonitoring: {
     fontSize: '26px',
     textAlign: 'center',
-    fontWeight: 700,
+    fontWeight: 600,
     [theme.breakpoints.down('md')]: {
       fontSize: '24px',
     },
 },
   updateTimeMonitoring: {
     textAlign: 'center',
-    fontSize: '16px',
+    fontSize: '18px',
     fontWeight: 600,
+    // textDecoration: 'underline'
   },
 }));
 

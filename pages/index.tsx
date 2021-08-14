@@ -79,10 +79,12 @@ interface IProps {
 }
 
 const images = [
-  'https://images.pexels.com/photos/3740695/pexels-photo-3740695.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-  'https://images.pexels.com/photos/3740446/pexels-photo-3740446.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-  'https://images.pexels.com/photos/351265/pexels-photo-351265.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-  'https://images.pexels.com/photos/924675/pexels-photo-924675.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+  'https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2Fcovid19.png?alt=media&token=7fff4ed4-df18-42ac-8e46-30bbd82b7a56',
+  'https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2F3m-covid.png?alt=media&token=63eb8f5b-4171-42a8-b561-dc5d967baad2',
+
+  'https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2Fpresiden-jokowi-disuntik-vaksin-corona-covid-19.jpeg?alt=media&token=e6334922-78c8-441b-b737-fcd5d28faaee',
+
+  'https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2Fisolasi_mandiri.jpg?alt=media&token=1b205a78-fa83-4c05-a33d-90d31c99e8fc',
 ];
 
 const imageStyle = (src: string) => ({
@@ -97,6 +99,7 @@ const Home: React.FC<IProps> = (props): ReactElement => {
   return (
     <Layout>
       <Head>
+        <meta name='og:keywords' content='Kabar Covid Sumba Timur' />
         <meta name='og:title' content='Kabar Covid Sumba Timur' />
         <meta property='og:site_name' content='Kabar Covid Sumba Timur' />
         <meta

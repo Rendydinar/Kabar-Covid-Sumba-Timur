@@ -34,13 +34,16 @@ const useStyles = makeStyles((theme:Theme) =>
     cardInfo: {
       fontSize: '24px',
       fontWeight: 600,
+      color: '#fff',
       textAlign: 'center',
       [theme.breakpoints.down('sm')]: {
         fontSize: '20px',
       },
     },
     cardTotalKasus:{
+      color: '#374151',
       fontWeight: 'bold',
+      marginRight: '3px',
     },
   })
 )

@@ -58,6 +58,7 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
   return (
     <Layout>
       <Head>
+        <meta name='og:keywords' content='Tentang' />
         <meta name='og:title' content='Kabar Covid Sumba Timur | Tentang' />
         <meta
           property='og:site_name'
@@ -118,7 +119,7 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
             informasi yang beredar. Untuk itu jika kamu mempunyai informasi
             Vaksin Covid-19 di Sumba Timur silakan hubungi admin{' '}
             <Link
-              href={`https://wa.me/082217971133?text=${MESSAGE_WHATSSAPP}`}
+              href={`https://api.whatsapp.com/send?phone=6282217971133&text=${MESSAGE_WHATSSAPP}`}
               target='_blank'
               rel='noopener'
             >
@@ -133,7 +134,7 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
           <Typography className={classes.itemContact}>
             Whatsapp:{' '}
             <Link
-              href='https://wa.me/082217971133'
+              href='https://api.whatsapp.com/send?phone=6282217971133&text=Hallo'
               target='_blank'
               rel='noopener'
             >

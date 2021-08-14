@@ -36,7 +36,9 @@ const Row: React.FC<IProps> = (props) => {
           <MdExpandMore />
         </IconButton>
       </TableCell>
-      <TableCell>{props.kecamatan.name}</TableCell>
+      <TableCell style={{ textTransform: 'capitalize' }}>
+        {props.kecamatan.name.split('_').join(' ')}
+      </TableCell>
       <TableCell align='right'>{props.kecamatan.total}</TableCell>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -51,7 +53,14 @@ const Row: React.FC<IProps> = (props) => {
                           width: '60px',
                         }}
                       ></TableCell>
-                      <TableCell>{kelurahan.name}</TableCell>
+                      <TableCell
+                        style={{
+                          textTransform: 'capitalize',
+                          paddingLeft: '28px',
+                        }}
+                      >
+                        {kelurahan.name.split('_').join(' ')}
+                      </TableCell>
                       <TableCell align='right'>{kelurahan.total}</TableCell>
                     </TableRow>
                   )

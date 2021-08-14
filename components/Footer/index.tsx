@@ -53,7 +53,7 @@ const Footer: React.FC<IProps> = (): ReactElement => {
     if (newValue !== 'more' && router.pathname !== `/${newValue}`) {
       if (newValue === 'lapor-info-vaksin') {
         window.open(
-          `https://wa.me/082217971133?text=${MESSAGE_WHATSSAPP}`,
+          `https://api.whatsapp.com/send?phone=6282217971133&text=${MESSAGE_WHATSSAPP}`,
           '_blank',
           'noopener noreferrer' // <- This is what makes it open in a new window.
         );

@@ -37,6 +37,7 @@ const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
   return (
     <Layout>
       <Head>
+        <meta name='og:keywords' content='Kabar Vaksin Covid-19 Sumba Timur' />
         <meta
           name='og:title'
           content='Kabar Covid Sumba Timur | Kabar Vaksin'

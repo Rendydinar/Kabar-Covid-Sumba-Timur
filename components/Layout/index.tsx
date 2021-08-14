@@ -103,7 +103,6 @@ const Layout: React.FC<IProps> = (props) => {
         <meta name='theme-color' content='#28DF99' />
 
         <meta property='og:type' content='website' />
-        <meta name='og:keywords' content='Kabar Covid Sumba Timur' />
 
         <meta
           property='og:image'
@@ -118,6 +117,10 @@ const Layout: React.FC<IProps> = (props) => {
           content='https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2Flarge-logo.png?alt=media&token=aa2f190e-2d4f-4bf7-998f-b57c23dfec6c'
         />
         <meta name='twitter:image:alt' content='Kabar Covid Sumba Timur' />
+        <meta
+          name='google-site-verification'
+          content='ou8SFQ1GL_Y2KaAsYebqCH7UF3ICgauDWGzXT0Gooio'
+        />
       </Head>
       <main
         style={{
