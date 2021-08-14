@@ -37,7 +37,32 @@ const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
   return (
     <Layout>
       <Head>
-        <title>Kabar Vaksin</title>
+        <meta
+          name='og:title'
+          content='Kabar Covid Sumba Timur | Kabar Vaksin'
+        />
+        <meta
+          property='og:site_name'
+          content='Kabar Covid Sumba Timur | Kabar Vaksin'
+        />
+        <meta
+          property='og:description'
+          content='Informasi seputar vaksin covid-19 di Sumba Timur'
+        />
+        <meta name='twitter:title' content='Kabar Covid Sumba Timur' />
+        <meta
+          name='twitter:description'
+          content='Informasi seputar vaksin covid-19 di Sumba Timur'
+        />
+        <meta
+          property='og:url'
+          content='https://kabar-covid-sumba-timur.vercel.app/kabar-vaksin'
+        />
+        <meta
+          name='twitter:site'
+          content='https://kabar-covid-sumba-timur.vercel.app/kabar-vaksin'
+        />
+        <title>Kabar Covid-19 Sumba Timur | Kabar Vaksin</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <div>

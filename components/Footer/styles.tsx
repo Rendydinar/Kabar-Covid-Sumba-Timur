@@ -7,7 +7,8 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       paddingBottom: '10px',
       backgroundColor: '#28DF99',
-      borderRadius: '10px',
+      borderTopLeftRadius: '10px',
+      borderTopRightRadius: '10px',
       boxShadow:
         'rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px',
     },
