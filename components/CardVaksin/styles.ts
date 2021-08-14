@@ -47,7 +47,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%'
-  }
+  },
+  footer: {
+    width: '100%',
+    backgroundColor: '#fff',
+    borderRadius: '5px',
+    boxShadow: 'rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px',
+    padding: '7px',
+  },
+  info: {
+    fontSize: '16px',
+    fontWeight: 600
+  },
 
 }));
 

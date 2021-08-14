@@ -21,6 +21,6 @@ export const getCovidData =  () => new Promise(async(resolve, reject) => {
       }
     })
   } catch (err) {
-    reject(err.message) 
+    reject(err) 
   }
 });

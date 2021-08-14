@@ -7,14 +7,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { CgMore } from 'react-icons/cg';
 import { GiFamilyHouse, GiTripleNeedle } from 'react-icons/gi';
 import { HiInformationCircle } from 'react-icons/hi';
 import { RiVirusFill } from 'react-icons/ri';
 import useStyles from './styles';
-import { BiDonateHeart } from 'react-icons/bi';
-import { Typography } from '@material-ui/core';
 
 interface IProps {}
 interface IListMore {
@@ -33,13 +31,13 @@ const ListMore: IListMore[] = [
 const Footer: React.FC<IProps> = (): ReactElement => {
   const classes = useStyles();
   const router = useRouter();
-  const [value, setValue] = useState<number>(0);
+  const [value, setValue] = useState<string>('/');
   const [state, setState] = React.useState({
     right: false,
   });
 
   const changeNavigation = (event: any, newValue: any): void => {
-    if (newValue !== 'more') {
+    if (newValue !== 'more' && router.pathname !== `/${newValue}`) {
       setState({
         right: false,
       });
@@ -110,6 +108,14 @@ const Footer: React.FC<IProps> = (): ReactElement => {
       </footer>
     </div>
   );
+
+  useEffect(() => {
+    if (router.pathname === '/') {
+      setValue('/');
+    } else {
+      setValue(router.pathname.substr(1));
+    }
+  }, []);
 
   return (
     <div className={classes.root}>

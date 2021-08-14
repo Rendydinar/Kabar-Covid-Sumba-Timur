@@ -65,9 +65,7 @@ export const getStaticProps: GetStaticProps = async () => {
     let responseGetDataVaksin: any = await getDataVaksin();
     responseGetDataVaksin.map((vaksin: any) => {
       dataVaksin.push({
-        date: vaksin.data().date,
-        img_url: vaksin.data().img_url,
-        timestamp: vaksin.data().timestamp,
+        ...vaksin.data(),
       });
     });
     dataVaksin = sortBy(dataVaksin, 'timestamp').reverse();
