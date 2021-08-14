@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
     labelBottomNavigationAction: {
       fontSize: '18px',
       opacity: '1 !important',
+      fontWeight: 600,
       [theme.breakpoints.down('sm')]: {
         fontSize: '12px',
       },
@@ -57,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
     linkDevelop: {
       fontSize: '14px',
       fontWeight: 800,
-      color: '#000000',
+      color: '#111827',
       textTransform: 'capitalize',
       [theme.breakpoints.down('sm')]: {
         fontSize: '12px',
@@ -78,17 +79,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     selectedNavigation: {
       color: '#99F3BD !important',
-      [theme.breakpoints.down('sm')]: {
-        // fontSize: '11px !important',
-      },
     },
     containerList: {
-      padding: '0 40px',
-      paddingTop: '20px',
-      [theme.breakpoints.down('sm')]: {
-        padding: '0 20px',
-        paddingTop: '20px',
-      },
+      padding: 0,
     },
     linkDonation: {
       display: 'flex',
@@ -99,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: 'auto',
       fontSize: '14px',
       fontWeight: 800,
-      color: '#000000',
+      color: '#111827',
       textTransform: 'capitalize',
       [theme.breakpoints.down('sm')]: {
         fontSize: '12px',

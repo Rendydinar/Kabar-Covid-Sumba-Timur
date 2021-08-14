@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: '#D2F6C5',
       padding: '5px',
       borderRadius: '15px',
-      color: '#000',
+      color: '#111827',
       boxShadow:
         'rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px',
       [theme.breakpoints.down('sm')]: {
@@ -77,6 +77,7 @@ const KabarIsolasi: React.FC<IProps> = (props): ReactElement => {
   return (
     <Layout>
       <Head>
+        <meta name='og:keywords' content='Kabar Isolasi Covid-19 Sumba Timur' />
         <meta
           name='og:title'
           content='Kabar Covid Sumba Timur | Kabar Isolasi'

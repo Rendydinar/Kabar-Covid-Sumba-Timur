@@ -69,13 +69,15 @@ const CardVaksin: React.FC<IProps> = (props) => {
           {timeCountDown}
         </Typography>
       </div>
-      <div>
+      <div className={classes.imageVaksinContainer}>
         <Image
           priority
           src={props.vaksin.img_url}
           alt={props.vaksin.date}
-          height={700}
-          width={700}
+          // height={700}
+          // width={700}
+          layout='fill'
+          className={'imageVaksin'}
           placeholder='blur'
           blurDataURL={`data:image/svg+xml;base64,${toBase64(
             shimmer(700, 700)

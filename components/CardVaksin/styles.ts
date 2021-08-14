@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   dateVaksin: {
     fontSize: '24px',
-    color: '#000',
+    color: '#111827',
     fontWeight: 'bold',
     marginBottom: '10px',
     [theme.breakpoints.down('sm')]: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   dateCountDownVaksin: {
     fontSize: '24px',
-    color: '#000',
+    color: '#111827',
     fontWeight: 'bold',
     borderRadius: '10px',
     backgroundColor: '#fff',
@@ -59,7 +59,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontSize: '16px',
     fontWeight: 600
   },
-
+  imageVaksinContainer: {
+    width: '100%',
+    '& > div':  {
+      position: 'unset !important',
+    }
+  }
 }));
 
 export default useStyles;
