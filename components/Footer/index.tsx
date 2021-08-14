@@ -11,7 +11,10 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { CgMore } from 'react-icons/cg';
 import { GiFamilyHouse, GiTripleNeedle } from 'react-icons/gi';
 import { HiInformationCircle } from 'react-icons/hi';
+import { MdContactPhone } from 'react-icons/md';
 import { RiVirusFill } from 'react-icons/ri';
+import { VscFeedback } from 'react-icons/vsc';
+import { LINK_FEEDBACK, MESSAGE_WHATSSAPP } from '../../constant';
 import useStyles from './styles';
 
 interface IProps {}
@@ -26,6 +29,16 @@ const ListMore: IListMore[] = [
     value: 'tentang',
     icon: <HiInformationCircle size={26} />,
   },
+  {
+    label: 'Lapor Info Vaksin',
+    value: 'lapor-info-vaksin',
+    icon: <VscFeedback size={26} />,
+  },
+  {
+    label: 'Umpan Balik',
+    value: 'umpan-balik',
+    icon: <MdContactPhone size={26} />,
+  },
 ];
 
 const Footer: React.FC<IProps> = (): ReactElement => {
@@ -38,15 +51,29 @@ const Footer: React.FC<IProps> = (): ReactElement => {
 
   const changeNavigation = (event: any, newValue: any): void => {
     if (newValue !== 'more' && router.pathname !== `/${newValue}`) {
-      setState({
-        right: false,
-      });
-      setValue(newValue);
-      if (newValue === '/') {
-        router.push('/');
+      if (newValue === 'lapor-info-vaksin') {
+        window.open(
+          `https://wa.me/082217971133?text=${MESSAGE_WHATSSAPP}`,
+          '_blank',
+          'noopener noreferrer' // <- This is what makes it open in a new window.
+        );
+      } else if (newValue === 'umpan-balik') {
+        window.open(
+          LINK_FEEDBACK,
+          '_blank',
+          'noopener noreferrer' // <- This is what makes it open in a new window.
+        );
       } else {
-        router.push(`/${newValue}`);
+        setState({
+          right: false,
+        });
         setValue(newValue);
+        if (newValue === '/') {
+          router.push('/');
+        } else {
+          router.push(`/${newValue}`);
+          setValue(newValue);
+        }
       }
     }
   };

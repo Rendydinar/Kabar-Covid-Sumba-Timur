@@ -7,9 +7,8 @@ import {
   Typography,
 } from '@material-ui/core';
 import sortBy from 'lodash/sortBy';
-import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import Card from '../components/Card';
 import DataCovidPerkecamatan from '../components/DataCovidPerkecamatan';
 import Header from '../components/Header';
@@ -19,6 +18,7 @@ import Top10Kecamatan from '../components/Top10Kecamatan';
 import { getCovidData } from '../fetchData/getCovidData';
 import { getCovidDataPerkecamatan } from '../fetchData/getCovidDataPerkecamatan';
 import { IKecamatan, IKelurahan } from '../interfaces';
+import { getHariIni } from '../utils/date';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -91,33 +91,70 @@ const imageStyle = (src: string) => ({
   height: '100%',
   width: '100%',
 });
+interface IData {
+  success: boolean;
+  data: {
+    data_covid_sumba_timur: any;
+    data_covid_perkecamatan_sumba_timur: {
+      date: string;
+      data: IKecamatan[];
+    };
+    top_10_kelurahan_kasus_covid: IKelurahan[];
+  };
+}
 
-const Home: React.FC<IProps> = (props): ReactElement => {
+const Home: React.FC<IProps> = (): ReactElement => {
   const classes = useStyles();
+  const [data, setData] = useState<IData>();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const getData = async () => {
+    setLoading(true);
+    try {
+      const responseGetCovidData: any = await getCovidData();
+      const responseGetCovidDataPerkecamatan: any =
+        await getCovidDataPerkecamatan();
+      let listkelurahan: IKelurahan[] = [];
+      responseGetCovidDataPerkecamatan.data.map((kecamatan: IKecamatan) => {
+        kecamatan.kelurahan.map((kelurahan) => {
+          listkelurahan.push(kelurahan);
+        });
+      });
+      listkelurahan = sortBy(listkelurahan, 'total').reverse();
+      setData({
+        success: true,
+        data: {
+          data_covid_sumba_timur: responseGetCovidData,
+          data_covid_perkecamatan_sumba_timur: responseGetCovidDataPerkecamatan,
+          top_10_kelurahan_kasus_covid: listkelurahan.slice(0, 10),
+        },
+      });
+    } catch (err) {
+      setData({
+        success: false,
+        data: {
+          data_covid_sumba_timur: {},
+          data_covid_perkecamatan_sumba_timur: {
+            date: '',
+            data: [],
+          },
+          top_10_kelurahan_kasus_covid: [],
+        },
+      });
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    async function asyncFuncDefault() {
+      await getData();
+    }
+    asyncFuncDefault();
+  }, []);
+
   return (
     <Layout>
       <Head>
-        <meta name='og:title' content='Kabar Covid Sumba Timur' />
-        <meta property='og:site_name' content='Kabar Covid Sumba Timur' />
-        <meta
-          property='og:description'
-          content='Situs yang menampilkan seputar informasi COVID-19 Di Daerah Sumba Timur & Sekitarnya'
-        />
-        <meta name='twitter:title' content='Kabar Covid Sumba Timur' />
-        <meta
-          name='twitter:description'
-          content='Situs yang menampilkan seputar informasi COVID-19 Di Daerah Sumba Timur & Sekitarnya'
-        />
-        <meta
-          property='og:url'
-          content='https://kabar-covid-sumba-timur.vercel.app/'
-        />
-
-        <meta
-          name='twitter:site'
-          content='https://kabar-covid-sumba-timur.vercel.app/'
-        />
-
         <title>Kabar Covid Sumba Timur</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
@@ -132,7 +169,7 @@ const Home: React.FC<IProps> = (props): ReactElement => {
       <div>
         <Jumbotron
           title='Data Monitoring Harian'
-          description={`Update: ${props.data.date}`}
+          description={`Update: ${getHariIni()}`}
         />
         {/* Sampel Dikirim / Diperiksa */}
         <div className={classes.wrapper}>
@@ -148,18 +185,29 @@ const Home: React.FC<IProps> = (props): ReactElement => {
               <Card
                 icon='😟'
                 title='Positif'
-                total={props.data.data_covid_sumba_timur.data.tcm_pcr.positif}
+                total={
+                  loading
+                    ? data?.data.data_covid_sumba_timur?.data?.tcm_pcr
+                        ?.positif ?? 0
+                    : 0
+                }
               />
               <Card
                 icon='😊'
                 title='Negatif'
-                total={props.data.data_covid_sumba_timur.data.tcm_pcr.negatif}
+                total={
+                  data?.data?.data_covid_sumba_timur?.data?.tcm_pcr?.negatif ??
+                  0
+                }
               />
               <Card
                 title='Total'
                 total={
-                  props.data.data_covid_sumba_timur.data.tcm_pcr.positif +
-                  props.data.data_covid_sumba_timur.data.tcm_pcr.negatif
+                  data?.data?.data_covid_sumba_timur?.data?.tcm_pcr?.positif ??
+                  0 +
+                    data?.data?.data_covid_sumba_timur?.data?.tcm_pcr
+                      ?.negatif ??
+                  0
                 }
               />
             </div>
@@ -174,21 +222,27 @@ const Home: React.FC<IProps> = (props): ReactElement => {
                 icon='😟'
                 title='Positif'
                 total={
-                  props.data.data_covid_sumba_timur.data.rapid_antigen.positif
+                  data?.data?.data_covid_sumba_timur?.data?.rapid_antigen
+                    ?.positif ?? 0
                 }
               />
               <Card
                 icon='😊'
                 title='Negatif'
                 total={
-                  props.data.data_covid_sumba_timur.data.rapid_antigen.negatif
+                  data?.data?.data_covid_sumba_timur?.data?.rapid_antigen
+                    ?.negatif ?? 0
                 }
               />
               <Card
                 title='Total'
                 total={
-                  props.data.data_covid_sumba_timur.data.rapid_antigen.positif +
-                  props.data.data_covid_sumba_timur.data.rapid_antigen.negatif
+                  data?.data?.data_covid_sumba_timur?.data?.rapid_antigen
+                    ?.positif ??
+                  0 +
+                    data?.data?.data_covid_sumba_timur?.data?.rapid_antigen
+                      ?.negatif ??
+                  0
                 }
               />
             </div>
@@ -215,15 +269,15 @@ const Home: React.FC<IProps> = (props): ReactElement => {
               <Card
                 title='Antigen'
                 total={
-                  props.data.data_covid_sumba_timur.data.positif_covid
-                    .penambahan_kasus_harian.antigen
+                  data?.data?.data_covid_sumba_timur?.data?.positif_covid
+                    ?.penambahan_kasus_harian?.antigen ?? 0
                 }
               />
               <Card
                 title='PCR / TCM'
                 total={
-                  props.data.data_covid_sumba_timur.data.positif_covid
-                    .penambahan_kasus_harian.pcr_tcm
+                  data?.data?.data_covid_sumba_timur?.data?.positif_covid
+                    ?.penambahan_kasus_harian?.pcr_tcm ?? 0
                 }
               />
             </div>
@@ -237,32 +291,32 @@ const Home: React.FC<IProps> = (props): ReactElement => {
                 icon='😟'
                 title='Total Positif'
                 total={
-                  props.data.data_covid_sumba_timur.data.positif_covid
-                    .total_positif
+                  data?.data?.data_covid_sumba_timur?.data?.positif_covid
+                    ?.total_positif ?? 0
                 }
               />
               <Card
                 icon='🤒'
                 title='Total Dirawat'
                 total={
-                  props.data.data_covid_sumba_timur.data.positif_covid
-                    .total_dirawat
+                  data?.data?.data_covid_sumba_timur?.data?.positif_covid
+                    ?.total_dirawat ?? 0
                 }
               />
               <Card
                 icon='😃'
                 title='Total Sembuh'
                 total={
-                  props.data.data_covid_sumba_timur.data.positif_covid
-                    .total_sembuh
+                  data?.data?.data_covid_sumba_timur?.data?.positif_covid
+                    ?.total_sembuh ?? 0
                 }
               />
               <Card
                 icon='😢'
                 title='Total Meninggal'
                 total={
-                  props.data.data_covid_sumba_timur.data.positif_covid
-                    .total_meninggal
+                  data?.data?.data_covid_sumba_timur?.data?.positif_covid
+                    ?.total_meninggal ?? 0
                 }
               />
             </div>
@@ -271,10 +325,15 @@ const Home: React.FC<IProps> = (props): ReactElement => {
       </div>
 
       <DataCovidPerkecamatan
-        dataPerkecamatan={props.data.data_covid_perkecamatan_sumba_timur}
+        dataPerkecamatan={
+          data?.data?.data_covid_perkecamatan_sumba_timur ?? {
+            date: '',
+            data: [],
+          }
+        }
       />
       <Top10Kecamatan
-        top10Kelurahan={props.data.top_10_kelurahan_kasus_covid}
+        top10Kelurahan={data?.data?.top_10_kelurahan_kasus_covid ?? []}
       />
     </Layout>
   );
@@ -282,35 +341,34 @@ const Home: React.FC<IProps> = (props): ReactElement => {
 
 export default Home;
 
-export const getStaticProps: GetStaticProps = async () => {
-  try {
-    const responseGetCovidData: any = await getCovidData();
-    const responseGetCovidDataPerkecamatan: any =
-      await getCovidDataPerkecamatan();
-    let listkelurahan: IKelurahan[] = [];
-    responseGetCovidDataPerkecamatan.data.map((kecamatan: IKecamatan) => {
-      kecamatan.kelurahan.map((kelurahan) => {
-        listkelurahan.push(kelurahan);
-      });
-    });
-    listkelurahan = sortBy(listkelurahan, 'total').reverse();
+// export const getStaticProps: GetStaticProps = async () => {
+//   try {
+//     const responseGetCovidData: any = await getCovidData();
+//     const responseGetCovidDataPerkecamatan: any =
+//       await getCovidDataPerkecamatan();
+//     let listkelurahan: IKelurahan[] = [];
+//     responseGetCovidDataPerkecamatan.data.map((kecamatan: IKecamatan) => {
+//       kecamatan.kelurahan.map((kelurahan) => {
+//         listkelurahan.push(kelurahan);
+//       });
+//     });
+//     listkelurahan = sortBy(listkelurahan, 'total').reverse();
 
-    return {
-      props: {
-        data: {
-          date: responseGetCovidData.date,
-          data_covid_sumba_timur: responseGetCovidData,
-          data_covid_perkecamatan_sumba_timur: responseGetCovidDataPerkecamatan,
-          top_10_kelurahan_kasus_covid: listkelurahan.slice(0, 10),
-        },
-      },
-    };
-  } catch (err) {
-    return {
-      props: {
-        success: false,
-        data: [],
-      },
-    };
-  }
-};
+//     return {
+//       props: {
+//         data: {
+//           data_covid_sumba_timur: responseGetCovidData,
+//           data_covid_perkecamatan_sumba_timur: responseGetCovidDataPerkecamatan,
+//           top_10_kelurahan_kasus_covid: listkelurahan.slice(0, 10),
+//         },
+//       },
+//     };
+//   } catch (err) {
+//     return {
+//       props: {
+//         success: false,
+//         data: [],
+//       },
+//     };
+//   }
+// };

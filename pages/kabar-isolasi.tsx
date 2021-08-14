@@ -77,7 +77,33 @@ const KabarIsolasi: React.FC<IProps> = (props): ReactElement => {
   return (
     <Layout>
       <Head>
-        <title>Kabar Isolasi</title>
+        <meta
+          name='og:title'
+          content='Kabar Covid Sumba Timur | Kabar Isolasi'
+        />
+        <meta
+          property='og:site_name'
+          content='Kabar Covid Sumba Timur | Kabar Isolasi'
+        />
+        <meta
+          property='og:description'
+          content='Informasi seputar isolasi passien covid-19 di Sumba Timur'
+        />
+        <meta name='twitter:title' content='Kabar Covid Sumba Timur' />
+        <meta
+          name='twitter:description'
+          content='Informasi seputar isolasi passien covid-19 di Sumba Timur'
+        />
+        <meta
+          property='og:url'
+          content='https://kabar-covid-sumba-timur.vercel.app/kabar-isolasi'
+        />
+        <meta
+          name='twitter:site'
+          content='https://kabar-covid-sumba-timur.vercel.app/kabar-isolasi'
+        />
+
+        <title>Kabar Covid-19 Sumba Timur | Kabar Isolasi</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Jumbotron

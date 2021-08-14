@@ -7,10 +7,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import React, { useEffect, useState } from 'react';
 import { IKecamatan, IKelurahan } from '../../interfaces/index';
-import { getHariIni } from '../../utils/date';
 import Jumbotron from '../Jumbotron';
-import useStyles from './styles';
 import Row from './Row';
+import useStyles from './styles';
 
 interface IProps {
   dataPerkecamatan: {
@@ -45,7 +44,7 @@ const DataCovidPerkecamatan: React.FC<IProps> = (props) => {
     >
       <Jumbotron
         title='Data Covid Per-Kecamatan'
-        description={`Update: ${getHariIni()}`}
+        description={`Update: ${props.dataPerkecamatan.date}`}
       />
       <div className={classes.containerContent}>
         <TableContainer component={Paper}>
