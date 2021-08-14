@@ -3,8 +3,13 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      marginTop: '80px',
       width: '100%',
       paddingBottom: '10px',
+      backgroundColor: '#28DF99',
+      borderRadius: '10px',
+      boxShadow:
+        'rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px',
     },
     containerBottomNavigationAction: {
       justifyContent: 'space-around',
@@ -17,9 +22,10 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     labelBottomNavigationAction: {
+      fontSize: '18px',
       opacity: '1 !important',
       [theme.breakpoints.down('sm')]: {
-        fontSize: '10px',
+        fontSize: '12px',
       },
     },
     footer: {
@@ -40,8 +46,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     rootBottomNavigationAction: {
       flex: 1,
+      color: '#fff',
       minWidth: '20px',
-      maxWidth: '88px',
       padding: '6px 12px 8px',
       transition:
         'color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,padding-top 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
@@ -70,8 +76,9 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 'auto',
     },
     selectedNavigation: {
+      color: '#99F3BD !important',
       [theme.breakpoints.down('sm')]: {
-        fontSize: '11px !important',
+        // fontSize: '11px !important',
       },
     },
     containerList: {

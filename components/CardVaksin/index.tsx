@@ -69,15 +69,33 @@ const CardVaksin: React.FC<IProps> = (props) => {
           {timeCountDown}
         </Typography>
       </div>
-      <Image
-        priority
-        src={props.vaksin.img_url}
-        alt={props.vaksin.date}
-        height={850}
-        width={600}
-        placeholder='blur'
-        blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
-      />
+      <div>
+        <Image
+          priority
+          src={props.vaksin.img_url}
+          alt={props.vaksin.date}
+          height={700}
+          width={700}
+          placeholder='blur'
+          blurDataURL={`data:image/svg+xml;base64,${toBase64(
+            shimmer(700, 700)
+          )}`}
+        />
+      </div>
+      {(props.vaksin.keterangan || props.vaksin.sumber) && (
+        <div className={classes.footer}>
+          {props.vaksin.keterangan && (
+            <Typography className={classes.info}>
+              Keterangan: {props.vaksin.keterangan}
+            </Typography>
+          )}
+          {props.vaksin.sumber && (
+            <Typography className={classes.info}>
+              Sumber: {props.vaksin.sumber}
+            </Typography>
+          )}
+        </div>
+      )}
     </div>
   );
 };

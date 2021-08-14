@@ -21,4 +21,7 @@ export interface IVaksin {
   date: string;
   img_url: string;
   timestamp: number;
+  keterangan?: string;
+  sumber?: string;
+  jenis_vaksin?: string;  
 }
