@@ -1,4 +1,5 @@
 import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import React, { ReactElement, useEffect, useState } from 'react';
 import CardIsolasi from '../components/CardIsolasi';
@@ -141,7 +142,7 @@ const KabarIsolasi: React.FC<IProps> = (props): ReactElement => {
 
 export default KabarIsolasi;
 
-export const getServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   try {
     const responseGetIsolasiData: any = await getIsolasiData();
     return {
