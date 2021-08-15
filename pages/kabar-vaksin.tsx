@@ -100,6 +100,10 @@ export const getStaticProps: GetStaticProps = async () => {
         success: true,
         data: dataVaksin,
       },
+      // Next.js will attempt to re-generate the page:
+      // - When a request comes in
+      // - At most once every 180 seconds (3 minutes)
+      revalidate: 180, // In seconds
     };
   } catch (err) {
     return {
@@ -107,6 +111,10 @@ export const getStaticProps: GetStaticProps = async () => {
         success: false,
         data: [],
       },
+      // Next.js will attempt to re-generate the page:
+      // - When a request comes in
+      // - At most once every 180 seconds (3 minutes)
+      revalidate: 180, // In seconds
     };
   }
 };
