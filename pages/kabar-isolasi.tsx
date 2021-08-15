@@ -149,6 +149,10 @@ export const getServerSideProps = async () => {
         success: true,
         data: responseGetIsolasiData,
       },
+      // Next.js will attempt to re-generate the page:
+      // - When a request comes in
+      // - At most once every 10800 seconds (3 hours)
+      revalidate: 10800, // In seconds
     };
   } catch (err) {
     return {
@@ -156,6 +160,10 @@ export const getServerSideProps = async () => {
         success: false,
         data: [],
       },
+      // Next.js will attempt to re-generate the page:
+      // - When a request comes in
+      // - At most once every 10800 seconds (3 hours)
+      revalidate: 10800, // In seconds
     };
   }
 };

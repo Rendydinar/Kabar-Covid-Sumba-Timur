@@ -10,7 +10,6 @@ import React, { ReactElement } from 'react';
 import Jumbotron from '../components/Jumbotron';
 import Layout from '../components/Layout';
 import { LINK_FEEDBACK, MESSAGE_WHATSSAPP } from '../constant';
-import { getCovidData } from '../fetchData/getCovidData';
 
 interface IProps {
   data: any;
@@ -54,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Tentang: React.FC<IProps> = (props: any): ReactElement => {
+const Tentang: React.FC<IProps> = (): ReactElement => {
   const classes = useStyles();
   return (
     <Layout>
@@ -159,7 +158,6 @@ const Tentang: React.FC<IProps> = (props: any): ReactElement => {
               Link Umpan Balik
             </Link>
           </Typography>
-          {props.data.data.data.positif_covid.total_sembuh}
         </div>
       </div>
     </Layout>
@@ -169,31 +167,9 @@ const Tentang: React.FC<IProps> = (props: any): ReactElement => {
 export default Tentang;
 
 export const getServerSideProps = async () => {
-  // return {
-  //   props: {
-  //     data: {},
-  //   },
-  // };
-
-  try {
-    const responseGetCovidData: any = await getCovidData();
-    return {
-      props: {
-        data: {
-          data: responseGetCovidData,
-        },
-      },
-    };
-  } catch (err) {
-    return {
-      props: {
-        success: false,
-        data: [],
-      },
-      // Next.js will attempt to re-generate the page:
-      // - When a request comes in
-      // - At most once every 10 seconds
-      revalidate: 10, // In seconds
-    };
-  }
+  return {
+    props: {
+      data: {},
+    },
+  };
 };
