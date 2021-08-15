@@ -11,6 +11,7 @@
     "firebase-admin": "^9.11.0",
     "lodash": "^4.17.21",
     "next": "latest",
+    "next-sitemap": "^1.6.157",
     "react": "latest",
     "react-dom": "latest",
     "react-icons": "^4.2.0"
@@ -18,6 +19,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
   },
@@ -27,6 +29,7 @@
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "prettier": "2.3.2",
     "typescript": "latest"
   }
 }

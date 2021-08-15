@@ -18,8 +18,18 @@
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true // true (suggestion)
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "etc/create-sitemap-index.js"
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "sourceMap": true
+    }
+  }
 }
