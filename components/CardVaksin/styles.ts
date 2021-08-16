@@ -57,14 +57,32 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   info: {
     fontSize: '16px',
-    fontWeight: 600
+    fontWeight: 600,
+    marginTop: '10px'
   },
   imageVaksinContainer: {
     width: '100%',
     '& > div':  {
       position: 'unset !important',
     }
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    // marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  textInfoDescirption: {
+    marginLeft: '15px',
+    fontSize: '16px',
+    fontWeight: 'normal',
+    textTransform: 'capitalize',
   }
+
 }));
 
 export default useStyles;
