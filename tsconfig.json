@@ -21,12 +21,7 @@
     "isolatedModules": true // true (suggestion)
   },
   "exclude": ["node_modules"],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "etc/create-sitemap-index.js"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "ts-node": {
     "compilerOptions": {
       "sourceMap": true
