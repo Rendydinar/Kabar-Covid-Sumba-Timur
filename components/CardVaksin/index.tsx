@@ -5,7 +5,14 @@ import { IVaksin } from '../../interfaces';
 import { classNames } from '../../lib/classNames';
 import useStyles from './styles';
 import { MdExpandMore } from 'react-icons/md';
+import { RiErrorWarningLine } from 'react-icons/ri';
 import { Button } from '@material-ui/core';
+import {
+  getDateFormated,
+  milisecondToHour,
+  milisecondToMinutes,
+} from '../../utils/date';
+import { REPORT_INFO_VAKSIN_MESSAGE } from '../../constant';
 
 interface IProps {
   vaksin: IVaksin;
@@ -38,6 +45,13 @@ const CardVaksin: React.FC<IProps> = (props) => {
   const handleExpandClick = (): void => {
     setExpanded(!expanded);
   };
+  const handleSendReport = (): void => {
+    window.open(
+      `https://api.whatsapp.com/send?phone=6282217971133&text=${REPORT_INFO_VAKSIN_MESSAGE}`,
+      '_blank',
+      'noopener noreferrer' // <- This is what makes it open in a new window.
+    );
+  };
 
   useEffect(() => {
     const getTime = setInterval(() => {
@@ -52,21 +66,17 @@ const CardVaksin: React.FC<IProps> = (props) => {
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       if (props.vaksin.waktu_berakhir_timestamp) {
-        if (now > props.vaksin.waktu_berakhir_timestamp) {
+        if (
+          props.vaksin.timestamp < now &&
+          now < props.vaksin.waktu_berakhir_timestamp
+        ) {
           clearInterval(getTime);
           setTimeCountDown('Sudah Sedang Berlangsung');
-        } else if (distance < 0) {
+        } else if (now > props.vaksin.waktu_berakhir_timestamp) {
           clearInterval(getTime);
           setTimeCountDown('Sudah Selesai');
         } else {
-          setTimeCountDown(`${days}d ${hours}h ${minutes}m ${seconds}s`);
-        }
-      } else {
-        if (distance < 0) {
-          clearInterval(getTime);
-          setTimeCountDown('Sudah Selesai');
-        } else {
-          setTimeCountDown(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+          setTimeCountDown(`${days} h ${hours} j ${minutes} m ${seconds} d`);
         }
       }
     }, 1000);
@@ -77,12 +87,24 @@ const CardVaksin: React.FC<IProps> = (props) => {
     <div className={classes.root}>
       <div className={classes.header}>
         <Typography className={classes.dateVaksin}>
-          {props.vaksin.date}
+          {`${getDateFormated(new Date(props.vaksin.timestamp))} ${
+            milisecondToHour(props.vaksin.timestamp) < 10
+              ? `0${milisecondToHour(props.vaksin.timestamp)}`
+              : `${milisecondToHour(props.vaksin.timestamp)}`
+          }:${
+            milisecondToMinutes(props.vaksin.timestamp) < 10
+              ? `0${milisecondToMinutes(props.vaksin.timestamp)}`
+              : `${milisecondToMinutes(props.vaksin.timestamp)}`
+          } WITA`}
         </Typography>
         <Typography
           className={classNames(
             classes.dateCountDownVaksin,
-            timeCountDown === 'Sudah Selesai' && 'timeout'
+            timeCountDown === 'Sudah Sedang Berlangsung' && 'sedangBerlangsung',
+            timeCountDown !== 'Sudah Sedang Berlangsung' &&
+              timeCountDown !== 'Sudah Selesai' &&
+              'akanHadir',
+            timeCountDown === 'Sudah Selesai' && 'sudahSelesai'
           )}
         >
           {timeCountDown}
@@ -155,18 +177,11 @@ const CardVaksin: React.FC<IProps> = (props) => {
         )}
         {props.vaksin.place_map && (
           <>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                backgroundColor: '#99F3BD',
-                width: 'fit-content',
-                borderRadius: '10px',
-                marginTop: '10px',
-                marginBottom: '10px',
-              }}
-            >
-              <Button onClick={handleExpandClick}>
+            <div className={classes.containerCardAction}>
+              <Button
+                onClick={handleExpandClick}
+                className={classes.btnActionCard}
+              >
                 <Typography style={{ fontWeight: 600 }}>
                   Lokasi Vaksin
                 </Typography>
@@ -178,6 +193,17 @@ const CardVaksin: React.FC<IProps> = (props) => {
                   aria-label='show more'
                 >
                   <MdExpandMore />
+                </IconButton>
+              </Button>
+              <Button
+                onClick={handleSendReport}
+                className={classes.btnActionCardReport}
+              >
+                <Typography style={{ fontWeight: 600 }}>
+                  Lapor Kesalahan
+                </Typography>
+                <IconButton>
+                  <RiErrorWarningLine />
                 </IconButton>
               </Button>
             </div>

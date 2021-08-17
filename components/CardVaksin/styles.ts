@@ -21,9 +21,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontSize: '24px',
     color: '#111827',
     fontWeight: 'bold',
-    marginBottom: '10px',
     [theme.breakpoints.down('sm')]: {
-      marginBottom: '5px',
       fontSize: '16px',
     },
   },
@@ -33,20 +31,27 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontWeight: 'bold',
     borderRadius: '10px',
     backgroundColor: '#fff',
-    padding: '5px',
-    marginBottom: '10px',
+    padding: '3px',
     boxShadow: 'rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px',
     [theme.breakpoints.down('sm')]: {
-      fontSize: '16px',
+      fontSize: '14px',
     },
-    '&.timeout': {
+    '&.sudahSelesai': {
       color: '#e44933',
-    }
+    },
+    '&.akanHadir': {
+      color: '#e4a033',      
+    },
+    '&.sedangBerlangsung': {
+      color: '#31be72',      
+    }     
   },
   header: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: '100%'
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 10,
   },
   footer: {
     width: '100%',
@@ -81,6 +86,23 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontSize: '16px',
     fontWeight: 'normal',
     textTransform: 'capitalize',
+  },
+  btnActionCard: {
+    height: '45px',
+    backgroundColor: '#99F3BD',
+  },
+  btnActionCardReport: {
+    height: '45px',
+    backgroundColor: '#ef5350',
+  },
+  containerCardAction: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    borderRadius: '10px',
+    marginTop: '10px',
+    marginBottom: '10px',
+    justifyContent: 'space-between',
   }
 
 }));

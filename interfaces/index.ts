@@ -1,11 +1,13 @@
 export interface IKelurahan {
   name: string;
   total: number;
+  isShow?: boolean;
 }
 
 export interface IKecamatan {
   name: string;
   kelurahan: IKelurahan[];
+  isShow?: boolean;
   total?: number;
 }
 

@@ -46,24 +46,25 @@ const Row: React.FC<IProps> = (props) => {
             <Table size='small' aria-label='a dense table'>
               <TableBody>
                 {props.kecamatan.kelurahan.map(
-                  (kelurahan: IKelurahan, index: number) => (
-                    <TableRow key={index}>
-                      <TableCell
-                        style={{
-                          width: '60px',
-                        }}
-                      ></TableCell>
-                      <TableCell
-                        style={{
-                          textTransform: 'capitalize',
-                          paddingLeft: '28px',
-                        }}
-                      >
-                        {kelurahan.name.split('_').join(' ')}
-                      </TableCell>
-                      <TableCell align='right'>{kelurahan.total}</TableCell>
-                    </TableRow>
-                  )
+                  (kelurahan: IKelurahan, index: number) =>
+                    kelurahan.isShow && (
+                      <TableRow key={index}>
+                        <TableCell
+                          style={{
+                            width: '60px',
+                          }}
+                        ></TableCell>
+                        <TableCell
+                          style={{
+                            textTransform: 'capitalize',
+                            paddingLeft: '28px',
+                          }}
+                        >
+                          {kelurahan.name.split('_').join(' ')}
+                        </TableCell>
+                        <TableCell align='right'>{kelurahan.total}</TableCell>
+                      </TableRow>
+                    )
                 )}
               </TableBody>
             </Table>
