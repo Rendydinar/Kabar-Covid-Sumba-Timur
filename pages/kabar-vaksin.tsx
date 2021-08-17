@@ -1,8 +1,10 @@
+import { Typography } from '@material-ui/core';
+import { FormControl, InputLabel, NativeSelect } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import sortBy from 'lodash/sortBy';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import CardVaksin from '../components/CardVaksin';
 import Jumbotron from '../components/Jumbotron';
 import Layout from '../components/Layout';
@@ -22,6 +24,27 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       alignItems: 'center',
     },
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
+    selectedFilterVaksin: {
+      textTransform: 'capitalize',
+    },
+    textInfoEmptyVaksin: {
+      fontSize: '36px',
+      textAlign: 'center',
+      fontWeight: 500,
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '24px',
+      },
+    },
+    containerEmptyVaksin: {
+      marginTop: '70px',
+    },
   })
 );
 interface IProps {
@@ -31,8 +54,73 @@ interface IProps {
   fallback: boolean;
 }
 
+enum FILTER_VAKSIN_KEY {
+  ALL_EVENT = 'semua',
+  COMMING_SOON = 'akan_berlangsung',
+  ONGOING = 'sedang_berlangsung',
+  FINISHED = 'sudah_selesai',
+}
+
+interface IFilterVaksinType {
+  key: FILTER_VAKSIN_KEY;
+  label: string;
+}
+
 const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
   const classes = useStyles();
+  const [listDataVaksinToShow, setListDataVaksinToShow] = useState<IVaksin[]>(
+    props.data
+  );
+  const [selectedFilterVaksinType, setSelectedFilterVaksinType] =
+    useState<string>(FILTER_VAKSIN_KEY.ALL_EVENT);
+  const [filterVaksinType] = useState<IFilterVaksinType[]>([
+    {
+      key: FILTER_VAKSIN_KEY.COMMING_SOON,
+      label: 'Akan Berlangsung',
+    },
+    {
+      key: FILTER_VAKSIN_KEY.ONGOING,
+      label: 'Sedang Berlangsung',
+    },
+    {
+      key: FILTER_VAKSIN_KEY.FINISHED,
+      label: 'Sudah Selesai',
+    },
+    {
+      key: FILTER_VAKSIN_KEY.ALL_EVENT,
+      label: 'Semua',
+    },
+  ]);
+
+  const handleChangeFaksinFilterType = (
+    event: React.ChangeEvent<{ name?: string; value: string }>
+  ) => {
+    setSelectedFilterVaksinType(event.target.value);
+    if (event.target.value === FILTER_VAKSIN_KEY.ONGOING) {
+      const tempListVaksin: IVaksin[] = props.data.filter((vaksin: IVaksin) => {
+        const timeStampBerakrhir = vaksin?.waktu_berakhir_timestamp ?? 0;
+        return (
+          new Date().getTime() > vaksin.timestamp &&
+          new Date().getTime() < timeStampBerakrhir
+        );
+      });
+      setListDataVaksinToShow(tempListVaksin);
+    } else if (event.target.value === FILTER_VAKSIN_KEY.FINISHED) {
+      const tempListVaksin: IVaksin[] = props.data.filter((vaksin: IVaksin) => {
+        const timeStampBerakrhir = vaksin?.waktu_berakhir_timestamp ?? 0;
+        return new Date().getTime() > timeStampBerakrhir;
+      });
+      setListDataVaksinToShow(tempListVaksin);
+    } else if (event.target.value === FILTER_VAKSIN_KEY.COMMING_SOON) {
+      const tempListVaksin: IVaksin[] = props.data.filter((vaksin: IVaksin) => {
+        return new Date().getTime() < vaksin.timestamp;
+      });
+      setListDataVaksinToShow(tempListVaksin);
+    } else {
+      setSelectedFilterVaksinType('None');
+      setListDataVaksinToShow(props.data);
+    }
+  };
 
   return (
     <Layout>
@@ -72,10 +160,43 @@ const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
           description='Informasi seputar vaksin covid-19 di Sumba Timur'
         />
         <div className={classes.root}>
+          <FormControl className={classes.formControl}>
+            <InputLabel shrink htmlFor='age-native-label-placeholder'>
+              Pilih Waktu Vaksin
+            </InputLabel>
+            <NativeSelect
+              className={classes.selectedFilterVaksin}
+              value={selectedFilterVaksinType}
+              onChange={handleChangeFaksinFilterType}
+              inputProps={{
+                name: 'Pilih Waktu Vaksin',
+                id: 'age-native-label-placeholder',
+              }}
+            >
+              {filterVaksinType.map(
+                (filterType: IFilterVaksinType, index: number) => (
+                  <option value={filterType.key} key={index}>
+                    {filterType.label}
+                  </option>
+                )
+              )}
+            </NativeSelect>
+          </FormControl>
           <div className={classes.containerContent}>
-            {props.data.map((vaksin: IVaksin, index: number) => (
-              <CardVaksin vaksin={vaksin} key={index} />
-            ))}
+            {listDataVaksinToShow.length === 0 ? (
+              <div className={classes.containerEmptyVaksin}>
+                <Typography className={classes.textInfoEmptyVaksin}>
+                  Maaf jadwal vaksin yang kamu cari tidak tersedia
+                </Typography>
+                <Typography className={classes.textInfoEmptyVaksin}>
+                  🥺
+                </Typography>
+              </div>
+            ) : (
+              listDataVaksinToShow.map((vaksin: IVaksin, index: number) => (
+                <CardVaksin vaksin={vaksin} key={index} />
+              ))
+            )}
           </div>
         </div>
       </div>

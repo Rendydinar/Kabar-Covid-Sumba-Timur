@@ -25,14 +25,16 @@ const DataCovidPerkecamatan: React.FC<IProps> = (props) => {
   useEffect(() => {
     let tempDataKecamatan: IKecamatan[] = [];
     props.dataPerkecamatan.data.map((kecamatan: IKecamatan) => {
-      let tempTotal: number = 0;
-      kecamatan.kelurahan.map((kelurahan: IKelurahan) => {
-        tempTotal += kelurahan.total;
-      });
-      tempDataKecamatan.push({
-        ...kecamatan,
-        total: tempTotal,
-      });
+      if (kecamatan.isShow) {
+        let tempTotal: number = 0;
+        kecamatan.kelurahan.map((kelurahan: IKelurahan) => {
+          tempTotal += kelurahan.isShow ? kelurahan.total : 0;
+        });
+        tempDataKecamatan.push({
+          ...kecamatan,
+          total: tempTotal,
+        });
+      }
     });
     setDataKecamatan(tempDataKecamatan);
   }, [props.dataPerkecamatan]);
@@ -73,9 +75,12 @@ const DataCovidPerkecamatan: React.FC<IProps> = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {dataKecamatan.map((kecamatan: IKecamatan, index: number) => (
-                <Row kecamatan={kecamatan} index={index} key={index} />
-              ))}
+              {dataKecamatan.map(
+                (kecamatan: IKecamatan, index: number) =>
+                  kecamatan.isShow && (
+                    <Row kecamatan={kecamatan} index={index} key={index} />
+                  )
+              )}
             </TableBody>
           </Table>
         </TableContainer>
