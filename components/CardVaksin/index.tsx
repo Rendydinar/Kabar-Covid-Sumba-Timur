@@ -181,6 +181,9 @@ const CardVaksin: React.FC<IProps> = (props) => {
               <Button
                 onClick={handleExpandClick}
                 className={classes.btnActionCard}
+                classes={{
+                  label: classes.labelBtnAction,
+                }}
               >
                 <Typography style={{ fontWeight: 600 }}>
                   Lokasi Vaksin
@@ -198,6 +201,9 @@ const CardVaksin: React.FC<IProps> = (props) => {
               <Button
                 onClick={handleSendReport}
                 className={classes.btnActionCardReport}
+                classes={{
+                  label: classes.labelBtnAction,
+                }}
               >
                 <Typography style={{ fontWeight: 600 }}>
                   Lapor Kesalahan

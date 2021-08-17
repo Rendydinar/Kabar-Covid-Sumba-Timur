@@ -90,10 +90,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   btnActionCard: {
     height: '45px',
     backgroundColor: '#99F3BD',
+    // width: '50px'
   },
   btnActionCardReport: {
     height: '45px',
-    backgroundColor: '#ef5350',
+    backgroundColor: '#ef5350 !important',
+    // width: '50px'
   },
   containerCardAction: {
     display: 'flex',
@@ -103,6 +105,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     marginTop: '10px',
     marginBottom: '10px',
     justifyContent: 'space-between',
+    gap: '10px'
+  },
+  labelBtnAction: {
+    fontSize: '20px',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '14px',
+    },
   }
 
 }));
