@@ -76,13 +76,13 @@ const CardVaksin: React.FC<IProps> = (props) => {
       <div className={classes.header}>
         <Typography className={classes.dateVaksin}>
           {`${getDateFormated(new Date(props.vaksin.timestamp))} ${
-            milisecondToHour(props.vaksin.timestamp) < 10
-              ? `0${milisecondToHour(props.vaksin.timestamp)}`
-              : `${milisecondToHour(props.vaksin.timestamp)}`
+            new Date(props.vaksin.timestamp).getHours() < 10
+              ? `0${new Date(props.vaksin.timestamp).getHours()}`
+              : `${new Date(props.vaksin.timestamp).getHours()}`
           }:${
-            milisecondToMinutes(props.vaksin.timestamp) < 10
-              ? `0${milisecondToMinutes(props.vaksin.timestamp)}`
-              : `${milisecondToMinutes(props.vaksin.timestamp)}`
+            new Date(props.vaksin.timestamp).getMinutes() < 10
+              ? `0${new Date(props.vaksin.timestamp).getMinutes()}`
+              : `${new Date(props.vaksin.timestamp).getMinutes()}`
           } WITA`}
         </Typography>
         <Typography
@@ -167,11 +167,8 @@ const CardVaksin: React.FC<IProps> = (props) => {
               <Button
                 onClick={handleExpandClick}
                 className={classes.btnActionCard}
-                classes={{
-                  label: classes.labelBtnAction,
-                }}
               >
-                <Typography style={{ fontWeight: 600 }}>
+                <Typography className={classes.labelBtnAction}>
                   Lokasi Vaksin
                 </Typography>
                 <IconButton
@@ -187,11 +184,8 @@ const CardVaksin: React.FC<IProps> = (props) => {
               <Button
                 onClick={handleSendReport}
                 className={classes.btnActionCardReport}
-                classes={{
-                  label: classes.labelBtnAction,
-                }}
               >
-                <Typography style={{ fontWeight: 600 }}>
+                <Typography className={classes.labelBtnAction}>
                   Lapor Kesalahan
                 </Typography>
                 <IconButton>
