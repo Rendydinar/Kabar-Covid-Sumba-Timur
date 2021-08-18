@@ -56,14 +56,14 @@ const CardVaksin: React.FC<IProps> = (props) => {
   useEffect(() => {
     const getTime = setInterval(() => {
       const now = new Date().getTime();
-      const distance = props.vaksin.timestamp - now;
+      // const distance = props.vaksin.timestamp - now;
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      // const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      // const hours = Math.floor(
+      //   (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      // );
+      // const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      // const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       if (props.vaksin.waktu_berakhir_timestamp) {
         if (
@@ -76,7 +76,8 @@ const CardVaksin: React.FC<IProps> = (props) => {
           clearInterval(getTime);
           setTimeCountDown('Sudah Selesai');
         } else {
-          setTimeCountDown(`${days} h ${hours} j ${minutes} m ${seconds} d`);
+          setTimeCountDown('Akan Berlangsung');
+          // setTimeCountDown(`${days} h ${hours} j ${minutes} m ${seconds} d`);
         }
       }
     }, 1000);
