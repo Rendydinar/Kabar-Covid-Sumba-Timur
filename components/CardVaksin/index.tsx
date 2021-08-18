@@ -54,38 +54,22 @@ const CardVaksin: React.FC<IProps> = (props) => {
   };
 
   useEffect(() => {
-    const getTime = setInterval(() => {
-      const now = new Date().getTime();
-      // const distance = props.vaksin.timestamp - now;
-
-      // const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      // const hours = Math.floor(
-      //   (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      // );
-      // const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      // const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      if (props.vaksin.waktu_berakhir_timestamp) {
-        if (
-          props.vaksin.timestamp < now &&
-          now < props.vaksin.waktu_berakhir_timestamp
-        ) {
-          clearInterval(getTime);
-          setTimeCountDown('Sudah Sedang Berlangsung');
-        } else if (
-          now > props.vaksin.timestamp &&
-          now < props.vaksin.waktu_berakhir_timestamp
-        ) {
-          clearInterval(getTime);
-          setTimeCountDown('Sudah Selesai');
-        } else if (now > props.vaksin.waktu_berakhir_timestamp) {
-          setTimeCountDown('Akan Berlangsung');
-          // setTimeCountDown(`${days} h ${hours} j ${minutes} m ${seconds} d`);
-        }
+    const now = new Date().getTime();
+    if (props.vaksin.waktu_berakhir_timestamp) {
+      if (
+        now > props.vaksin.timestamp &&
+        now < props.vaksin.waktu_berakhir_timestamp
+      ) {
+        setTimeCountDown('Sedang Berlangsung');
+      } else if (now < props.vaksin.timestamp) {
+        setTimeCountDown('Akan Berlangsung');
+      } else if (now > props.vaksin.waktu_berakhir_timestamp) {
+        setTimeCountDown('Sudah Selesai');
       }
-    }, 1000);
-    return () => clearInterval(getTime);
-  }, []);
+    } else {
+      setTimeCountDown('');
+    }
+  }, [props.vaksin]);
 
   return (
     <div className={classes.root}>
@@ -104,10 +88,8 @@ const CardVaksin: React.FC<IProps> = (props) => {
         <Typography
           className={classNames(
             classes.dateCountDownVaksin,
-            timeCountDown === 'Sudah Sedang Berlangsung' && 'sedangBerlangsung',
-            timeCountDown !== 'Sudah Sedang Berlangsung' &&
-              timeCountDown !== 'Sudah Selesai' &&
-              'akanHadir',
+            timeCountDown === 'Sedang Berlangsung' && 'sedangBerlangsung',
+            timeCountDown === 'Akan Berlangsung' && 'akanHadir',
             timeCountDown === 'Sudah Selesai' && 'sudahSelesai'
           )}
         >

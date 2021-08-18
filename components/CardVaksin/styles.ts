@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
   },
   dateCountDownVaksin: {
-    fontSize: '16px',
+    fontSize: '20px',
     color: '#111827',
     fontWeight: 'bold',
     borderRadius: '10px',
