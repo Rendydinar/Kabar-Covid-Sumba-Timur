@@ -117,7 +117,6 @@ const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
       });
       setListDataVaksinToShow(tempListVaksin);
     } else {
-      setSelectedFilterVaksinType('None');
       setListDataVaksinToShow(props.data);
     }
   };
