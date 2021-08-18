@@ -101,8 +101,6 @@ const CardVaksin: React.FC<IProps> = (props) => {
           priority
           src={props.vaksin.img_url}
           alt={props.vaksin.date}
-          // height={700}
-          // width={700}
           layout='fill'
           className={'imageVaksin'}
           placeholder='blur'
@@ -140,7 +138,7 @@ const CardVaksin: React.FC<IProps> = (props) => {
             </Typography>
           </>
         )}
-        {props.vaksin.kouta && (
+        {props.vaksin.kouta && props.vaksin.kouta !== 0 && (
           <>
             <Typography className={classes.info}>Kouta:</Typography>
             <Typography className={classes.textInfoDescirption}>
@@ -150,7 +148,7 @@ const CardVaksin: React.FC<IProps> = (props) => {
           </>
         )}
 
-        {props.vaksin.kewajiban && (
+        {props.vaksin.kewajiban && props.vaksin.kewajiban.length > 0 && (
           <>
             <Typography className={classes.info}>Kewajiban:</Typography>
             {props.vaksin.kewajiban.map((kewajiban: string, index: number) => (
