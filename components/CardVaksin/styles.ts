@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
   },
   dateCountDownVaksin: {
+    textAlign: 'center',
     fontSize: '20px',
     color: '#111827',
     fontWeight: 'bold',
@@ -82,18 +83,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     transform: 'rotate(180deg)',
   },
   textInfoDescirption: {
-    marginLeft: '15px',
     fontSize: '16px',
     fontWeight: 'normal',
     textTransform: 'capitalize',
   },
   btnActionCard: {
-    height: '45px',
+    height: '40px',
     backgroundColor: '#99F3BD',
     // width: '50px'
   },
   btnActionCardReport: {
-    height: '45px',
+    height: '40px',
     backgroundColor: '#ef5350 !important',
     // width: '50px'
   },
@@ -108,9 +108,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     gap: '10px'
   },
   labelBtnAction: {
+    textTransform: 'capitalize',
+    letterSpacing: 'normal',
+    fontWeight: 600,
+    color: '#000',
     fontSize: '20px',
     [theme.breakpoints.down('sm')]: {
-      fontSize: '14px',
+      fontSize: '13px',
     },
   }
 
