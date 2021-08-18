@@ -138,7 +138,7 @@ const CardVaksin: React.FC<IProps> = (props) => {
             </Typography>
           </>
         )}
-        {props.vaksin.kouta && props.vaksin.kouta !== 0 && (
+        {props.vaksin.kouta && props.vaksin.kouta !== 0 ? (
           <>
             <Typography className={classes.info}>Kouta:</Typography>
             <Typography className={classes.textInfoDescirption}>
@@ -146,6 +146,8 @@ const CardVaksin: React.FC<IProps> = (props) => {
               {' Orang'}
             </Typography>
           </>
+        ) : (
+          <></>
         )}
 
         {props.vaksin.kewajiban && props.vaksin.kewajiban.length > 0 && (
