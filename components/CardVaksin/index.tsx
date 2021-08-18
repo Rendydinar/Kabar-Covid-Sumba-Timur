@@ -72,10 +72,13 @@ const CardVaksin: React.FC<IProps> = (props) => {
         ) {
           clearInterval(getTime);
           setTimeCountDown('Sudah Sedang Berlangsung');
-        } else if (now > props.vaksin.waktu_berakhir_timestamp) {
+        } else if (
+          now > props.vaksin.timestamp &&
+          now < props.vaksin.waktu_berakhir_timestamp
+        ) {
           clearInterval(getTime);
           setTimeCountDown('Sudah Selesai');
-        } else {
+        } else if (now > props.vaksin.waktu_berakhir_timestamp) {
           setTimeCountDown('Akan Berlangsung');
           // setTimeCountDown(`${days} h ${hours} j ${minutes} m ${seconds} d`);
         }
