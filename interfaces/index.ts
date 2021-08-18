@@ -30,5 +30,5 @@ export interface IVaksin {
   kewajiban?:string[];
   kouta?:number;
   waktu_berakhir_timestamp?:number
-
+  isShow: boolean;
 }

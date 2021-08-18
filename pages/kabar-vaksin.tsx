@@ -211,9 +211,11 @@ export const getStaticProps: GetStaticProps = async () => {
     let dataVaksin: IVaksin[] = [];
     let responseGetDataVaksin: any = await getDataVaksin();
     responseGetDataVaksin.map((vaksin: any) => {
-      dataVaksin.push({
-        ...vaksin.data(),
-      });
+      if (vaksin.data().isShow === true) {
+        dataVaksin.push({
+          ...vaksin.data(),
+        });
+      }
     });
     dataVaksin = sortBy(dataVaksin, 'timestamp').reverse();
     return {
