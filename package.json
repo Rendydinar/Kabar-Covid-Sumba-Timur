@@ -10,7 +10,7 @@
     "date-fns": "^2.23.0",
     "firebase": "^8.9.0",
     "firebase-admin": "^9.11.0",
-    "gray-matter": "^4.0.3",
+    "gray-matter": "^4.0.2",
     "lodash": "^4.17.21",
     "next": "latest",
     "next-sitemap": "^1.6.157",
