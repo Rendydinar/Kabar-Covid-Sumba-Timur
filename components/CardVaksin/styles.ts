@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '620px',
+    width: '390px',
     padding: '10px',
     backgroundColor: '#28DF99',
     borderRadius: '8px',
@@ -18,16 +18,16 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
   },
   dateVaksin: {
-    fontSize: '24px',
+    fontSize: '16px',
     color: '#111827',
     fontWeight: 'bold',
     [theme.breakpoints.down('sm')]: {
-      fontSize: '16px',
+      fontSize: '14px',
     },
   },
   dateCountDownVaksin: {
     textAlign: 'center',
-    fontSize: '20px',
+    fontSize: '16px',
     color: '#111827',
     fontWeight: 'bold',
     borderRadius: '10px',
@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     width: '100%',
     alignItems: 'center',
     marginBottom: 10,
+    gap: '2px'
   },
   footer: {
     width: '100%',
@@ -112,7 +113,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     letterSpacing: 'normal',
     fontWeight: 600,
     color: '#000',
-    fontSize: '20px',
+    fontSize: '16px',
     [theme.breakpoints.down('sm')]: {
       fontSize: '13px',
     },

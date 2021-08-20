@@ -2,6 +2,7 @@ export interface IKelurahan {
   name: string;
   total: number;
   isShow?: boolean;
+  isDesa?: boolean;
 }
 
 export interface IKecamatan {
