@@ -10,6 +10,7 @@ import { IKecamatan, IKelurahan } from '../../interfaces/index';
 import Jumbotron from '../Jumbotron';
 import Row from './Row';
 import useStyles from './styles';
+import sortBy from 'lodash/sortBy';
 
 interface IProps {
   dataPerkecamatan: {
@@ -36,6 +37,7 @@ const DataCovidPerkecamatan: React.FC<IProps> = (props) => {
         });
       }
     });
+    tempDataKecamatan = sortBy(tempDataKecamatan, 'total').reverse();
     setDataKecamatan(tempDataKecamatan);
   }, [props.dataPerkecamatan]);
   return (

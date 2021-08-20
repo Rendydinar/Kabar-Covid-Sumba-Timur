@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { FormControl, InputLabel, NativeSelect } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import sortBy from 'lodash/sortBy';
@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     containerContent: {
       display: 'flex',
-      flexDirection: 'column',
       alignItems: 'center',
+      flexDirection: 'column',
     },
     formControl: {
       margin: theme.spacing(1),
@@ -192,9 +192,13 @@ const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
                 </Typography>
               </div>
             ) : (
-              listDataVaksinToShow.map((vaksin: IVaksin, index: number) => (
-                <CardVaksin vaksin={vaksin} key={index} />
-              ))
+              <Grid container spacing={2} justifyContent='center'>
+                {listDataVaksinToShow.map((vaksin: IVaksin, index: number) => (
+                  <Grid item>
+                    <CardVaksin vaksin={vaksin} key={index} />
+                  </Grid>
+                ))}
+              </Grid>
             )}
           </div>
         </div>

@@ -9,7 +9,8 @@ const processKelurahan = async (kecamatan: any, lastUpdatedData:string):Promise<
     dataKelurahan.push({
       name: kelurahan.data().name,
       total: kelurahan.data().total,
-      isShow:  kelurahan.data().isShow??false
+      isShow:  kelurahan.data().isShow??false,
+      isDesa:  kelurahan.data().isDesa??false
     });
   });
 

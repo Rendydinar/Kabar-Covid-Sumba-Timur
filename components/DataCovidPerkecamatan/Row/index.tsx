@@ -36,10 +36,24 @@ const Row: React.FC<IProps> = (props) => {
           <MdExpandMore />
         </IconButton>
       </TableCell>
-      <TableCell style={{ textTransform: 'capitalize' }}>
+      <TableCell
+        style={{
+          textTransform: 'capitalize',
+          fontSize: '16px',
+          fontWeight: 600,
+        }}
+      >
         {props.kecamatan.name.split('_').join(' ')}
       </TableCell>
-      <TableCell align='right'>{props.kecamatan.total}</TableCell>
+      <TableCell
+        align='right'
+        style={{
+          fontSize: '16px',
+          fontWeight: 800,
+        }}
+      >
+        {props.kecamatan.total}
+      </TableCell>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout='auto' unmountOnExit>
@@ -57,10 +71,20 @@ const Row: React.FC<IProps> = (props) => {
                         <TableCell
                           style={{
                             textTransform: 'capitalize',
-                            paddingLeft: '28px',
+                            padding: '0px',
+                            fontSize: '15px',
                           }}
                         >
                           {kelurahan.name.split('_').join(' ')}
+                          <span
+                            style={{
+                              marginLeft: '5px',
+                              fontWeight: 300,
+                              fontSize: '14px',
+                            }}
+                          >
+                            {kelurahan.isDesa ? '(Desa)' : '(Kelurahan)'}
+                          </span>
                         </TableCell>
                         <TableCell align='right'>{kelurahan.total}</TableCell>
                       </TableRow>
