@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme:Theme) => createStyles({
   },
   thNo: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: '50px'
   }
 }));
 

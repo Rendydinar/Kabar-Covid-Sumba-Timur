@@ -1,32 +1,38 @@
 import { Typography } from '@material-ui/core';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
-import { IVaksin } from '../../interfaces';
+import React from 'react';
+import { IBeritaCard } from '../../interfaces';
 import { classNames } from '../../lib/classNames';
 import { shimmer, toBase64 } from '../../utils';
 import useStyles from './styles';
+import { Button } from '@material-ui/core';
+import { getDateFormated } from '../../utils/date';
+import Link from 'next/link';
 
 interface IProps {
-  vaksin: IVaksin;
+  berita: IBeritaCard;
 }
 
-const CardVaksin: React.FC<IProps> = (props) => {
+const CardBerita: React.FC<IProps> = (props) => {
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <div className={classes.header}>
-        <Typography className={classes.dateVaksin}>
-          {props.vaksin.date}
+        <Typography className={classes.titlePost}>
+          {props.berita.title}
+        </Typography>
+        <Typography className={classes.author}>
+          {props.berita.author}
+        </Typography>
+        <Typography className={classes.date}>
+          {getDateFormated(new Date(props.berita.date))}
         </Typography>
       </div>
       <div className={classes.imageVaksinContainer}>
         <Image
           priority
-          src={props.vaksin.img_url}
-          alt={props.vaksin.date}
-          // height={700}
-          // width={700}
+          src={props.berita.img}
+          alt={props.berita.title}
           layout='fill'
           className={'imageVaksin'}
           placeholder='blur'
@@ -35,11 +41,18 @@ const CardVaksin: React.FC<IProps> = (props) => {
           )}`}
         />
       </div>
-      <div>
-        <Typography></Typography>
+      <div className={classes.content}>
+        <Typography className={classes.description}>
+          {props.berita.description}
+        </Typography>
+      </div>
+      <div className={classes.footer}>
+        <Link href={`/kabar-berita/${props.berita.id}`}>
+          <Button>Baca</Button>
+        </Link>
       </div>
     </div>
   );
 };
 
-export default CardVaksin;
+export default CardBerita;

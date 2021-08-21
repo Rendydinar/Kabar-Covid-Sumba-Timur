@@ -33,6 +33,7 @@
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "prettier": "^2.3.2",
     "typescript": "latest"
   }
 }

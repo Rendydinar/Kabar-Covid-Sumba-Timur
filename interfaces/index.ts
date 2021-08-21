@@ -1,11 +1,14 @@
 export interface IKelurahan {
   name: string;
   total: number;
+  isShow?: boolean;
+  isDesa?: boolean;
 }
 
 export interface IKecamatan {
   name: string;
   kelurahan: IKelurahan[];
+  isShow?: boolean;
   total?: number;
 }
 
@@ -24,4 +27,18 @@ export interface IVaksin {
   keterangan?: string;
   sumber?: string;
   jenis_vaksin?: string;  
+  place_map?:string;
+  kewajiban?:string[];
+  kouta?:number;
+  waktu_berakhir_timestamp?:number
+  isShow: boolean;
+}
+
+export interface IBeritaCard {
+  date: string;
+  title: string;
+  id: string;
+  author: string;
+  description: string;
+  img: string;
 }
