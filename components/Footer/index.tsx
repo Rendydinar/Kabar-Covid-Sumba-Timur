@@ -15,8 +15,10 @@ import { MdContactPhone } from 'react-icons/md';
 import { RiVirusFill } from 'react-icons/ri';
 import { VscFeedback } from 'react-icons/vsc';
 import { ImNewspaper } from 'react-icons/im';
+import { GiGiftOfKnowledge } from 'react-icons/gi';
 import { LINK_FEEDBACK, MESSAGE_WHATSSAPP } from '../../constant';
 import useStyles from './styles';
+import Link from 'next/link';
 
 interface IProps {}
 interface IListMore {
@@ -25,6 +27,11 @@ interface IListMore {
   icon: JSX.Element;
 }
 const ListMore: IListMore[] = [
+  {
+    label: 'Kabar Edukasi',
+    value: 'kabar-edukasi',
+    icon: <GiGiftOfKnowledge size={26} />,
+  },
   {
     label: 'Tentang',
     value: 'tentang',
@@ -97,14 +104,16 @@ const Footer: React.FC<IProps> = (): ReactElement => {
     <div className={classes.list} role='presentation'>
       <List className={classes.containerList}>
         {ListMore.map((list: IListMore, index: number) => (
-          <ListItem
-            button
-            key={index}
-            onClick={(e) => changeNavigation(e, list.value)}
-          >
-            <ListItemIcon>{list.icon}</ListItemIcon>
-            <ListItemText primary={list.label} />
-          </ListItem>
+          <Link href={`${list.value}`} key={index}>
+            <ListItem
+              button
+              key={index}
+              onClick={(e) => changeNavigation(e, list.value)}
+            >
+              <ListItemIcon>{list.icon}</ListItemIcon>
+              <ListItemText primary={list.label} />
+            </ListItem>
+          </Link>
         ))}
       </List>
       <footer className={classes.footer}>
