@@ -34,7 +34,6 @@ export interface IVaksin {
   isShow: boolean;
 }
 
-
 export interface IBerita {
   title: string;
   date: string;
@@ -56,5 +55,36 @@ export interface IBeritaCard {
   description: string;
   img: string;
   type: string;
+  sumber: string;
+}
+
+export interface IEdukasiCard {
+  title:string;
+  id: string;
+  target:string[];
+  date:string;
+  author:string;
+  sumber:string;
+  description:string;
+  img:string;
+}
+
+
+export interface IEdukasi {
+  title: string;
+  date: string;
+  author: string;
+  sumber: string;
+  description: string;
+  contentHtml: string;
+  img: string;
+  link_site?: string[] | undefined; 
+  target:string[];
+  id:string;
+}
+
+export interface IQnA {
+  title: string;
+  content: string;
   sumber: string;
 }

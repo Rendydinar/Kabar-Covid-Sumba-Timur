@@ -5,7 +5,7 @@ import React, { ReactElement } from 'react';
 import Jumbotron from '../components/Jumbotron';
 import Layout from '../components/Layout';
 import { IBeritaCard } from '../interfaces';
-import { getSortedPostsData } from '../lib/posts';
+import { getSortedPostsData } from '../lib/postsKabarBerita';
 import CardBerita from '../components/CardBerita';
 
 const useStyles = makeStyles((theme: Theme) =>
