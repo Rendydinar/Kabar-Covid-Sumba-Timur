@@ -82,11 +82,11 @@ export default function Post({ postData }: { postData: IBerita }) {
         <meta name='twitter:description' content={postData.description} />
         <meta
           property='og:url'
-          content={`https://kabar-covid-sumba-timur.vercel.app/kabar-isolasi/${postData.id}`}
+          content={`https://kabar-covid-sumba-timur.vercel.app/kabar-berita/${postData.id}`}
         />
         <meta
           name='twitter:site'
-          content={`https://kabar-covid-sumba-timur.vercel.app/kabar-isolasi/${postData.id}`}
+          content={`https://kabar-covid-sumba-timur.vercel.app/kabar-berita/${postData.id}`}
         />
         <meta property='og:image' content={postData.img} />
         <meta name='twitter:image:src' content={postData.img} />
