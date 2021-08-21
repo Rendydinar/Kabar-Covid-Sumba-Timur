@@ -120,6 +120,18 @@ const Home: React.FC<IProps> = (props): ReactElement => {
           name='twitter:site'
           content='https://kabar-covid-sumba-timur.vercel.app/'
         />
+        <meta
+          property='og:image'
+          content='https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2Flarge-logo.png?alt=media&token=aa2f190e-2d4f-4bf7-998f-b57c23dfec6c'
+        />
+        <meta
+          name='twitter:image:src'
+          content='https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2Flarge-logo.png?alt=media&token=aa2f190e-2d4f-4bf7-998f-b57c23dfec6c'
+        />
+        <meta property='og:image:width' content='1000' />
+        <meta property='og:image:height' content='667' />
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta name='twitter:image:alt' content='Kabar Covid Sumba Timur' />
 
         <title>Kabar Covid Sumba Timur</title>
         <link rel='icon' href='/favicon.ico' />

@@ -99,24 +99,10 @@ const Layout: React.FC<IProps> = (props) => {
           content='mstile-310x310.png'
         />
 
-        <meta name='twitter:card' content='summary_large_image' />
         <meta name='theme-color' content='#28DF99' />
 
         <meta property='og:type' content='website' />
 
-        <meta
-          property='og:image'
-          content='https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2Flarge-logo.png?alt=media&token=aa2f190e-2d4f-4bf7-998f-b57c23dfec6c'
-        />
-        <meta property='og:image:width' content='1000' />
-        <meta property='og:image:height' content='667' />
-
-        <meta name='twitter:card' content='summary_large_image' />
-        <meta
-          name='twitter:image:src'
-          content='https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2Flarge-logo.png?alt=media&token=aa2f190e-2d4f-4bf7-998f-b57c23dfec6c'
-        />
-        <meta name='twitter:image:alt' content='Kabar Covid Sumba Timur' />
         <meta
           name='google-site-verification'
           content='ou8SFQ1GL_Y2KaAsYebqCH7UF3ICgauDWGzXT0Gooio'

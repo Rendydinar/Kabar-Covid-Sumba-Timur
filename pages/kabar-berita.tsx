@@ -1,13 +1,13 @@
+import { Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import sortBy from 'lodash/sortBy';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 import React, { ReactElement } from 'react';
-import CardVaksin from '../components/CardVaksin';
+import Date from '../components/date';
 import Jumbotron from '../components/Jumbotron';
 import Layout from '../components/Layout';
-import { getDataVaksin } from '../fetchData/getDataVaksin';
-import { IVaksin } from '../interfaces';
+import { getSortedPostsData } from '../lib/posts';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,27 +24,33 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+
+interface IBeritaData {
+  date: string;
+  title: string;
+  id: string;
+  author: string;
+  description: string;
+}
 interface IProps {
-  data: IVaksin[];
-  success: boolean;
-  revalidate: number;
-  fallback: boolean;
+  allPostsData: IBeritaData[];
 }
 
-const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
+const KabarBerita: React.FC<IProps> = (props): ReactElement => {
   const classes = useStyles();
+  console.log('props', props);
 
   return (
     <Layout>
       <Head>
-        <meta name='og:keywords' content='Kabar Vaksin Covid-19 Sumba Timur' />
+        <meta name='og:keywords' content='Kabar Berita Covid-19 Sumba Timur' />
         <meta
           name='og:title'
-          content='Kabar Covid Sumba Timur | Kabar Vaksin'
+          content='Kabar Covid Sumba Timur | Kabar Berita'
         />
         <meta
           property='og:site_name'
-          content='Kabar Covid Sumba Timur | Kabar Vaksin'
+          content='Kabar Covid Sumba Timur | Kabar Berita'
         />
         <meta
           property='og:description'
@@ -55,15 +61,6 @@ const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
           name='twitter:description'
           content='Informasi seputar vaksin covid-19 di Sumba Timur'
         />
-        <meta
-          property='og:url'
-          content='https://kabar-covid-sumba-timur.vercel.app/kabar-vaksin'
-        />
-        <meta
-          name='twitter:site'
-          content='https://kabar-covid-sumba-timur.vercel.app/kabar-vaksin'
-        />
-
         <meta
           property='og:image'
           content='https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2Flarge-logo.png?alt=media&token=aa2f190e-2d4f-4bf7-998f-b57c23dfec6c'
@@ -77,58 +74,51 @@ const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:image:alt' content='Kabar Covid Sumba Timur' />
 
-        <title>Kabar Covid-19 Sumba Timur | Kabar Vaksin</title>
+        <meta
+          property='og:url'
+          content='https://kabar-covid-sumba-timur.vercel.app/kabar-vaksin'
+        />
+        <meta
+          name='twitter:site'
+          content='https://kabar-covid-sumba-timur.vercel.app/kabar-vaksin'
+        />
+        <title>Kabar Covid-19 Sumba Timur | Kabar Berita</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <div>
         <Jumbotron
-          title='Kabar Vaksin'
-          description='Informasi seputar vaksin covid-19 di Sumba Timur'
+          title='Kabar Berita'
+          description='Informasi seputar berita covid-19 di Sumba Timur'
         />
         <div className={classes.root}>
-          <div className={classes.containerContent}>
-            {props.data.map((vaksin: IVaksin, index: number) => (
-              <CardVaksin vaksin={vaksin} key={index} />
+          <ul>
+            {props.allPostsData.map((berita: IBeritaData, index: number) => (
+              <li key={index}>
+                <Link href={`/kabar-berita/${berita.id}`}>
+                  <a>{berita.title}</a>
+                </Link>
+                <br />
+                <small>
+                  <Date dateString={berita.date} />
+                </small>{' '}
+                <small>{berita.author}</small>
+                <Typography>{berita.description}</Typography>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
     </Layout>
   );
 };
 
-export default KabarVaksin;
+export default KabarBerita;
 
 export const getStaticProps: GetStaticProps = async () => {
-  try {
-    let dataVaksin: IVaksin[] = [];
-    let responseGetDataVaksin: any = await getDataVaksin();
-    responseGetDataVaksin.map((vaksin: any) => {
-      dataVaksin.push({
-        ...vaksin.data(),
-      });
-    });
-    dataVaksin = sortBy(dataVaksin, 'timestamp').reverse();
-    return {
-      props: {
-        success: true,
-        data: dataVaksin,
-      },
-      // Next.js will attempt to re-generate the page:
-      // - When a request comes in
-      // - At most once every 180 seconds (3 minutes)
-      revalidate: 180, // In seconds
-    };
-  } catch (err) {
-    return {
-      props: {
-        success: false,
-        data: [],
-      },
-      // Next.js will attempt to re-generate the page:
-      // - When a request comes in
-      // - At most once every 180 seconds (3 minutes)
-      revalidate: 180, // In seconds
-    };
-  }
+  const allPostsData = getSortedPostsData();
+  return {
+    props: {
+      allPostsData: allPostsData,
+    },
+  };
 };

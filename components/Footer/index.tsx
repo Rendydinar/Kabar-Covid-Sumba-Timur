@@ -14,6 +14,7 @@ import { HiInformationCircle } from 'react-icons/hi';
 import { MdContactPhone } from 'react-icons/md';
 import { RiVirusFill } from 'react-icons/ri';
 import { VscFeedback } from 'react-icons/vsc';
+import { ImNewspaper } from 'react-icons/im';
 import { LINK_FEEDBACK, MESSAGE_WHATSSAPP } from '../../constant';
 import useStyles from './styles';
 
@@ -189,6 +190,16 @@ const Footer: React.FC<IProps> = (): ReactElement => {
           label='Kabar Isolasi'
           value='kabar-isolasi'
           icon={<GiFamilyHouse size={26} />}
+        />
+        <BottomNavigationAction
+          classes={{
+            root: classes.rootBottomNavigationAction,
+            label: classes.labelBottomNavigationAction,
+            selected: classes.selectedNavigation,
+          }}
+          label='Kabar Berita'
+          value='kabar-berita'
+          icon={<ImNewspaper size={26} />}
         />
         <BottomNavigationAction
           label='More'
