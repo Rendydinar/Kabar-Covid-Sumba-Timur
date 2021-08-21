@@ -67,11 +67,11 @@ const KabarBerita: React.FC<IProps> = (props): ReactElement => {
 
         <meta
           property='og:url'
-          content='https://kabar-covid-sumba-timur.vercel.app/kabar-vaksin'
+          content='https://kabar-covid-sumba-timur.vercel.app/kabar-berita'
         />
         <meta
           name='twitter:site'
-          content='https://kabar-covid-sumba-timur.vercel.app/kabar-vaksin'
+          content='https://kabar-covid-sumba-timur.vercel.app/kabar-berita'
         />
         <title>Kabar Covid-19 Sumba Timur | Kabar Berita</title>
         <link rel='icon' href='/favicon.ico' />
