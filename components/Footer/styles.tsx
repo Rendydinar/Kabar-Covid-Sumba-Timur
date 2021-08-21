@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     labelBottomNavigationAction: {
-      fontSize: '18px',
+      fontSize: '16px',
       opacity: '1 !important',
       fontWeight: 600,
       [theme.breakpoints.down('sm')]: {
