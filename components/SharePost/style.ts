@@ -12,6 +12,10 @@ const useStyles = makeStyles((theme:Theme) =>
       display: 'flex',
       marginTop: '5px',
       gap: '15px'
+    },
+    titleSection: {
+      fontWeight: 800,
+      fontSize: 18
     }
   })
 )

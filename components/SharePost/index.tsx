@@ -17,7 +17,7 @@ const SharePost: React.FC<IProps> = (props) => {
 
   return (
     <div className={classes.root}>
-      <Typography>Bagikan:</Typography>
+      <Typography className={classes.titleSection}>Bagikan:</Typography>
       <div className={classes.wrapperSosialMediaShare}>
         <a
           href={`http://www.facebook.com/sharer.php?u=${PUBLIC_PATH}/kabar-berita/${props.link}`}
