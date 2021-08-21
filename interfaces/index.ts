@@ -34,6 +34,20 @@ export interface IVaksin {
   isShow: boolean;
 }
 
+
+export interface IBerita {
+  title: string;
+  date: string;
+  author: string;
+  link_document: string;
+  sumber: string;
+  description: string;
+  contentHtml: string;
+  img: string;
+  link_site?: string[] | undefined; 
+  type: string;
+  id:string;
+}
 export interface IBeritaCard {
   date: string;
   title: string;
@@ -41,4 +55,6 @@ export interface IBeritaCard {
   author: string;
   description: string;
   img: string;
+  type: string;
+  sumber: string;
 }

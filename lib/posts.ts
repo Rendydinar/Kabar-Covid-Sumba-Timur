@@ -29,7 +29,9 @@ export function getSortedPostsData() {
         author: string;
         description: string; 
         img: string;
-       })
+        type: string;
+        sumber: string;
+      })
     }
   })
   // Sort posts by date
@@ -77,6 +79,7 @@ export async function getPostData(id: string) {
       sumber: string;
       description: string; 
       img: string;
+      type: string;
     })
   }
 }

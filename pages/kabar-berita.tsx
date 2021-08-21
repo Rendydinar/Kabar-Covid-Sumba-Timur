@@ -30,7 +30,6 @@ interface IProps {
 
 const KabarBerita: React.FC<IProps> = (props): ReactElement => {
   const classes = useStyles();
-  console.log('props', props);
 
   return (
     <Layout>
@@ -46,12 +45,12 @@ const KabarBerita: React.FC<IProps> = (props): ReactElement => {
         />
         <meta
           property='og:description'
-          content='Informasi seputar vaksin covid-19 di Sumba Timur'
+          content='Informasi seputar berita & artikel covid-19 di Sumba Timur'
         />
         <meta name='twitter:title' content='Kabar Covid Sumba Timur' />
         <meta
           name='twitter:description'
-          content='Informasi seputar vaksin covid-19 di Sumba Timur'
+          content='Informasi seputar berita & artikel covid-19 di Sumba Timur'
         />
         <meta
           property='og:image'
@@ -80,7 +79,7 @@ const KabarBerita: React.FC<IProps> = (props): ReactElement => {
       <div>
         <Jumbotron
           title='Kabar Berita'
-          description='Informasi seputar berita covid-19 di Sumba Timur'
+          description='Informasi seputar berita & artikel covid-19 di Sumba Timur'
         />
         <div className={classes.root}>
           <ul>

@@ -117,3 +117,10 @@ button:focus {
   position: relative !important;
   height: unset !important;
 }
+
+.imageBeritaCard {
+  object-fit: contain;
+  width: 100% !important;
+  position: relative !important;
+  height: 300px !important;
+}

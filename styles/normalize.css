@@ -75,6 +75,8 @@ pre {
 
 a {
   background-color: transparent;
+  color: #28df99;
+  text-decoration: underline; /* 2 */
 }
 
 /**

@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: 'transparent',
       borderTop: 'solid .5px var(--color-muted)',
       [theme.breakpoints.down('sm')]: {
-        padding: '30px 30px',
+        padding: '30px 0px',
+        justifyContent: 'space-between',
       },
     },
     labelBottomNavigationAction: {

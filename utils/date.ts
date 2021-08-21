@@ -12,7 +12,6 @@ export const getDateFormated = (timestamp: Date):string => {
 
 // convert milisecond to hours
 export const milisecondToHour = (milisecond: number): number => {
-  console.log('hour',Math.floor((milisecond / (1000 * 60 * 60)) % 24))
   return Math.floor((milisecond / (1000 * 60 * 60)) % 24);
 };
 
@@ -23,6 +22,5 @@ export const milisecondToDay = (milisecond: number): number => {
 
 // convert milisecond to minutes
 export const milisecondToMinutes = (milisecond: number): number => {
-  console.log('minutes',Math.floor((milisecond % (1000 * 60 * 60)) / (1000 * 60)))
   return Math.floor((milisecond % (1000 * 60 * 60)) / (1000 * 60))
 };
