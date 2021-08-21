@@ -7,6 +7,7 @@ import '../styles/custom.css';
 import '../styles/normalize.css';
 import '../styles/suitcss-base.css';
 import theme from '../styles/muiTheme';
+import { FirebaseAnalytics } from '../firebase/clientApp';
 
 export default function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
@@ -16,6 +17,10 @@ export default function MyApp(props: AppProps) {
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
       jssStyles.parentElement!.removeChild(jssStyles);
+    }
+    // Enable Analytics in Production
+    if (process.env.NODE_ENV === 'production') {
+      FirebaseAnalytics();
     }
   }, []);
 
