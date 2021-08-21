@@ -4,27 +4,33 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import Layout from '../../components/Layout';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
-import Date from '../../components/date';
 import { IconButton } from '@material-ui/core';
 import { TiArrowBack } from 'react-icons/ti';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { shimmer, toBase64 } from '../../utils';
 import Jumbotron from '../../components/Jumbotron';
+import { IBerita } from '../../interfaces';
+import Header from '../../components/CardBerita/header';
+import SharePost from '../../components/SharePost';
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      padding: '0 60px',
+      padding: '10px 60px',
       [theme.breakpoints.down('sm')]: {
-        padding: '0 20px',
+        padding: '10px   20px',
       },
     },
     titlePost: {
-      fontSize: '2rem',
+      fontSize: '24px',
       lineHeight: '1.3',
       fontWeight: 800,
       letterSpacing: '-0.05rem',
       margin: '1rem 0',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '18px',
+      },
     },
     date: {
       color: '#666',
@@ -34,52 +40,34 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     imageVaksinContainer: {
       width: '100%',
-      display: 'flex',
-      justifyContent: 'center',
+      margin: '30px 0',
+      '& > div': {
+        position: 'unset !important',
+      },
+      [theme.breakpoints.down('sm')]: {
+        margin: '20px 0',
+      },
+    },
+    btnBack: {
+      padding: 0,
+      '&:hover': {
+        backgroundColor: 'transparent',
+      },
+    },
+    labelBtnBack: {
+      fontSize: '16px',
     },
   })
 );
 
-export default function Post({
-  postData,
-}: {
-  postData: {
-    title: string;
-    date: string;
-    author: string;
-    link_document: string;
-    sumber: string;
-    description: string;
-    contentHtml: string;
-    img: string;
-    link_site?: string[] | undefined;
-  };
-}) {
+export default function Post({ postData }: { postData: IBerita }) {
   const classes = useStyles();
   const router = useRouter();
-
-  // <!-- Untuk Twitter -->
-  // <a href="https://twitter.com/share?url=https://dumetschool.com&text=Simple%20Share%20Buttons&hashtags=simplesharebuttons" target="_blank">
-  //     <img src="https://www.kursuswebsite.org/wp-content/uploads/2017/03/twitter.png" alt="Twitter" />
-  // </a>
-
-  // <!-- Untuk Facebook -->
-  // <a href="http://www.facebook.com/sharer.php?u=https://dumetschool.com" target="_blank">
-  //     <img src="https://www.kursuswebsite.org/wp-content/uploads/2017/03/facebook.png" alt="Facebook" />
-  // </a>
-
-  // <!-- Untuk Whatsapp -->
-  <a
-    href='whatsapp://send?text=https://twitter.com/home'
-    data-action='share/whatsapp/share'
-  >
-    Share via Whatsapp
-  </a>;
 
   const handleBack = () => {
     router.back();
   };
-  console.log('postData', postData);
+
   return (
     <Layout>
       <Head>
@@ -109,24 +97,30 @@ export default function Post({
       </Head>
       <Jumbotron title='Kabar Berita' description='' />
       <div className={classes.root}>
-        <IconButton onClick={handleBack}>
+        <IconButton
+          onClick={handleBack}
+          classes={{ label: classes.labelBtnBack }}
+          className={classes.btnBack}
+        >
+          Kembali{'  '}
           <TiArrowBack />
         </IconButton>
         <article>
           <Typography className={classes.titlePost}>
             {postData.title}
           </Typography>
-          <div className={classes.date}>
-            <Date dateString={postData.date} />
-          </div>
-          <Typography className={classes.date}>{postData.author}</Typography>
+          <Header
+            author={postData.author}
+            date={postData.date}
+            type={postData.type}
+            sumber={postData.sumber}
+          />
           <div className={classes.imageVaksinContainer}>
             <Image
               priority
               src={postData.img}
               alt={postData.title}
-              height={550}
-              width={750}
+              layout='fill'
               className={'imageVaksin'}
               placeholder='blur'
               blurDataURL={`data:image/svg+xml;base64,${toBase64(
@@ -139,6 +133,7 @@ export default function Post({
             dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
           />
         </article>
+        <SharePost link={postData.id} titlePost={postData.title} />
       </div>
     </Layout>
   );

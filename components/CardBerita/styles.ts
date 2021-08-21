@@ -6,9 +6,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '620px',
+    width: '390px',
     padding: '10px',
-    backgroundColor: '#28DF99',
+    backgroundColor: '#fff',
     borderRadius: '8px',
     boxShadow:
       'rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px',
@@ -17,23 +17,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       width: '100%',
     },
   },
-  titlePost: {
-
-  },
-  author:{},
-  date:{},
-  description: {},
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '100%'
+  description: {
+    fontSize: '14px',
   },
   footer: {
     width: '100%',
-    backgroundColor: '#fff',
-    borderRadius: '5px',
-    boxShadow: 'rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px',
-    padding: '7px',
+    display: 'flex',
+    justifyContent: 'flex-end'
   },
   content: {
 
@@ -43,6 +33,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     '& > div':  {
       position: 'unset !important',
     }
+  },
+  btnBaca: {
+    backgroundColor: '#28DF99',    
   }
 }));
 

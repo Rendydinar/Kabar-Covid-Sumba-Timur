@@ -75,7 +75,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   expand: {
     transform: 'rotate(0deg)',
-    // marginLeft: 'auto',
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest,
     }),
@@ -91,12 +90,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   btnActionCard: {
     height: '40px',
     backgroundColor: '#99F3BD',
-    // width: '50px'
   },
   btnActionCardReport: {
     height: '40px',
     backgroundColor: '#ef5350 !important',
-    // width: '50px'
   },
   containerCardAction: {
     display: 'flex',
@@ -113,7 +110,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     letterSpacing: 'normal',
     fontWeight: 600,
     color: '#000',
-    fontSize: '16px',
+    fontSize: '14px',
     [theme.breakpoints.down('sm')]: {
       fontSize: '13px',
     },
