@@ -18,15 +18,15 @@ const clientCredentials = {
 if (!FirebaseApp.apps.length) {
   FirebaseApp.initializeApp(clientCredentials)
   // Check that `window` is in scope for the analytics module!
-  // if (typeof window !== 'undefined') {
+  if (typeof window !== 'undefined') {
     // Enable analytics. https://firebase.google.com/docs/analytics/get-started
     if ('measurementId' in clientCredentials) {
-      FirebaseApp.analytics()
       FirebaseApp.performance()
       FirebaseApp.firestore().settings({ experimentalForceLongPolling: true, merge: true });
-
     }
-  // }
+  }
 }
+
 export default FirebaseApp
 export const Firestore = FirebaseApp.firestore();
+export const FirebaseAnalytics = FirebaseApp.analytics;
