@@ -1,10 +1,15 @@
-import { Typography } from '@material-ui/core';
+import { Collapse, IconButton, Typography } from '@material-ui/core';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { IVaksin } from '../../interfaces';
 import { classNames } from '../../lib/classNames';
-import { shimmer, toBase64 } from '../../utils';
 import useStyles from './styles';
+import { MdExpandMore } from 'react-icons/md';
+import { RiErrorWarningLine } from 'react-icons/ri';
+import { Button } from '@material-ui/core';
+import { getDateFormated } from '../../utils/date';
+import { REPORT_INFO_VAKSIN_MESSAGE } from '../../constant';
+import { shimmer, toBase64 } from '../../utils';
 
 interface IProps {
   vaksin: IVaksin;
@@ -13,39 +18,57 @@ interface IProps {
 const CardVaksin: React.FC<IProps> = (props) => {
   const [timeCountDown, setTimeCountDown] = useState<string>('');
   const classes = useStyles();
+  const [expanded, setExpanded] = useState<boolean>(false);
+
+  const handleExpandClick = (): void => {
+    setExpanded(!expanded);
+  };
+  const handleSendReport = (): void => {
+    window.open(
+      `https://api.whatsapp.com/send?phone=6282217971133&text=${REPORT_INFO_VAKSIN_MESSAGE}`,
+      '_blank',
+      'noopener noreferrer' // <- This is what makes it open in a new window.
+    );
+  };
 
   useEffect(() => {
-    const getTime = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = props.vaksin.timestamp - now;
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      if (distance < 0) {
-        clearInterval(getTime);
+    const now = new Date().getTime();
+    if (props.vaksin.waktu_berakhir_timestamp) {
+      if (
+        now > props.vaksin.timestamp &&
+        now < props.vaksin.waktu_berakhir_timestamp
+      ) {
+        setTimeCountDown('Sedang Berlangsung');
+      } else if (now < props.vaksin.timestamp) {
+        setTimeCountDown('Akan Berlangsung');
+      } else if (now > props.vaksin.waktu_berakhir_timestamp) {
         setTimeCountDown('Sudah Selesai');
-      } else {
-        setTimeCountDown(`${days}d ${hours}h ${minutes}m ${seconds}s`);
       }
-    }, 1000);
-    return () => clearInterval(getTime);
-  }, []);
+    } else {
+      setTimeCountDown('');
+    }
+  }, [props.vaksin]);
 
   return (
     <div className={classes.root}>
       <div className={classes.header}>
         <Typography className={classes.dateVaksin}>
-          {props.vaksin.date}
+          {`${getDateFormated(new Date(props.vaksin.timestamp))} ${
+            new Date(props.vaksin.timestamp).getHours() < 10
+              ? `0${new Date(props.vaksin.timestamp).getHours()}`
+              : `${new Date(props.vaksin.timestamp).getHours()}`
+          }:${
+            new Date(props.vaksin.timestamp).getMinutes() < 10
+              ? `0${new Date(props.vaksin.timestamp).getMinutes()}`
+              : `${new Date(props.vaksin.timestamp).getMinutes()}`
+          } WITA`}
         </Typography>
         <Typography
           className={classNames(
             classes.dateCountDownVaksin,
-            timeCountDown === 'Sudah Selesai' && 'timeout'
+            timeCountDown === 'Sedang Berlangsung' && 'sedangBerlangsung',
+            timeCountDown === 'Akan Berlangsung' && 'akanHadir',
+            timeCountDown === 'Sudah Selesai' && 'sudahSelesai'
           )}
         >
           {timeCountDown}
@@ -56,8 +79,6 @@ const CardVaksin: React.FC<IProps> = (props) => {
           priority
           src={props.vaksin.img_url}
           alt={props.vaksin.date}
-          // height={700}
-          // width={700}
           layout='fill'
           className={'imageVaksin'}
           placeholder='blur'
@@ -66,20 +87,98 @@ const CardVaksin: React.FC<IProps> = (props) => {
           )}`}
         />
       </div>
-      {(props.vaksin.keterangan || props.vaksin.sumber) && (
-        <div className={classes.footer}>
-          {props.vaksin.keterangan && (
-            <Typography className={classes.info}>
-              Keterangan: {props.vaksin.keterangan}
+      <div className={classes.footer}>
+        {(props.vaksin.keterangan || props.vaksin.sumber) && (
+          <>
+            {props.vaksin.keterangan && (
+              <>
+                <Typography className={classes.info}>Keterangan:</Typography>
+                <Typography className={classes.textInfoDescirption}>
+                  {props.vaksin.keterangan}
+                </Typography>
+              </>
+            )}
+            {props.vaksin.sumber && (
+              <>
+                <Typography className={classes.info}>Sumber:</Typography>
+                <Typography className={classes.textInfoDescirption}>
+                  {props.vaksin.sumber}
+                </Typography>
+              </>
+            )}
+          </>
+        )}
+        {props.vaksin.jenis_vaksin && (
+          <>
+            <Typography className={classes.info}>Jenis Vaksin:</Typography>
+            <Typography className={classes.textInfoDescirption}>
+              {props.vaksin.jenis_vaksin}
             </Typography>
-          )}
-          {props.vaksin.sumber && (
-            <Typography className={classes.info}>
-              Sumber: {props.vaksin.sumber}
+          </>
+        )}
+        {props.vaksin.kouta && props.vaksin.kouta !== 0 ? (
+          <>
+            <Typography className={classes.info}>Kouta:</Typography>
+            <Typography className={classes.textInfoDescirption}>
+              {props.vaksin.kouta}
+              {' Orang'}
             </Typography>
-          )}
-        </div>
-      )}
+          </>
+        ) : (
+          <></>
+        )}
+
+        {props.vaksin.kewajiban && props.vaksin.kewajiban.length > 0 && (
+          <>
+            <Typography className={classes.info}>Kewajiban:</Typography>
+            {props.vaksin.kewajiban.map((kewajiban: string, index: number) => (
+              <Typography key={index} className={classes.textInfoDescirption}>
+                {'- '}
+                {kewajiban}
+              </Typography>
+            ))}
+          </>
+        )}
+        {props.vaksin.place_map && (
+          <>
+            <div className={classes.containerCardAction}>
+              <Button
+                onClick={handleExpandClick}
+                className={classes.btnActionCard}
+              >
+                <Typography className={classes.labelBtnAction}>
+                  Lokasi Vaksin
+                </Typography>
+                <IconButton
+                  className={classNames(classes.expand, {
+                    [classes.expandOpen]: expanded,
+                  })}
+                  aria-expanded={expanded}
+                  aria-label='show more'
+                >
+                  <MdExpandMore />
+                </IconButton>
+              </Button>
+              <Button
+                onClick={handleSendReport}
+                className={classes.btnActionCardReport}
+              >
+                <Typography className={classes.labelBtnAction}>
+                  Lapor Kesalahan
+                </Typography>
+                <IconButton>
+                  <RiErrorWarningLine />
+                </IconButton>
+              </Button>
+            </div>
+            <Collapse in={expanded} timeout='auto' unmountOnExit>
+              <div
+                dangerouslySetInnerHTML={{ __html: props.vaksin.place_map }}
+              />
+            </Collapse>
+          </>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,13 +1,12 @@
-import { Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import Link from 'next/link';
 import React, { ReactElement } from 'react';
-import Date from '../components/date';
 import Jumbotron from '../components/Jumbotron';
 import Layout from '../components/Layout';
+import { IBeritaCard } from '../interfaces';
 import { getSortedPostsData } from '../lib/posts';
+import CardBerita from '../components/CardBerita';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,15 +24,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface IBeritaData {
-  date: string;
-  title: string;
-  id: string;
-  author: string;
-  description: string;
-}
 interface IProps {
-  allPostsData: IBeritaData[];
+  allPostsData: IBeritaCard[];
 }
 
 const KabarBerita: React.FC<IProps> = (props): ReactElement => {
@@ -92,17 +84,9 @@ const KabarBerita: React.FC<IProps> = (props): ReactElement => {
         />
         <div className={classes.root}>
           <ul>
-            {props.allPostsData.map((berita: IBeritaData, index: number) => (
+            {props.allPostsData.map((berita: IBeritaCard, index: number) => (
               <li key={index}>
-                <Link href={`/kabar-berita/${berita.id}`}>
-                  <a>{berita.title}</a>
-                </Link>
-                <br />
-                <small>
-                  <Date dateString={berita.date} />
-                </small>{' '}
-                <small>{berita.author}</small>
-                <Typography>{berita.description}</Typography>
+                <CardBerita key={index} berita={berita} />
               </li>
             ))}
           </ul>

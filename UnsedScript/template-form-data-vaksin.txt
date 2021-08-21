@@ -1,0 +1,56 @@
+'Sinovac','AstraZeneca','Sinopharm', 'Moderna', 'Pfizer', 'Novavax'
+
+date: "20-08-2021"
+img_url: "https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2F3a17cea6-e74d-47db-90e0-fe6928e17ae4.jpeg?alt=media&token=be0629d9-9a49-408b-8d25-1f188654780a"
+isShow: true
+jenis_vaksin: "AstraZeneca"
+keterangan: "Dosis 1, AstraZeneca Puskesmas Waingapu di Kejaksaan"
+kewajiban: []
+kouta: 0
+place_map: "<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.2464907592807!2d120.257858649784!3d-9.659967793050834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c4c9b5af706b8c1%3A0x65a690205c087f37!2sKejaksaan%20Negeri%20Sumba%20Timur!5e0!3m2!1sen!2sid!4v1629399669571!5m2!1sen!2sid" width="600" height="450" style="border:0;width:100%;" allowfullscreen="" loading="lazy"></iframe>"
+sumber: "Informasi dari WhatsApp"
+timestamp: 1629417600000
+waktu_berakhir_timestamp: 1629453600000
+
+date: "20-08-2021"
+img_url: "https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2F3a17cea6-e74d-47db-90e0-fe6928e17ae4.jpeg?alt=media&token=be0629d9-9a49-408b-8d25-1f188654780a"
+isShow: true
+jenis_vaksin: "Sinovac"
+keterangan: "Dosis 2, Sinovac Puskesmas Kanatang di Polres"
+kewajiban: []
+kouta: 0
+place_map: "<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.2979685302057!2d120.26885344978393!3d-9.65556129305388!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c4c823fffffffe3%3A0x4dc89c9eafa1c7e9!2sEast%20Sumba%20district%20police!5e0!3m2!1sen!2sid!4v1629399735089!5m2!1sen!2sid" width="600" height="450" style="border:0;width:100%;" allowfullscreen="" loading="lazy"></iframe>"
+sumber: "Informasi dari WhatsApp"
+timestamp: 1629417600000
+waktu_berakhir_timestamp: 1629453600000
+
+date: "20-08-2021"
+img_url: "https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2F3a17cea6-e74d-47db-90e0-fe6928e17ae4.jpeg?alt=media&token=be0629d9-9a49-408b-8d25-1f188654780a"
+isShow: true
+jenis_vaksin: "AstraZeneca"
+keterangan: "Dosis 1, AstraZeneca Puskesmas Kawangu di Desa Laindeha"
+kewajiban: []
+kouta: 0
+place_map: "<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62900.48018501874!2d120.29629340063877!3d-9.826833200252617!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c4c7d59e7d9ba6f%3A0xab31e69ead72d4dd!2sLaindeha%2C%20Pandawai%2C%20East%20Sumba%20Regency%2C%20East%20Nusa%20Tenggara!5e0!3m2!1sen!2sid!4v1629399853228!5m2!1sen!2sid" width="600" height="450" style="border:0;width:100%" allowfullscreen="" loading="lazy"></iframe>"
+sumber: "Informasi dari WhatsApp"
+timestamp: 1629417600000
+waktu_berakhir_timestamp: 1629453600000
+
+
+Syalom Untuk Kita Semua 
+
+Hari ini akan dilaksanakan vaksin covid-19 di Sumba Timur di 3 titik lokasi berbeda
+Untuk selengkapnya bisa kunjungi Website Kabar Covid Sumba Timur pada fitur Kabar Vaksin
+
+https://kabar-covid-sumba-timur.vercel.app/kabar-vaksin
+
+Kalau Bapak/Ibu/Sdr/i mempunyai informasi seputar jadwal Vaksin Covid-19 bisa laporkan ke saya agar saya tambahkan kedalam website.
+
+Silakan berikan umpan balik jika ingin disampaikan 🙏
+Silakan dibagikan link website jika dirasa bermanfaat 🙏
+Terimakasih 🙏
+
+#KabarCovidSumbaTimur
+#Covid19
+#VaksinCovid19
+#SumbaTimurGoVaksin

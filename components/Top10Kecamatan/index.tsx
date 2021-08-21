@@ -25,9 +25,11 @@ const Top10Kecamatan: React.FC<IProps> = (props) => {
           fontWeight: 700,
           color: '#e44933',
           textAlign: 'center',
+          marginTop: '30px',
+          marginBottom: '15px',
         }}
       >
-        Top 10 Kelurahan Dengan Kasus Terbanyak
+        Top 10 Kelurahan/Desa Dengan Kasus Terbanyak
       </Typography>
       <TableContainer>
         <Table size='small' aria-label='a dense table'>
@@ -41,7 +43,7 @@ const Top10Kecamatan: React.FC<IProps> = (props) => {
               >
                 No
               </TableCell>
-              <TableCell className={classes.rowTitle}>Kelurahan</TableCell>
+              <TableCell className={classes.rowTitle}>Kelurahan/Desa</TableCell>
               <TableCell className={classes.rowTitle} align='right'>
                 Total
               </TableCell>
@@ -52,12 +54,20 @@ const Top10Kecamatan: React.FC<IProps> = (props) => {
               (kelurahan: IKelurahan, index: number) => (
                 <TableRow key={index}>
                   <TableCell>{index + 1}</TableCell>
-                  <TableCell>{kelurahan.name}</TableCell>
+                  <TableCell
+                    style={{
+                      fontSize: '16px',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {kelurahan.name}
+                  </TableCell>
                   <TableCell
                     align='right'
                     style={{
                       color: '#e44933',
                       fontWeight: 'bold',
+                      fontSize: '16px',
                     }}
                   >
                     {kelurahan.total}
