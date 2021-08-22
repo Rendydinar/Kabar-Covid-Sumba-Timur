@@ -32,9 +32,6 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: '18px',
       },
     },
-    date: {
-      color: '#666',
-    },
     contentPost: {
       fontSize: 16,
     },

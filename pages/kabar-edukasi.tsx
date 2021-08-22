@@ -23,6 +23,34 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       alignItems: 'center',
     },
+    titleSection: {
+      fontSize: '20px',
+      fontWeight: 600,
+      color: '#fff',
+      margin: '10px 0',
+      backgroundColor: '#28DF99',
+      width: 'fit-content',
+      padding: '5px',
+      borderRadius: '8px',
+      boxShadow: 'rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '16px',
+        padding: '3px',
+      },
+    },
+    containerSection: {
+      margin: '30px 0',
+      [theme.breakpoints.down('sm')]: {
+        margin: '15px 0',
+      },
+    },
+    descriptionJombotron: {
+      fontSize: '20px',
+      fontWeight: 500,
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '14px',
+      },
+    },
   })
 );
 
@@ -82,10 +110,13 @@ const KabarEdukasi: React.FC<IProps> = (props): ReactElement => {
         <Jumbotron
           title='Kabar Edukasi'
           description='Kumpulan informasi COVID-19, tips menjaga kesehatan selama pandemi, vaksinasi, hingga penanganan jika Anda terkonfirmasi positif COVID-19 yang disesuaikan dengan kondisi di Sumba Timur.'
+          classNameDescription={classes.descriptionJombotron}
         />
         <div className={classes.root}>
-          <div>
-            <Typography>Artikel Edukasi</Typography>
+          <div className={classes.containerSection}>
+            <Typography className={classes.titleSection}>
+              Artikel Edukasi
+            </Typography>
             <ul>
               {props.allPostsData.map(
                 (edukasi: IEdukasiCard, index: number) => (
@@ -96,8 +127,8 @@ const KabarEdukasi: React.FC<IProps> = (props): ReactElement => {
               )}
             </ul>
           </div>
-          <div>
-            <Typography>Q n A</Typography>
+          <div className={classes.containerSection}>
+            <Typography className={classes.titleSection}>Q n A</Typography>
             <ul>
               {DataQnA.data.map((qna: IQnA, index: number) => (
                 <li key={index}>
