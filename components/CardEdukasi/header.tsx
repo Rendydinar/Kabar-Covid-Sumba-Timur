@@ -53,9 +53,11 @@ const Header: React.FC<IProps> = (props) => {
       <Typography className={classes.author}>
         <FaPen size={14} /> {props.author}
       </Typography>
-      <Typography className={classes.date}>
-        <BiWorld size={14} /> {props.sumber}
-      </Typography>
+      {props.sumber && (
+        <Typography className={classes.date}>
+          <BiWorld size={14} /> {props.sumber}
+        </Typography>
+      )}
       <Typography className={classes.date}>
         <MdDateRange size={14} /> {getDateFormated(new Date(props.date))}
       </Typography>

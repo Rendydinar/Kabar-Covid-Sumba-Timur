@@ -43,8 +43,12 @@ const ItemQnA: React.FC<IProps> = (props) => {
         </Typography>
       </Button>
       <Collapse in={expanded} timeout='auto' unmountOnExit>
-        <Typography>{props.qna.content}</Typography>
-        <Typography>{props.qna.sumber}</Typography>
+        <Typography className={classes.description}>
+          {props.qna.content}
+        </Typography>
+        <Typography className={classes.sumber}>
+          Sumber: {props.qna.sumber}
+        </Typography>
       </Collapse>
     </div>
   );

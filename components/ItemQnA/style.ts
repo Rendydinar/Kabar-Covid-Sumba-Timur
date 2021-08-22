@@ -6,6 +6,9 @@ const useStyles = makeStyles((theme:Theme) =>
     btnActionCard: {
       height: '40px',
       backgroundColor: '#99F3BD',
+      '&:hover': {
+        backgroundColor: '#99F3BD',
+      }
     },
     labelBtnAction: {
       display: 'flex',
@@ -16,7 +19,7 @@ const useStyles = makeStyles((theme:Theme) =>
       letterSpacing: 'normal',
       fontWeight: 600,
       color: '#000',
-      fontSize: '14px',
+      fontSize: '16px',
       [theme.breakpoints.down('sm')]: {
         fontSize: '13px',
       },
@@ -30,6 +33,15 @@ const useStyles = makeStyles((theme:Theme) =>
     expandOpen: {
       transform: 'rotate(180deg)',
     },
+    description: {
+      fontSize: '14px',
+      marginTop: '5px',
+    },
+    sumber: {
+      marginTop: '10px',
+      fontWeight: 600,
+      fontSize: '14px', 
+    }
   })
 )
 export default useStyles;

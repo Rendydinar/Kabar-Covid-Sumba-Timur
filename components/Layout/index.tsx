@@ -107,6 +107,7 @@ const Layout: React.FC<IProps> = (props) => {
           name='google-site-verification'
           content='ou8SFQ1GL_Y2KaAsYebqCH7UF3ICgauDWGzXT0Gooio'
         />
+        <style></style>
       </Head>
       <main
         style={{
