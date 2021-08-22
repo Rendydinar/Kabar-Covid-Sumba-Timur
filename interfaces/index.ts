@@ -88,3 +88,17 @@ export interface IQnA {
   content: string;
   sumber: string;
 }
+
+export interface IFormTambahDataVaksin {
+  keterangan: string;
+  sumber:string;
+  img_uri: string;
+  jenis_vaksin: string;
+  date: string;
+  image_name: string;
+  timestamp?:number
+  place_map?:string;
+  kewajiban?:string[];
+  kouta?:number;
+  waktu_berakhir_timestamp?:number
+}
