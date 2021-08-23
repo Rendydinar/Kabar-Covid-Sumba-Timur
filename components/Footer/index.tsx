@@ -28,11 +28,11 @@ interface IListMore {
   icon: JSX.Element;
 }
 const ListMore: IListMore[] = [
-  {
-    label: 'Kabar Edukasi',
-    value: 'kabar-edukasi',
-    icon: <GiGiftOfKnowledge size={26} />,
-  },
+  // {
+  //   label: 'Kabar Edukasi',
+  //   value: 'kabar-edukasi',
+  //   icon: <GiGiftOfKnowledge size={26} />,
+  // },
   {
     label: 'Kontributor',
     value: 'kontributor',
