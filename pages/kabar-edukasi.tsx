@@ -1,14 +1,24 @@
-import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
+import {
+  Button,
+  createStyles,
+  Link,
+  makeStyles,
+  Theme,
+  Typography,
+} from '@material-ui/core';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import Jumbotron from '../components/Jumbotron';
 import Layout from '../components/Layout';
 import { IEdukasiCard, IQnA } from '../interfaces';
 import { getSortedPostsData } from '../lib/postsKabarEdukasi';
 import CardEdukasi from '../components/CardEdukasi';
 import DataQnA from '../data/qna.json';
+import Skeleton from '@material-ui/lab/Skeleton';
 import ItemQnA from '../components/ItemQnA';
+import { MESSAGE_WHATSSAPP_TO_JOIN_IN_TEAM_QNA } from '../constant';
+import { classNames } from '../lib/classNames';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,6 +53,9 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('sm')]: {
         margin: '15px 0',
       },
+      '&.sectionQnA': {
+        marginTop: '50px',
+      },
     },
     descriptionJombotron: {
       fontSize: '20px',
@@ -50,6 +63,41 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('sm')]: {
         fontSize: '14px',
       },
+    },
+    containerInfoNoMoreQnA: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      marginTop: '30px',
+      backgroundColor: '#e8f5e9',
+      padding: '20px 0',
+      [theme.breakpoints.down('sm')]: {
+        padding: '15px 10px',
+      },
+    },
+    titleNoMoreQnA: {
+      fontSize: '24px',
+      fontWeight: 600,
+      marginBottom: '10px',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '18px',
+      },
+    },
+    labelLinkJoinQnA: {
+      fontSize: '16px',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '14px',
+      },
+    },
+    descriptionNoMoreQnA: {
+      textAlign: 'center',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '14px',
+      },
+    },
+    btnMoreQnA: {
+      backgroundColor: '#28DF99',
+      marginTop: '30px',
     },
   })
 );
@@ -60,7 +108,19 @@ interface IProps {
 
 const KabarEdukasi: React.FC<IProps> = (props): ReactElement => {
   const classes = useStyles();
-  console.log(props);
+  const [dataQnA, setDataQnA] = useState<IQnA[]>(DataQnA.data.slice(0, 8));
+  const [isMoreQnA, setIsMoreQnA] = useState<boolean>(true);
+  const [loadingLoadMoreQnA, setIoadingLoadMoreQnA] = useState<boolean>(false);
+
+  const handleMoreQnA = (): void => {
+    setIoadingLoadMoreQnA(true);
+    const tempGetQnA: IQnA[] = DataQnA.data.slice(dataQnA.length, 8);
+    const tempResultMoreQnA: IQnA[] = [...dataQnA, ...tempGetQnA];
+    tempGetQnA.length >= 8 ? setIsMoreQnA(true) : setIsMoreQnA(false);
+    setDataQnA(tempResultMoreQnA);
+    setIoadingLoadMoreQnA(false);
+  };
+
   return (
     <Layout>
       <Head>
@@ -127,14 +187,47 @@ const KabarEdukasi: React.FC<IProps> = (props): ReactElement => {
               )}
             </ul>
           </div>
-          <div className={classes.containerSection}>
+          <div className={classNames(classes.containerSection, 'sectionQnA')}>
             <Typography className={classes.titleSection}>Q n A</Typography>
             <ul>
-              {DataQnA.data.map((qna: IQnA, index: number) => (
+              {dataQnA.map((qna: IQnA, index: number) => (
                 <li key={index}>
                   <ItemQnA qna={qna} />
                 </li>
               ))}
+              {loadingLoadMoreQnA
+                ? [0, 1, 2].map((item: number) => (
+                    <Skeleton
+                      variant='rect'
+                      height={60}
+                      style={{ width: '100%' }}
+                      key={item}
+                    />
+                  ))
+                : undefined}
+              {isMoreQnA ? (
+                <Button className={classes.btnMoreQnA} onClick={handleMoreQnA}>
+                  Lihat lebih banyak
+                </Button>
+              ) : (
+                <div className={classes.containerInfoNoMoreQnA}>
+                  <Typography className={classes.titleNoMoreQnA}>
+                    Maaf, kami kehabisan Q n A 🤗
+                  </Typography>
+                  <Typography className={classes.descriptionNoMoreQnA}>
+                    Maukan kamu bergabung untuk memberikan Q n A kepada
+                    masyarakat Sumba Timur ?{' '}
+                  </Typography>
+                  <Link
+                    href={`https://api.whatsapp.com/send?phone=6282217971133&text=${MESSAGE_WHATSSAPP_TO_JOIN_IN_TEAM_QNA}`}
+                    target='_blank'
+                    rel='noopener'
+                    className={classes.labelLinkJoinQnA}
+                  >
+                    Ya Saya Ingin Bergabung Sebagai Tim QnA
+                  </Link>
+                </div>
+              )}
             </ul>
           </div>
         </div>

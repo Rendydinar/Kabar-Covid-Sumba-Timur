@@ -24,18 +24,20 @@ const useStyles = makeStyles((theme: Theme) =>
         padding: '0 10px',
       },
     },
-
     titleSection: {
       fontSize: '26px',
       fontWeight: 600,
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '20px',
+      },
     },
     descriptionSection: {
-      fontSize: '1.2rem',
+      fontSize: '14px',
       marginTop: '10px',
       marginBottom: '25px',
     },
     itemContact: {
-      fontSize: '1.2rem',
+      fontSize: '14px',
       marginTop: '5px',
       fontWeight: 600,
     },
