@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme:Theme) =>
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
+      marginBottom: '25px',
     },
     imgContributor:{
       borderRadius: '100%'

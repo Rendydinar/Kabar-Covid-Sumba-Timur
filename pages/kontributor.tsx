@@ -74,7 +74,7 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
           description='Kontributor Kabar Covid-19 Sumba Timur'
         />
         <div className={classes.root}>
-          <Grid container spacing={6} justifyContent='center'>
+          <Grid container spacing={2} justifyContent='center'>
             {DataKontributor.data.map(
               (kontributor: IKontributor, index: number) => (
                 <Grid item key={index}>

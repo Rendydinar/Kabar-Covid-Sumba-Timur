@@ -146,6 +146,19 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
             Covid-19 bisa cepat selesai terkhususnya untuk Kabupaten Sumba
             Timur.
           </Typography>
+          <Typography className={classes.descriptionSection}>
+            Kami juga hadir dengan <b>Kabar Berita</b> yang menampilkan
+            informasi seputar berita & artikel covid-19 di Sumba Timur. Kabar
+            Berita sendiri ditulis oleh Kami/Kontributor yang bersedia untuk
+            menjadi bagian dari kami. Dengan hadirnya Kabar Berita kami berharap
+            Masyarakat Sumba Timur & Sekitarnya dapat mengetahui
+            informasi-informasi penting yang dikerluarkan oleh pemerintah
+            terlebih khsusus Pemerintah Kabupaten Sumba Timur seperti Surat
+            Edaran ataupun Surat Keputusan, dan lain sebagainya. Informasi yang
+            diperoleh dari Kabar Berita didapat dari hasil pencarian, untuk itu
+            jika ada Kabar Berita yang <b>belum terverivikasi</b> kami belum
+            dapat memastikan apakah Sumber yang didapatkan valid atau tidak
+          </Typography>
           <Typography className={classes.titleSection}>Kontak</Typography>
           <Typography className={classes.itemContact}>
             Whatsapp:{' '}
