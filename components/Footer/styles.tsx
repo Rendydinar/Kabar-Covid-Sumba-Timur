@@ -83,6 +83,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     containerList: {
       padding: 0,
+      paddingTop: 30,
+      [theme.breakpoints.down('sm')]: {
+        paddingTop: 15,
+      },
     },
     linkDonation: {
       display: 'flex',
