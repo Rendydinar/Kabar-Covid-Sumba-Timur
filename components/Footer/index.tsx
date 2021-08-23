@@ -15,8 +15,11 @@ import { MdContactPhone } from 'react-icons/md';
 import { RiVirusFill } from 'react-icons/ri';
 import { VscFeedback } from 'react-icons/vsc';
 import { ImNewspaper } from 'react-icons/im';
+import { FaHandHoldingHeart } from 'react-icons/fa';
+import { GiGiftOfKnowledge } from 'react-icons/gi';
 import { LINK_FEEDBACK, MESSAGE_WHATSSAPP } from '../../constant';
 import useStyles from './styles';
+import Link from 'next/link';
 
 interface IProps {}
 interface IListMore {
@@ -26,10 +29,16 @@ interface IListMore {
 }
 const ListMore: IListMore[] = [
   {
-    label: 'Tentang',
-    value: 'tentang',
-    icon: <HiInformationCircle size={26} />,
+    label: 'Kabar Edukasi',
+    value: 'kabar-edukasi',
+    icon: <GiGiftOfKnowledge size={26} />,
   },
+  {
+    label: 'Kontributor',
+    value: 'kontributor',
+    icon: <FaHandHoldingHeart size={26} />,
+  },
+
   {
     label: 'Lapor Info Vaksin',
     value: 'lapor-info-vaksin',
@@ -39,6 +48,11 @@ const ListMore: IListMore[] = [
     label: 'Umpan Balik',
     value: 'umpan-balik',
     icon: <MdContactPhone size={26} />,
+  },
+  {
+    label: 'Tentang Kami',
+    value: 'tentang-kami',
+    icon: <HiInformationCircle size={26} />,
   },
 ];
 
@@ -51,7 +65,7 @@ const Footer: React.FC<IProps> = (): ReactElement => {
   });
 
   const changeNavigation = (event: any, newValue: any): void => {
-    if (newValue !== 'more' && router.pathname !== `/${newValue}`) {
+    if (newValue !== 'lebih' && router.pathname !== `/${newValue}`) {
       if (newValue === 'lapor-info-vaksin') {
         window.open(
           `https://api.whatsapp.com/send?phone=6282217971133&text=${MESSAGE_WHATSSAPP}`,
@@ -97,14 +111,16 @@ const Footer: React.FC<IProps> = (): ReactElement => {
     <div className={classes.list} role='presentation'>
       <List className={classes.containerList}>
         {ListMore.map((list: IListMore, index: number) => (
-          <ListItem
-            button
-            key={index}
-            onClick={(e) => changeNavigation(e, list.value)}
-          >
-            <ListItemIcon>{list.icon}</ListItemIcon>
-            <ListItemText primary={list.label} />
-          </ListItem>
+          <Link href={`${list.value}`} key={index}>
+            <ListItem
+              button
+              key={index}
+              onClick={(e) => changeNavigation(e, list.value)}
+            >
+              <ListItemIcon>{list.icon}</ListItemIcon>
+              <ListItemText primary={list.label} />
+            </ListItem>
+          </Link>
         ))}
       </List>
       <footer className={classes.footer}>
@@ -119,19 +135,18 @@ const Footer: React.FC<IProps> = (): ReactElement => {
             <Typography>Donate Me</Typography>
           </LinkMUI>
         </div> */}
-
         <div>
-          Copyright &copy; {new Date().getFullYear()} Kabar Covid Sumba Timur.
-          All Rights Reserved Designed and Powered By
+          Website ini dikembangkan oleh{' '}
           <LinkMUI
             href='https://linktr.ee/Rendy_Dinar'
             target='_blank'
             rel='noopener'
             className={classes.linkDevelop}
           >
-            {' '}
-            RendyDinar
+            RendyDinar{' '}
           </LinkMUI>
+          &copy; {new Date().getFullYear()} Kabar Covid Sumba Timur. All Rights
+          Reserved
         </div>
       </footer>
     </div>
@@ -202,8 +217,8 @@ const Footer: React.FC<IProps> = (): ReactElement => {
           icon={<ImNewspaper size={26} />}
         />
         <BottomNavigationAction
-          label='More'
-          value='more'
+          label='Lebih'
+          value='lebih'
           classes={{
             root: classes.rootBottomNavigationAction,
             label: classes.labelBottomNavigationAction,
