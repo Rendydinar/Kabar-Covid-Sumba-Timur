@@ -27,7 +27,7 @@ const SharePost: React.FC<IProps> = (props) => {
           <ImFacebook2 size={24} fill='#4267B2' />
         </a>
         <a
-          href={`whatsapp:send?text=${PUBLIC_PATH}/kabar-berita/${props.link}`}
+          href={`whatsapp://send?text=${PUBLIC_PATH}/kabar-berita/${props.link}`}
           // data-action='share/whatsapp/share'
         >
           <IoLogoWhatsapp size={24} fill='#25d366' />
