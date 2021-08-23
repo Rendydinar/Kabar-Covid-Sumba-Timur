@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '14px',
       color: '#fff',
       fontWeight: 650,
-      padding: '25px',
+      padding: '20px 10px',
       [theme.breakpoints.down('sm')]: {
         height: 'auto',
         fontSize: '12px',

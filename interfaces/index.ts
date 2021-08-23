@@ -102,3 +102,13 @@ export interface IFormTambahDataVaksin {
   kouta?:number;
   waktu_berakhir_timestamp?:number
 }
+
+export interface IKontributor {
+  name: string;
+  img_url:string;
+  facebook: string;
+  instagram: string;
+  twitter: string;
+  bio: string;
+  position:string;
+}
