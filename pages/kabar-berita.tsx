@@ -1,4 +1,4 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import React, { ReactElement } from 'react';
@@ -82,13 +82,13 @@ const KabarBerita: React.FC<IProps> = (props): ReactElement => {
           description='Informasi seputar berita & artikel covid-19 di Sumba Timur'
         />
         <div className={classes.root}>
-          <ul>
+          <Grid container spacing={2}>
             {props.allPostsData.map((berita: IBeritaCard, index: number) => (
-              <li key={index}>
+              <Grid item key={index}>
                 <CardBerita key={index} berita={berita} />
-              </li>
+              </Grid>
             ))}
-          </ul>
+          </Grid>
         </div>
       </div>
     </Layout>
