@@ -28,14 +28,14 @@ interface IListMore {
 }
 const ListMore: IListMore[] = [
   {
-    label: 'Kabar Edukasi',
-    value: 'kabar-edukasi',
-    icon: <GiGiftOfKnowledge size={26} />,
-  },
-  {
     label: 'Tentang',
     value: 'tentang',
     icon: <HiInformationCircle size={26} />,
+  },
+  {
+    label: 'Kabar Edukasi',
+    value: 'kabar-edukasi',
+    icon: <GiGiftOfKnowledge size={26} />,
   },
   {
     label: 'Lapor Info Vaksin',
