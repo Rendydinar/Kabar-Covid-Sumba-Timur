@@ -34,7 +34,6 @@ export interface IVaksin {
   isShow: boolean;
 }
 
-
 export interface IBerita {
   title: string;
   date: string;
@@ -57,4 +56,59 @@ export interface IBeritaCard {
   img: string;
   type: string;
   sumber: string;
+}
+
+export interface IEdukasiCard {
+  title:string;
+  id: string;
+  target:string[];
+  date:string;
+  author:string;
+  sumber:string;
+  description:string;
+  img:string;
+}
+
+
+export interface IEdukasi {
+  title: string;
+  date: string;
+  author: string;
+  sumber: string;
+  description: string;
+  contentHtml: string;
+  img: string;
+  link_site?: string[] | undefined; 
+  target:string[];
+  id:string;
+}
+
+export interface IQnA {
+  title: string;
+  content: string;
+  sumber: string;
+}
+
+export interface IFormTambahDataVaksin {
+  keterangan: string;
+  sumber:string;
+  img_uri: string;
+  jenis_vaksin: string;
+  date: string;
+  image_name: string;
+  timestamp?:number
+  place_map?:string;
+  kewajiban?:string[];
+  kouta?:number;
+  waktu_berakhir_timestamp?:number
+}
+
+export interface IKontributor {
+  name: string;
+  img_url:string;
+  facebook: string;
+  instagram: string;
+  twitter: string;
+  bio: string;
+  position:string;
 }

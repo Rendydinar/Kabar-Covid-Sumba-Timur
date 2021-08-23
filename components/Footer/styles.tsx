@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '14px',
       color: '#fff',
       fontWeight: 650,
-      padding: '25px',
+      padding: '20px 10px',
       [theme.breakpoints.down('sm')]: {
         height: 'auto',
         fontSize: '12px',
@@ -83,6 +83,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     containerList: {
       padding: 0,
+      paddingTop: 30,
+      [theme.breakpoints.down('sm')]: {
+        paddingTop: 15,
+      },
     },
     linkDonation: {
       display: 'flex',

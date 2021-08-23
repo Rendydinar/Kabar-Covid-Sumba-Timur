@@ -1,4 +1,4 @@
-import { getAllPostIds, getPostData } from '../../lib/postsKabarBerita';
+import { getAllPostIds, getPostData } from '../../lib/postsKabarEdukasi';
 import Head from 'next/head';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import Layout from '../../components/Layout';
@@ -10,8 +10,8 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { shimmer, toBase64 } from '../../utils';
 import Jumbotron from '../../components/Jumbotron';
-import { IBerita } from '../../interfaces';
-import Header from '../../components/CardBerita/header';
+import { IBerita, IEdukasi } from '../../interfaces';
+import Header from '../../components/CardEdukasi/header';
 import SharePost from '../../components/SharePost';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -31,9 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('sm')]: {
         fontSize: '18px',
       },
-    },
-    date: {
-      color: '#666',
     },
     contentPost: {
       fontSize: 16,
@@ -60,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Post({ postData }: { postData: IBerita }) {
+export default function Post({ postData }: { postData: IEdukasi }) {
   const classes = useStyles();
   const router = useRouter();
 
@@ -82,11 +79,11 @@ export default function Post({ postData }: { postData: IBerita }) {
         <meta name='twitter:description' content={postData.description} />
         <meta
           property='og:url'
-          content={`https://kabar-covid-sumba-timur.vercel.app/kabar-berita/${postData.id}`}
+          content={`https://kabar-covid-sumba-timur.vercel.app/kabar-edukasi/${postData.id}`}
         />
         <meta
           name='twitter:site'
-          content={`https://kabar-covid-sumba-timur.vercel.app/kabar-berita/${postData.id}`}
+          content={`https://kabar-covid-sumba-timur.vercel.app/kabar-edukasi/${postData.id}`}
         />
         <meta property='og:image' content={postData.img} />
         <meta name='twitter:image:src' content={postData.img} />
@@ -95,10 +92,12 @@ export default function Post({ postData }: { postData: IBerita }) {
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:image:alt' content='Kabar Covid Sumba Timur' />
 
-        <title>Kabar Covid Sumba Timur | Kabar Berita | {postData.title}</title>
+        <title>
+          Kabar Covid Sumba Timur | Kabar Edukasi | {postData.title}
+        </title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Jumbotron title='Kabar Berita' description='' />
+      <Jumbotron title='Kabar Edukasi' description='' />
       <div className={classes.root}>
         <IconButton
           onClick={handleBack}
@@ -115,7 +114,7 @@ export default function Post({ postData }: { postData: IBerita }) {
           <Header
             author={postData.author}
             date={postData.date}
-            type={postData.type}
+            target={postData.target}
             sumber={postData.sumber}
           />
           <div className={classes.imageVaksinContainer}>

@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "name":"Rendy Dendimara",
+      "facebook":"https://www.facebook.com/profile.php?id=100010536482965",
+      "instagram":"https://www.instagram.com/r3ndydinar/",
+      "twitter":"https://twitter.com/r3ndyDinar",
+      "bio":"Biarkan aku menjadi lilin kecil di antara bintang-bintang",
+      "position":"Pengembang & Admin",
+      "img_url": "/images/rendy.jpg"
+    },
+    {
+      "name":"Eka Setiani",
+      "facebook":"https://www.facebook.com/eka.setiani.5268",
+      "instagram":"https://www.instagram.com/eka_setiani_/",
+      "twitter":"",
+      "bio":"Be a creative minority",
+      "position":"Redaksi",
+      "img_url": "/images/rendy.jpg"
+    }  
+  ]
+}
