@@ -65,6 +65,7 @@ const Footer: React.FC<IProps> = (): ReactElement => {
   });
 
   const changeNavigation = (event: any, newValue: any): void => {
+    console.log('newValue', newValue);
     if (newValue !== 'lebih' && router.pathname !== `/${newValue}`) {
       if (newValue === 'lapor-info-vaksin') {
         window.open(
@@ -82,13 +83,12 @@ const Footer: React.FC<IProps> = (): ReactElement => {
         setState({
           right: false,
         });
-        setValue(newValue);
         if (newValue === '/') {
           router.push('/');
         } else {
           router.push(`/${newValue}`);
-          setValue(newValue);
         }
+        setValue(newValue);
       }
     }
   };
@@ -111,12 +111,8 @@ const Footer: React.FC<IProps> = (): ReactElement => {
     <div className={classes.list} role='presentation'>
       <List className={classes.containerList}>
         {ListMore.map((list: IListMore, index: number) => (
-          <Link href={`${list.value}`} key={index}>
-            <ListItem
-              button
-              key={index}
-              onClick={(e) => changeNavigation(e, list.value)}
-            >
+          <Link href={`/${list.value}`} key={index}>
+            <ListItem button key={index}>
               <ListItemIcon>{list.icon}</ListItemIcon>
               <ListItemText primary={list.label} />
             </ListItem>
