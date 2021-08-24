@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import DataKontributor from '../data/kontributor.json';
 import { IKontributor } from '../interfaces';
 import CardKontributor from '../components/CardKontributor';
+import ComponentJoinContribute from '../components/ComponentJoinContribute';
 
 interface IProps {
   data: any;
@@ -84,6 +85,7 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
             )}
           </Grid>
         </div>
+        {/* <ComponentJoinContribute /> */}
       </div>
     </Layout>
   );

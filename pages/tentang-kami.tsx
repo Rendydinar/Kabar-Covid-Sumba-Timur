@@ -5,6 +5,7 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import Head from 'next/head';
 import React, { ReactElement } from 'react';
 import Jumbotron from '../components/Jumbotron';
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: '30px',
       padding: '0 40px',
       [theme.breakpoints.down('sm')]: {
-        padding: '0 10px',
+        padding: '0 15px',
       },
     },
     titleSection: {
@@ -41,17 +42,12 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: '5px',
       fontWeight: 600,
     },
-    // root: {
-    //   padding: '0 40px',
-    //   [theme.breakpoints.down('sm')]: {
-    //     padding: '0 10px',
-    //   },
-    // },
-    // containerContent: {
-    //   display: 'flex',
-    //   flexDirection: 'column',
-    //   alignItems: 'center',
-    // },
+    textInfoShare: {
+      fontSize: '16px',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '14px',
+      },
+    },
   })
 );
 
@@ -60,8 +56,11 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
   return (
     <Layout>
       <Head>
-        <meta name='og:keywords' content='Tentang' />
-        <meta name='og:title' content='Kabar Covid Sumba Timur | Tentang' />
+        <meta name='og:keywords' content='Tentang Kami' />
+        <meta
+          name='og:title'
+          content='Kabar Covid Sumba Timur | Tentang Kami'
+        />
         <meta
           property='og:site_name'
           content='Kabar Covid Sumba Timur | Tentang'
@@ -77,11 +76,11 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
         />
         <meta
           property='og:url'
-          content='https://kabar-covid-sumba-timur.vercel.app/tentang'
+          content='https://kabar-covid-sumba-timur.vercel.app/tentang-kami'
         />
         <meta
           name='twitter:site'
-          content='https://kabar-covid-sumba-timur.vercel.app/tentang'
+          content='https://kabar-covid-sumba-timur.vercel.app/tentang-kami'
         />
 
         <meta
@@ -97,12 +96,12 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:image:alt' content='Kabar Covid Sumba Timur' />
 
-        <title>Kabar Covid-19 Sumba Timur | Tentang</title>
+        <title>Kabar Covid-19 Sumba Timur | Tentang Kami</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <div>
         <Jumbotron
-          title='Tentang'
+          title='Tentang Kami'
           description='Tentang Kabar Covid-19 Sumba Timur'
         />
         <div className={classes.root}>
@@ -110,11 +109,18 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
             Tentang Kabar Covid Sumba Timur
           </Typography>
           <Typography className={classes.descriptionSection}>
-            Kabar Covid Sumba Timur adalah Situs yang menampilkan seputar
-            informasi COVID-19 Di Daerah Sumba Timur & Sekitarnya, selain
-            informasi covid-19 situs ini juga menampilkan informasi seputar
-            vaksin covid-19 & informasi seputar isolasi passien covid-19 di
-            Sumba Timur
+            Kabar Covid Sumba Timur adalah Situs Non-Official yang menampilkan
+            informasi seputar COVID-19 Di Daerah Sumba Timur & Sekitarnya,
+            selain informasi covid-19 situs ini juga menampilkan informasi
+            seputar vaksin covid-19 & informasi seputar isolasi passien covid-19
+            di Sumba Timur.
+          </Typography>
+          <Typography className={classes.descriptionSection}>
+            Kabar Covid Sumba Timur dibangun atas dasar inisiatif masyarakat
+            Sumba Timur untuk berbagi informasi dan saling membantu bagi
+            masyarakat yang membutuhkan informasi seputar Covid-19 baik itu
+            informasi jadwal vaksin, data covid harian, berita dari pemerintah
+            daerah dan edukasi tentang Covid-19 (dalam pengerjaan).
           </Typography>
           <Typography className={classes.titleSection}>
             Sumber Kabar Covid Sumba Timur ?{' '}
@@ -154,10 +160,12 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
             Masyarakat Sumba Timur & Sekitarnya dapat mengetahui
             informasi-informasi penting yang dikerluarkan oleh pemerintah
             terlebih khsusus Pemerintah Kabupaten Sumba Timur seperti Surat
-            Edaran ataupun Surat Keputusan, dan lain sebagainya. Informasi yang
-            diperoleh dari Kabar Berita didapat dari hasil pencarian, untuk itu
-            jika ada Kabar Berita yang <b>belum terverivikasi</b> kami belum
-            dapat memastikan apakah Sumber yang didapatkan valid atau tidak
+            Edaran, Surat Keputusan, dan lain sebagainya. Informasi yang
+            diperoleh dari Kabar Berita didapat dari hasil pencarian oleh
+            kontribusi relawan kemudian akan di edit oleh Tim Redaksi sebelum di
+            publish, untuk itu jika ada Kabar Berita yang{' '}
+            <b>belum terverivikasi</b> kami belum dapat memastikan apakah Sumber
+            yang didapatkan valid atau tidak
           </Typography>
           <Typography className={classes.titleSection}>Kontak</Typography>
           <Typography className={classes.itemContact}>
@@ -187,6 +195,12 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
               Link Umpan Balik
             </Link>
           </Typography>
+          <Alert severity='info'>
+            <Typography className={classes.textInfoShare}>
+              Anda bebas menggunakan dan menyebarluaskan informasi yang ada
+              dalam website ini.
+            </Typography>
+          </Alert>
         </div>
       </div>
     </Layout>
