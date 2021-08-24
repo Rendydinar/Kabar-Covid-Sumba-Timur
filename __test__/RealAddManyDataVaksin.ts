@@ -185,7 +185,6 @@ async function RealAddManyDataVaksin (){
     });
     // Commit the batch
     const resultInsertManyDataVaksin = await batch.commit();
-    console.log('resultInsertManyDataVaksin', resultInsertManyDataVaksin);
     return 'done';
   } catch(err) {
     return 'failed';
