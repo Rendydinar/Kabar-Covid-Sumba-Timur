@@ -50,9 +50,15 @@ const CardKontributor: React.FC<IProps> = (props) => {
           </a>
         ) : undefined}
       </div>
-      <Typography className={classes.bio}>
-        <q>{props.contributor.bio}</q>
-      </Typography>
+      {props.contributor.bio ? (
+        <Typography className={classes.bio}>
+          <q>{props.contributor.bio}</q>
+        </Typography>
+      ) : (
+        <Typography className={classNames(classes.bio, 'noBio')}>
+          Bio belum diisi
+        </Typography>
+      )}
     </div>
   );
 };
