@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme:Theme) =>
       color: '#28DF99',
       fontSize: '22px',
       fontWeight: 700,
+      textAlign: 'center',
       [theme.breakpoints.down('sm')]: {
         fontSize: '18px',
         marginTop:'20px',
@@ -47,7 +48,10 @@ const useStyles = makeStyles((theme:Theme) =>
       [theme.breakpoints.down('sm')]: {
         marginTop: '10px',
       },  
-    }
+      '&.noBio': {
+        fontStyle: 'italic',
+      }
+    },
   })
 )
 export default useStyles;

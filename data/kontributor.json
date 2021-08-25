@@ -17,6 +17,24 @@
       "bio":"Be a creative minority",
       "position":"Redaksi",
       "img_url": "/images/eka_setiani.jpeg"
-    }  
+    },
+    {
+      "name":"Reni Kamunggul",
+      "facebook":"https://www.facebook.com/reny.rambu.58",
+      "instagram":"https://www.instagram.com/sr_reni/",
+      "twitter":"",
+      "bio":"",
+      "position":"Pencari Informasi Vaksin",
+      "img_url": "/images/reni_kamunggul.jpeg"
+    },
+    {
+      "name":"Monika Valensia Tanggu Solo",
+      "facebook":"",
+      "instagram":"https://www.instagram.com/mnkv.ts/",
+      "twitter":"",
+      "bio":"Jalani dan Nikmati",
+      "position":"Pencari Informasi Vaksin",
+      "img_url": "/images/monika_solo.jpeg"
+    }
   ]
 }
