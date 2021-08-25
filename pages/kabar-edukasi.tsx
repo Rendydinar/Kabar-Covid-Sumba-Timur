@@ -177,7 +177,7 @@ const KabarEdukasi: React.FC<IProps> = (props): ReactElement => {
             <Typography className={classes.titleSection}>
               Artikel Edukasi
             </Typography>
-            <ul>
+            {/* <ul>
               {props.allPostsData.map(
                 (edukasi: IEdukasiCard, index: number) => (
                   <li key={index}>
@@ -185,7 +185,7 @@ const KabarEdukasi: React.FC<IProps> = (props): ReactElement => {
                   </li>
                 )
               )}
-            </ul>
+            </ul> */}
           </div>
           <div className={classNames(classes.containerSection, 'sectionQnA')}>
             <Typography className={classes.titleSection}>Q n A</Typography>
