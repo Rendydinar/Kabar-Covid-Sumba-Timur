@@ -163,7 +163,7 @@ const KabarEdukasi: React.FC<IProps> = (props): ReactElement => {
           name='twitter:site'
           content='https://kabar-covid-sumba-timur.vercel.app/kabar-edukasi'
         />
-        <title>Kabar Covid-19 Sumba Timur | Kabar Edukasi</title>
+        <title>Kabar Covid Sumba Timur | Kabar Edukasi</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <div>

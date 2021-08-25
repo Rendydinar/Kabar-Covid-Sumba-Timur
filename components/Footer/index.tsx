@@ -17,6 +17,7 @@ import { VscFeedback } from 'react-icons/vsc';
 import { ImNewspaper } from 'react-icons/im';
 import { FaHandHoldingHeart } from 'react-icons/fa';
 import { GiGiftOfKnowledge } from 'react-icons/gi';
+import { FaHandsHelping } from 'react-icons/fa';
 import { LINK_FEEDBACK, MESSAGE_WHATSSAPP } from '../../constant';
 import useStyles from './styles';
 import Link from 'next/link';
@@ -28,17 +29,21 @@ interface IListMore {
   icon: JSX.Element;
 }
 const ListMore: IListMore[] = [
-  // {
-  //   label: 'Kabar Edukasi',
-  //   value: 'kabar-edukasi',
-  //   icon: <GiGiftOfKnowledge size={26} />,
-  // },
+  {
+    label: 'Kabar Edukasi',
+    value: 'kabar-edukasi',
+    icon: <GiGiftOfKnowledge size={26} />,
+  },
   {
     label: 'Kontributor',
     value: 'kontributor',
     icon: <FaHandHoldingHeart size={26} />,
   },
-
+  {
+    label: 'Bergabung',
+    value: 'bergabung',
+    icon: <FaHandsHelping size={26} />,
+  },
   {
     label: 'Lapor Info Vaksin',
     value: 'lapor-info-vaksin',

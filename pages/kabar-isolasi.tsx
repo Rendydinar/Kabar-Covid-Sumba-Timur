@@ -117,7 +117,7 @@ const KabarIsolasi: React.FC<IProps> = (props): ReactElement => {
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:image:alt' content='Kabar Covid Sumba Timur' />
 
-        <title>Kabar Covid-19 Sumba Timur | Kabar Isolasi</title>
+        <title>Kabar Covid Sumba Timur | Kabar Isolasi</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Jumbotron
