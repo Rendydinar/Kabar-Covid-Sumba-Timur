@@ -54,7 +54,7 @@ const Bergabung: React.FC<IProps> = (): ReactElement => {
         />
         <meta
           property='og:description'
-          content='Bergabung Denga Kami Di Tim Kabar Covid Sumba Timur'
+          content='Bergabung Dengan Kami Di Tim Kabar Covid Sumba Timur'
         />
         <meta name='twitter:title' content='Kabar Covid Sumba Timur' />
         <meta
