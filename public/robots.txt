@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: undefined
+Host: https://kabar-covid-sumba-timur.vercel.app
 
 # Sitemaps
-Sitemap: undefined/sitemap.xml
+Sitemap: https://kabar-covid-sumba-timur.vercel.app/sitemap.xml

@@ -6,14 +6,14 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-import { GetStaticProps } from 'next';
+// import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import React, { ReactElement, useState } from 'react';
 import Jumbotron from '../components/Jumbotron';
 import Layout from '../components/Layout';
 import { IEdukasiCard, IQnA } from '../interfaces';
-import { getSortedPostsData } from '../lib/postsKabarEdukasi';
-import CardEdukasi from '../components/CardEdukasi';
+// import { getSortedPostsData } from '../lib/postsKabarEdukasi';
+// import CardEdukasi from '../components/CardEdukasi';
 import DataQnA from '../data/qna.json';
 import Skeleton from '@material-ui/lab/Skeleton';
 import ItemQnA from '../components/ItemQnA';
@@ -102,11 +102,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface IProps {
-  allPostsData: IEdukasiCard[];
-}
+// interface IProps {
+//   allPostsData: IEdukasiCard[];
+// }
 
-const KabarEdukasi: React.FC<IProps> = (props): ReactElement => {
+const KabarEdukasi: React.FC<any> = (): ReactElement => {
   const classes = useStyles();
   const [dataQnA, setDataQnA] = useState<IQnA[]>(DataQnA.data.slice(0, 8));
   const [isMoreQnA, setIsMoreQnA] = useState<boolean>(true);
