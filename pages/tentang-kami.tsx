@@ -96,7 +96,7 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='twitter:image:alt' content='Kabar Covid Sumba Timur' />
 
-        <title>Kabar Covid-19 Sumba Timur | Tentang Kami</title>
+        <title>Kabar Covid Sumba Timur | Tentang Kami</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <div>

@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface IKelurahan {
   name: string;
   total: number;
@@ -111,4 +113,12 @@ export interface IKontributor {
   twitter: string;
   bio: string;
   position:string;
+}
+
+export interface IJoinKontributor {
+  icon: ReactNode;
+  title: string;
+  description: string;
+  jobDescription: string[];
+  linkToJoin: string;
 }

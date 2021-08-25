@@ -3,48 +3,70 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core';
 const useStyles = makeStyles((theme:Theme) =>
   createStyles({
     card: {
-      width: '35%',
-      height: '180px',
-      backgroundColor: '#28DF99',
+      padding: '15px 20px',
+      width: '350px',
+      height: 'auto',
+      minHeight: '300px',
+      backgroundColor: '#fff',
       borderRadius: '10px',
+      // display: 'flex',
+      // flexDirection: 'column',
+      // justifyContent: 'space-between',
       boxShadow: 'rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px',
-      justifyContent: 'center',
-      flexDirection: 'column',
-      display: 'flex',
       [theme.breakpoints.down('sm')]: {
-        width: '145px'
+        width: '100%',
+        padding: '10px 15px',
       },
     },
-    cardIcon: {
-      fontSize: '50px',
-      textAlign: 'center',
-      [theme.breakpoints.down('sm')]: {
-        fontSize: '40px',
-      },
+    spanIcon: {
+      display: 'flex',
+      justifyContent: 'center',
     },
     cardTitle: {
-      fontSize: '26px',
+      fontSize: '24px',
+      margin: '10px 0',
       fontWeight: 800,      
-      color: '#e44933',
+      color: '#28DF99',
       textAlign: 'center',
       [theme.breakpoints.down('sm')]: {
-        fontSize: '22px',
+        fontSize: '18px',
       },
     },
     cardInfo: {
-      fontSize: '24px',
-      fontWeight: 600,
+      fontSize: '14px',
+      textAlign: 'justify',
+    },
+    btnJoin: {
+      margin: '20px',
+      backgroundColor: '#28DF99',
+      borderRadius: '10px',
+      boxShadow: 'rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px',
+      // textDecoration: 'none',
       color: '#fff',
-      textAlign: 'center',
-      [theme.breakpoints.down('sm')]: {
-        fontSize: '20px',
-      },
+      '&:hover': {
+        backgroundColor: '#28DF99',
+      }
     },
-    cardTotalKasus:{
-      color: '#374151',
-      fontWeight: 'bold',
-      marginRight: '3px',
+    labelBtnJoin: {
+      color: '#fff',
+      fontWeight: 800,      
+      fontSize: '16px'
     },
+    btnSeeMore: {
+
+    },
+    containerBtnAction: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+    containerCollapse: {
+      margin: '20px 0'
+    },
+    titleJob: {
+      fontSize: '16px',
+      fontWeight: 'bold'
+    }
+    
   })
 )
 export default useStyles;
