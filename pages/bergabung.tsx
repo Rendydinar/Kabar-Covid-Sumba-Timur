@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Bergabung: React.FC<IProps> = (): ReactElement => {
   const classes = useStyles();
+
   return (
     <Layout>
       <Head>
