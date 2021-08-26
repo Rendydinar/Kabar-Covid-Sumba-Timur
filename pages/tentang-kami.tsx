@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Tentang: React.FC<IProps> = (): ReactElement => {
   const classes = useStyles();
-  const [toggle, set] = useState(true);
+  const [toggle, set] = useState(false);
   const trail = useTrail(items.length, {
     config,
     opacity: toggle ? 1 : 0,
