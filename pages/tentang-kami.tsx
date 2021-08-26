@@ -7,14 +7,23 @@ import {
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import Head from 'next/head';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import Jumbotron from '../components/Jumbotron';
 import Layout from '../components/Layout';
 import { LINK_FEEDBACK, MESSAGE_WHATSSAPP } from '../constant';
+import { useTrail, animated as a } from 'react-spring';
 
 interface IProps {
   data: any;
 }
+
+const items = [
+  'Pemerintah Kabupaten Sumba Timur',
+  'Kodim 1601/Sumba Timur',
+  'Polres Sumba Timur',
+  'Satuan Tugas Penanganan COVID-19',
+];
+const config = { mass: 5, tension: 2000, friction: 200 };
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,11 +57,41 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: '14px',
       },
     },
+    textTerimakasihBtn: {
+      boxShadow:
+        'rgb(85, 91, 255) 0px 0px 0px 3px, rgb(31, 193, 27) 0px 0px 0px 6px, rgb(255, 217, 19) 0px 0px 0px 9px, rgb(255, 156, 85) 0px 0px 0px 12px, rgb(255, 85, 85) 0px 0px 0px 15px',
+      fontSize: '18px',
+      marginTop: '10px',
+      marginBottom: '25px',
+      fontWeight: 700,
+    },
+    mediaPather: {
+      '& > div': {
+        height: '80px',
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: '20px',
+        textAlign: 'center',
+        justifyContent: 'space-around',
+        padding: '5px',
+        boxShadow:
+          'rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px',
+      },
+    },
   })
 );
 
 const Tentang: React.FC<IProps> = (): ReactElement => {
   const classes = useStyles();
+  const [toggle, set] = useState(true);
+  const trail = useTrail(items.length, {
+    config,
+    opacity: toggle ? 1 : 0,
+    x: toggle ? 0 : 20,
+    height: toggle ? 80 : 0,
+    from: { opacity: 0, x: 20, height: 0 },
+  });
+
   return (
     <Layout>
       <Head>
@@ -167,6 +206,61 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
             <b>belum terverivikasi</b> kami belum dapat memastikan apakah Sumber
             yang didapatkan valid atau tidak
           </Typography>
+          <Typography className={classes.descriptionSection}>
+            Adapun <b>Kabar Edukasi</b> yang kami fokuskan untuk saling bantu
+            menyebarkan informasi yang benar ke sesama masyarakat, memberikan
+            pengetahuan tentang bagaimana pentingnya menjaga kesehatan dimasa
+            pandemi agar masyarkat Sumba Timur mematuhi protokol kesehatan &
+            Melawan hoax terkait informasi Covid-19 yang beredar
+          </Typography>
+          <div>
+            <Typography
+              className={classes.textTerimakasihBtn}
+              onClick={() => set((state) => !state)}
+            >
+              Terimaksih Untuk
+            </Typography>
+
+            <div className='trails-main' onClick={() => set((state) => !state)}>
+              <div>
+                {trail.map(({ x, height, ...rest }: any, index) => (
+                  <a.div
+                    key={items[index]}
+                    className={classes.mediaPather}
+                    style={{
+                      ...rest,
+                      transform: x.interpolate(
+                        (x: any) => `translate3d(0,${x}px,0)`
+                      ),
+                    }}
+                  >
+                    <a.div style={{ height }}>{items[index]}</a.div>
+                  </a.div>
+                ))}
+              </div>
+            </div>
+
+            <Typography className={classes.descriptionSection}>
+              Yang sudah saling berbagi informasi
+            </Typography>
+
+            {/* <Typography className={classes.mediaPather}>
+              Dinas Kesehatan Sumba Timur
+            </Typography>
+            <Typography className={classes.mediaPather}>
+              Posko Covid Waingapu
+            </Typography>
+            <Typography className={classes.mediaPather}>
+              Kodim 1601/Sumba Timur
+            </Typography>
+            <Typography className={classes.mediaPather}>
+              Polres Sumba Timur
+            </Typography>
+
+            <Typography className={classes.descriptionSection}>
+              Yang sudah saling berbagi informasi
+            </Typography> */}
+          </div>
           <Typography className={classes.titleSection}>Kontak</Typography>
           <Typography className={classes.itemContact}>
             Whatsapp:{' '}
@@ -181,7 +275,6 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
           <Typography className={classes.itemContact}>
             Email: r3ndydinar@gmail.com
           </Typography>
-
           <Typography
             className={classes.titleSection}
             style={{ marginTop: '25px' }}
