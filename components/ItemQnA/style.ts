@@ -2,9 +2,13 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
 const useStyles = makeStyles((theme:Theme) =>
   createStyles({
-    root:{},
+    root:{
+      marginBottom: '20px',
+      [theme.breakpoints.down('sm')]: {
+        marginBottom: '10px',
+      },
+    },
     btnActionCard: {
-      height: '40px',
       backgroundColor: '#99F3BD',
       '&:hover': {
         backgroundColor: '#99F3BD',
@@ -15,13 +19,14 @@ const useStyles = makeStyles((theme:Theme) =>
       justifyContent: 'space-between',
     },
     textLabelBtnAction: {
+      textAlign: 'left',
       textTransform: 'capitalize',
       letterSpacing: 'normal',
       fontWeight: 600,
-      color: '#000',
+      color: '#263238',
       fontSize: '16px',
       [theme.breakpoints.down('sm')]: {
-        fontSize: '13px',
+        fontSize: '14px',
       },
     },
     expand: {
@@ -36,6 +41,11 @@ const useStyles = makeStyles((theme:Theme) =>
     description: {
       fontSize: '14px',
       marginTop: '5px',
+    },
+    titleListContent: {
+      fontSize: '14px',
+      marginTop: '5px',
+      fontWeight: 700
     },
     sumber: {
       marginTop: '10px',

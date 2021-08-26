@@ -85,10 +85,19 @@ export interface IEdukasi {
   id:string;
 }
 
+export interface IContentQnA {
+  title: string;
+  content: string;  
+}
+
 export interface IQnA {
   title: string;
   content: string;
+  content_list: string[];
   sumber: string;
+  type:string;
+  list_content: IContentQnA[];
+  content_list_content: IContentQnA[];
 }
 
 export interface IFormTambahDataVaksin {

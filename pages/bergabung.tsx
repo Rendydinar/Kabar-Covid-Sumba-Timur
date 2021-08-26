@@ -98,8 +98,8 @@ const Bergabung: React.FC<IProps> = (): ReactElement => {
           </Typography>
           <Typography align='left' variant='body2'>
             Kami mengajak kamu juga untuk menjadi bagian dari Tim Kami untuk
-            membantu masyarakat Sumba Timur lewat karya-karya yang bisa kamu
-            berikan.
+            membantu masyarakat Sumba Timur lewat karya-karya & usaha kerja
+            keras yang bisa kamu berikan.
           </Typography>
         </div>
         <div className={classes.root}>

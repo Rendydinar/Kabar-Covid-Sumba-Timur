@@ -3,7 +3,135 @@
     {
       "title": "Apa Itu Covid-19",
       "content": "COVID-19 adalah penyakit yang disebabkan oleh virus severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2). COVID-19 dapat menyebabkan gangguan sistem pernapasan, mulai dari gejala yang ringan seperti flu, hingga infeksi paru-paru, seperti pneumonia.",
-      "sumber": "www.alodokter.com"
-    }
+      "sumber": "www.alodokter.com",
+      "type":"general",
+      "content_list":[],
+      "list_content":[],
+      "content_list_content":[]
+    },
+    {
+      "title": "Apakah manfaat dari Vaksin COVID-19 ?",
+      "content": "Sebagaimana manfaat dari vaksin lainnya, Vaksin COVID-19 bermanfaat untuk memberi perlindungan agar tidak tertular atau sakit berat akibat COVID-19 dengan cara menimbulkan atau menstimulasi kekebalan spesifik dalam tubuh dengan pemberian vaksin. Vaksinasi COVID-19 dosis lengkap dan sesuai jadwal yang dianjurkan serta penerapan perilaku 5M (memakai masker, mencuci tangan dengan sabun dan air mengalir atau hand sanitizer, menjaga jarak, menjauhi kerumunan dan mengurangi mobilitas) adalah upaya perlindungan yang bisa kita lakukan agar terhindar dari penyakit COVID-19.",
+      "type":"general",
+      "sumber": "www.covid19.go.id",
+      "content_list":[],
+      "list_content":[],
+      "content_list_content":[]
+    },
+    {
+      "title": "Apakah vaksin COVID-19 itu dipastikan aman ?",
+      "content": "",
+      "content_list": [
+        "Vaksin yang diproduksi masal sudah melewati proses yang panjang dan harus memenuhi syarat utama yakni: Aman, Ampuh, Stabil dan Efisien dari segi biaya.",
+        "Aspek keamanan vaksin dipastikan melalui beberapa tahapan uji klinis yang benar dan menjunjung tinggi kaidah ilmu pengetahuan, sains dan standar-standar kesehatan.",
+        "Pemerintah hanya menyediakan vaksin COVID-19 yang terbukti aman dan lolos uji klinis, serta sudah mendapatkan Izin Penggunaan Pada Masa Darurat (Emergency Use of Authorization/EUA) dari BPOM."
+      ],
+      "type":"only-list",
+      "sumber": "www.covid19.go.id",
+      "list_content":[],
+      "content_list_content":[]
+    },
+    {
+      "title": "Siapa sasaran penerima Vaksinasi COVID-19 ?",
+      "content": "Kelompok prioritas penerima vaksin adalah penduduk yang berdomisili di Indonesia yang berusia ≥ 18 tahun. Kelompok penduduk berusia di bawah 18 tahun dapat diberikan vaksinasi apabila telah tersedia data keamanan vaksin yang memadai dan persetujuan penggunaan pada masa darurat (emergency use authorization) atau penerbitan nomor izin edar (NIE) dari Badan Pengawas Obat dan Makanan.",
+      "type":"general",
+      "sumber": "www.covid19.go.id",
+      "content_list":[],
+      "list_content":[],
+      "content_list_content":[]
+    },
+    {
+      "title": "Siapa yang melakukan Vaksinasi COVID-19 ?",
+      "content": "Pemberian vaksinasi COVID-19 dilakukan oleh dokter, perawat atau bidan yang memiliki kompetensi yang dibuktikan dengan STR.",
+      "type":"general",
+      "sumber": "www.covid19.go.id",
+      "content_list":[],
+      "list_content":[],
+      "content_list_content":[]
+    },
+    {
+      "title": "Apakah orang yang sudah pernah terkonfirmasi COVID-19 boleh diberikan vaksin ?",
+      "content": "Penyintas (Orang yang mampu bertahan hidup melawan COVID-19 (KBBI)) COVID-19 dapat divaksinasi 3 bulan setelah sembuh. Apabila setelah dosis pertama sasaran terinfeksi COVID-19 maka dosis pertama vaksinasi tidak perlu diulang tetap diberikan dosis kedua dengan interval yang sama yaitu 3 bulan sejak dinyatakan sembuh.",
+      "type":"general",
+      "sumber": "www.covid19.go.id",
+      "content_list":[],
+      "list_content":[],
+      "content_list_content":[]
+    },
+    {
+      "title": "Bagaimana dengan seseorang yang tidak tahu dirinya terkonfirmasi COVID-19 tetapi terlanjur divaksinasi ?",
+      "content": "Apabila seseorang tidak mengetahui dirinya positif COVID-19 dan tidak ada gejala klinik yang dicurigai atau dalam kondisi sehat lalu diberikan vaksin COVID-19, secara medis tidak ada efek samping yang akan ditimbulkan.",
+      "type":"general",
+      "sumber": "www.covid19.go.id",
+      "content_list":[],
+      "list_content":[],
+      "content_list_content":[]
+    },
+    {
+      "title": "Apakah setelah divaksin kita pasti kebal terhadap COVID-19 ?",
+      "content": "Vaksin tidak 100% membuat kita kebal terhadap COVID-19. Namun, akan mengurangi dampak yang ditimbulkan jika kita tertular COVID-19. Untuk itu, meskipun sudah divaksinasi, masyarakat harus tetap menerapkan protokol Kesehatan 5M.",
+      "type":"general",
+      "sumber": "www.covid19.go.id",
+      "content_list":[],
+      "list_content":[],
+      "content_list_content":[]
+    },
+    {
+      "title": "Kenapa Vaksin COVID-19 untuk Anak-Anak Belum Tersedia ?",
+      "type": "content-list-content",
+      "content":"",
+      "content_list_content": [
+        {
+          "title": "Risiko COVID-19 pada anak",
+          "content": "Orang dewasa lebih rentan terinfeksi virus Corona daripada anak-anak. Gejala atau komplikasi COVID-19 yang dialami orang dewasa pun umumnya lebih parah. Namun, bukan berarti anak-anak bisa kebal terhadap paparan virus ini."
+        },
+        {
+          "title": "Sistem kekebalan tubuh anak",
+          "content": "Sistem kekebalan tubuh anak-anak berbeda dengan orang dewasa. Hal ini membuat dosis pemberian vaksin COVID-19 untuk anak-anak tidak bisa disamakan dengan dosis vaksin untuk orang dewasa."
+        },
+        {
+          "title": "Izin orang tua",
+          "content": "Anak-anak belum dapat memberikan keputusan sendiri. Oleh karena itu, diperlukan izin dan persetujuan dari orang tua apabila peneliti ingin melakukan uji coba vaksin pada anak."
+        },
+        {
+          "title": "Efektivitas dan keamanan vaksin",
+          "content": "Peneliti ingin memastikan bahwa vaksin COVID-19 yang diberikan kepada orang dewasa memang efektif dan aman sebelum disuntikkan kepada anak-anak. Oleh karena itu, diperlukan studi dan data yang lebih banyak lagi untuk memulai proses penelitian dan pengujian vaksin COVID-19 untuk anak-anak."
+        }
+      ],
+      "sumber": "www.alodokter.com",
+      "content_list":[],
+      "list_content":[]
+    },
+    {
+      "title": "Apakah vaksin COVID-19 melindungi secara jangka panjang ?",
+      "content": "Masih diperlukan penelitian lebih lanjut untuk mengetahui rentang periode jangka panjang dari perlindungan vaksin COVID-19.",
+      "type":"general",
+      "sumber": "www.covid19.go.id",
+      "content_list":[],
+      "list_content":[],
+      "content_list_content":[]
+    },    
+    {
+      "title": "Bagaimana vaksin COVID-19 dikembangkan ?",
+      "content": "Pengembangan vaksin tetap harus melalui tahapan pengembangan yang berlaku internasional yang secara umum terdiri dari:",
+      "type":"content-list-content",
+      "content_list_content": [
+        {
+          "title": "Tahap praklinik",
+          "content": ""
+        },
+        {
+          "title": "Tahap klinis (fase 1-3)",
+          "content": ""
+        },
+        {
+          "title": "Penetapan penggunaan vaksin",
+          "content": ""
+        }
+      ],
+      "sumber": "www.covid19.go.id",
+      "content_list":[],
+      "list_content":[]
+    }  
   ]
 }

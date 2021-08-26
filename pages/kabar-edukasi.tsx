@@ -114,8 +114,11 @@ const KabarEdukasi: React.FC<IProps> = (props): ReactElement => {
 
   const handleMoreQnA = (): void => {
     setIoadingLoadMoreQnA(true);
-    const tempGetQnA: IQnA[] = DataQnA.data.slice(dataQnA.length, 8);
-    const tempResultMoreQnA: IQnA[] = [...dataQnA, ...tempGetQnA];
+    console.log('dataQnA', dataQnA);
+    DataQnA.data.slice(dataQnA.length, 8);
+    const tempGetQnA = DataQnA.data.slice(dataQnA.length, DataQnA.data.length);
+    const tempResultMoreQnA: IQnA[] = [...dataQnA, ...tempGetQnA.slice(0, 8)];
+    console.log('tempResultMoreQnA', tempResultMoreQnA);
     tempGetQnA.length >= 8 ? setIsMoreQnA(true) : setIsMoreQnA(false);
     setDataQnA(tempResultMoreQnA);
     setIoadingLoadMoreQnA(false);
@@ -215,7 +218,7 @@ const KabarEdukasi: React.FC<IProps> = (props): ReactElement => {
                     Maaf, kami kehabisan Q n A 🤗
                   </Typography>
                   <Typography className={classes.descriptionNoMoreQnA}>
-                    Maukan kamu bergabung untuk memberikan Q n A kepada
+                    Maukah kamu bergabung untuk memberikan Q n A kepada
                     masyarakat Sumba Timur ?{' '}
                   </Typography>
                   <Link
