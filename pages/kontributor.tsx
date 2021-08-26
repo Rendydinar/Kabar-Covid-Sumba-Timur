@@ -1,4 +1,10 @@
-import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core';
+import {
+  createStyles,
+  Grid,
+  makeStyles,
+  Theme,
+  Typography,
+} from '@material-ui/core';
 import Head from 'next/head';
 import React, { ReactElement } from 'react';
 import Jumbotron from '../components/Jumbotron';
@@ -19,6 +25,16 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '0 40px',
       [theme.breakpoints.down('sm')]: {
         padding: '0 10px',
+      },
+    },
+    nakama: {
+      textAlign: 'center',
+      margin: '30px 0',
+      fontSize: '24px',
+      color: '#263238',
+      fontWeight: 600,
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '20px',
       },
     },
   })
@@ -75,6 +91,9 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
           description='Kontributor Kabar Covid-19 Sumba Timur'
         />
         <div className={classes.root}>
+          <Typography className={classes.nakama}>
+            # Nakama Kabar Covid Sumba Timur
+          </Typography>
           <Grid container spacing={2} justifyContent='center'>
             {DataKontributor.data.map(
               (kontributor: IKontributor, index: number) => (

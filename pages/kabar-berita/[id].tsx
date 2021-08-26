@@ -1,5 +1,6 @@
 import { getAllPostIds, getPostData } from '../../lib/postsKabarBerita';
 import Head from 'next/head';
+import { MDXProvider } from '@mdx-js/react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import Layout from '../../components/Layout';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
@@ -7,6 +8,7 @@ import { Typography } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import { TiArrowBack } from 'react-icons/ti';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import Image from 'next/image';
 import { shimmer, toBase64 } from '../../utils';
 import Jumbotron from '../../components/Jumbotron';
@@ -60,6 +62,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const ComponentsMDXProvider = {
+  img: Image,
+};
+
 export default function Post({ postData }: { postData: IBerita }) {
   const classes = useStyles();
   const router = useRouter();
@@ -100,14 +106,15 @@ export default function Post({ postData }: { postData: IBerita }) {
       </Head>
       <Jumbotron title='Kabar Berita' description='' />
       <div className={classes.root}>
-        <IconButton
-          onClick={handleBack}
-          classes={{ label: classes.labelBtnBack }}
-          className={classes.btnBack}
-        >
-          Kembali{'  '}
-          <TiArrowBack />
-        </IconButton>
+        <Link href='/kabar-berita'>
+          <IconButton
+            classes={{ label: classes.labelBtnBack }}
+            className={classes.btnBack}
+          >
+            Kembali{'  '}
+            <TiArrowBack />
+          </IconButton>
+        </Link>
         <article>
           <Typography className={classes.titlePost}>
             {postData.title}
@@ -131,10 +138,12 @@ export default function Post({ postData }: { postData: IBerita }) {
               )}`}
             />
           </div>
-          <div
-            className={classes.contentPost}
-            dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
-          />
+          <MDXProvider components={ComponentsMDXProvider}>
+            <div
+              className={classes.contentPost}
+              dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
+            />
+          </MDXProvider>
         </article>
         <SharePost link={postData.id} titlePost={postData.title} />
       </div>
