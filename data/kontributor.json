@@ -5,7 +5,7 @@
       "facebook":"https://www.facebook.com/profile.php?id=100010536482965",
       "instagram":"https://www.instagram.com/r3ndydinar/",
       "twitter":"https://twitter.com/r3ndyDinar",
-      "bio":"Biarkan aku menjadi lilin kecil di antara bintang-bintang",
+      "bio":"<q>Biarkan aku menjadi lilin kecil di antara bintang-bintang</q>",
       "position":"Pengembang & Admin",
       "img_url": "/images/rendy.jpg"
     },
@@ -14,7 +14,7 @@
       "facebook":"https://www.facebook.com/eka.setiani.5268",
       "instagram":"https://www.instagram.com/eka_setiani_/",
       "twitter":"https://twitter.com/eka_setiani_",
-      "bio":"Be a creative minority",
+      "bio":"<q>Be a creative minority</q>",
       "position":"Redaksi",
       "img_url": "/images/eka_setiani.jpeg"
     },
@@ -32,9 +32,27 @@
       "facebook":"",
       "instagram":"https://www.instagram.com/mnkv.ts/",
       "twitter":"",
-      "bio":"Jalani dan Nikmati",
+      "bio":"<q>Jalani dan nikmati</q>",
       "position":"Pencari Informasi Vaksin",
       "img_url": "/images/monika_solo.jpeg"
+    },
+    {
+      "name":"Jean Stevani Vanelsa Pabundu",
+      "facebook":"https://www.facebook.com/jean.neny.18",
+      "instagram":"https://www.instagram.com/nenyjean_pabundu/",
+      "twitter":"https://twitter.com/jean_pabundu",
+      "bio":"<q>Tidak perlu jadi orang penting, hanya perlu jadi orang yg berguna untuk orang lain</q>",
+      "position":"Pencari Informasi Vaksin",
+      "img_url": "/images/jean_stevani_vanelsa_pabundu.jpeg"
+    },
+    {
+      "name":"Rinto Tunggu Djama",
+      "facebook":"https://www.facebook.com/rinto.djama",
+      "instagram":"https://www.instagram.com/ariesinto_/",
+      "twitter":"https://twitter.com/ariesinto_",
+      "bio":"<q><div><p>Rinto Tunggu Djama 📌</p><p>Sumba Timur_NTT📌</p> <p>I Studied At Wira Wacana Christian University Sumba📌</p> <p>Informatics Engineering Study Program📌</p></div></q>",
+      "position":"Editor Gambar",
+      "img_url": "/images/rinto_tunggu_djama.jpg"
     }
   ]
 }
