@@ -51,9 +51,10 @@ const CardKontributor: React.FC<IProps> = (props) => {
         ) : undefined}
       </div>
       {props.contributor.bio ? (
-        <Typography className={classes.bio}>
-          <q>{props.contributor.bio}</q>
-        </Typography>
+        <div
+          className={classes.bio}
+          dangerouslySetInnerHTML={{ __html: props.contributor.bio }}
+        />
       ) : (
         <Typography className={classNames(classes.bio, 'noBio')}>
           Bio belum diisi
