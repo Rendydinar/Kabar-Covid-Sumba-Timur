@@ -30,6 +30,7 @@ export interface IVaksin {
   sumber?: string;
   jenis_vaksin?: string;  
   place_map?:string;
+  link_map?:string;
   kewajiban?:string[];
   kouta?:number;
   waktu_berakhir_timestamp?:number

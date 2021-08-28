@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     containerTypeMonitoring: {
       padding: '0 125px',
+      margin: '30px 0',
       [theme.breakpoints.down('md')]: {
         padding: '0 50px',
       },
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     monitoringTitle: {
       fontSize: '20px',
-      fontWeight: 700,
+      fontWeight: 500,
       textTransform: 'uppercase',
       textDecoration: 'underline',
       [theme.breakpoints.down('sm')]: {
@@ -81,17 +82,16 @@ interface IProps {
 const images = [
   'https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2Fcovid19.png?alt=media&token=7fff4ed4-df18-42ac-8e46-30bbd82b7a56',
   'https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2F3m-covid.png?alt=media&token=63eb8f5b-4171-42a8-b561-dc5d967baad2',
-
   'https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2Fpresiden-jokowi-disuntik-vaksin-corona-covid-19.jpeg?alt=media&token=e6334922-78c8-441b-b737-fcd5d28faaee',
-
   'https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2Fisolasi_mandiri.jpg?alt=media&token=1b205a78-fa83-4c05-a33d-90d31c99e8fc',
 ];
 
 const imageStyle = (src: string) => ({
-  backgroundSize: 'cover',
   backgroundImage: `url(${src})`,
   height: '100%',
   width: '100%',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
 });
 
 const Home: React.FC<IProps> = (props): ReactElement => {
