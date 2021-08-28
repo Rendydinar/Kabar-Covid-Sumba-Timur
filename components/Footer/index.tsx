@@ -21,6 +21,7 @@ import { FaHandsHelping } from 'react-icons/fa';
 import { LINK_FEEDBACK, MESSAGE_WHATSSAPP } from '../../constant';
 import useStyles from './styles';
 import Link from 'next/link';
+import { Divider } from '@material-ui/core';
 
 interface IProps {}
 interface IListMore {
@@ -44,16 +45,16 @@ const ListMore: IListMore[] = [
     value: 'bergabung',
     icon: <FaHandsHelping size={26} />,
   },
-  {
-    label: 'Lapor Info Vaksin',
-    value: 'lapor-info-vaksin',
-    icon: <VscFeedback size={26} />,
-  },
-  {
-    label: 'Umpan Balik',
-    value: 'umpan-balik',
-    icon: <MdContactPhone size={26} />,
-  },
+  // {
+  //   label: 'Lapor Info Vaksin',
+  //   value: 'lapor-info-vaksin',
+  //   icon: <VscFeedback size={26} />,
+  // },
+  // {
+  //   label: 'Umpan Balik',
+  //   value: 'umpan-balik',
+  //   icon: <MdContactPhone size={26} />,
+  // },
   {
     label: 'Tentang Kami',
     value: 'tentang-kami',
@@ -123,6 +124,23 @@ const Footer: React.FC<IProps> = (): ReactElement => {
             </ListItem>
           </Link>
         ))}
+        <Divider />
+        <div onClick={() => changeNavigation('', 'umpan-balik')}>
+          <ListItem button>
+            <ListItemIcon>
+              <MdContactPhone size={26} />
+            </ListItemIcon>
+            <ListItemText primary='Umpan Balik' />
+          </ListItem>
+        </div>
+        <div onClick={() => changeNavigation('', 'lapor-info-vaksin')}>
+          <ListItem button>
+            <ListItemIcon>
+              <VscFeedback size={26} />
+            </ListItemIcon>
+            <ListItemText primary='Lapor Info Vaksin' />
+          </ListItem>
+        </div>
       </List>
       <footer className={classes.footer}>
         {/* <div className='containerDonation'>
