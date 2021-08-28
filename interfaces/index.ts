@@ -131,3 +131,9 @@ export interface IJoinKontributor {
   jobDescription: string[];
   linkToJoin: string;
 }
+
+export interface IMediaPathner {
+  image: string;
+  name: string;
+  website:string;
+}
