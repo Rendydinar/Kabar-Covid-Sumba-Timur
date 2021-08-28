@@ -71,7 +71,6 @@ const Footer: React.FC<IProps> = (): ReactElement => {
   });
 
   const changeNavigation = (event: any, newValue: any): void => {
-    console.log('newValue', newValue);
     if (newValue !== 'lebih' && router.pathname !== `/${newValue}`) {
       if (newValue === 'lapor-info-vaksin') {
         window.open(
