@@ -118,11 +118,9 @@ const KabarEdukasi: React.FC<IProps> = (props): ReactElement => {
 
   const handleMoreQnA = (): void => {
     setIoadingLoadMoreQnA(true);
-    console.log('dataQnA', dataQnA);
     DataQnA.data.slice(dataQnA.length, 8);
     const tempGetQnA = DataQnA.data.slice(dataQnA.length, DataQnA.data.length);
     const tempResultMoreQnA: IQnA[] = [...dataQnA, ...tempGetQnA.slice(0, 8)];
-    console.log('tempResultMoreQnA', tempResultMoreQnA);
     tempGetQnA.length >= 8 ? setIsMoreQnA(true) : setIsMoreQnA(false);
     setDataQnA(tempResultMoreQnA);
     setIoadingLoadMoreQnA(false);
