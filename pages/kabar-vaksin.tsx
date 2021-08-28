@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@material-ui/core';
+import { Button, Grid, Link, Typography } from '@material-ui/core';
 import { FormControl, InputLabel, NativeSelect } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import sortBy from 'lodash/sortBy';
@@ -8,7 +8,9 @@ import React, { ReactElement, useState } from 'react';
 import CardVaksin from '../components/CardVaksin';
 import Jumbotron from '../components/Jumbotron';
 import Layout from '../components/Layout';
+import { MESSAGE_WHATSSAPP } from '../constant';
 import { getDataVaksin } from '../fetchData/getDataVaksin';
+import { AiOutlineReload } from 'react-icons/ai';
 import { IVaksin } from '../interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -45,6 +47,52 @@ const useStyles = makeStyles((theme: Theme) =>
     containerEmptyVaksin: {
       marginTop: '70px',
     },
+    btnMoreVaksin: {
+      borderRadius: '10px',
+      padding: '10px 8px',
+      color: '#fff',
+      backgroundColor: '#28DF99',
+      '&:hover': {
+        backgroundColor: '#28DF99',
+      },
+      marginTop: '30px',
+    },
+    containerInfoNoMoreVaksin: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      marginTop: '30px',
+      backgroundColor: '#e8f5e9',
+      padding: '20px 0',
+      [theme.breakpoints.down('sm')]: {
+        padding: '15px 10px',
+      },
+    },
+    titleNoMoreVaksin: {
+      textAlign: 'center',
+      fontSize: '24px',
+      color: '#ffc107',
+      fontWeight: 600,
+      marginBottom: '10px',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '18px',
+      },
+    },
+    labelLinkJoinQnA: {
+      fontSize: '16px',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '14px',
+      },
+    },
+    descriptionNoMoreVaksin: {
+      backgroundColor: 'rgb(232, 244, 253)',
+      textAlign: 'center',
+      borderRadius: '5px',
+      padding: '15px',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: '14px',
+      },
+    },
   })
 );
 interface IProps {
@@ -68,8 +116,12 @@ interface IFilterVaksinType {
 
 const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
   const classes = useStyles();
-  const [listDataVaksinToShow, setListDataVaksinToShow] = useState<IVaksin[]>(
+  const [dataVaksinFiltered, setDataVaksinFiltered] = useState<IVaksin[]>(
     props.data
+  );
+  const [isMoreVaksinData, setIsMoreVaksinData] = useState<boolean>(true);
+  const [listDataVaksinToShow, setListDataVaksinToShow] = useState<IVaksin[]>(
+    props.data.slice(0, 5)
   );
   const [selectedFilterVaksinType, setSelectedFilterVaksinType] =
     useState<string>(FILTER_VAKSIN_KEY.ALL_EVENT);
@@ -92,9 +144,26 @@ const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
     },
   ]);
 
+  const handleLoadMoreVaksin = (): void => {
+    const tempGetQnA = dataVaksinFiltered.slice(
+      listDataVaksinToShow.length,
+      dataVaksinFiltered.length
+    );
+    const tempResultMoreQnA: IVaksin[] = [
+      ...listDataVaksinToShow,
+      ...tempGetQnA.slice(0, 5),
+    ];
+    tempGetQnA.length >= 5
+      ? setIsMoreVaksinData(true)
+      : setIsMoreVaksinData(false);
+    setListDataVaksinToShow(tempResultMoreQnA);
+    // setIoadingLoadMoreQnA(false);
+  };
+
   const handleChangeFaksinFilterType = (
     event: React.ChangeEvent<{ name?: string; value: string }>
   ) => {
+    setIsMoreVaksinData(true);
     setSelectedFilterVaksinType(event.target.value);
     if (event.target.value === FILTER_VAKSIN_KEY.ONGOING) {
       const tempListVaksin: IVaksin[] = props.data.filter((vaksin: IVaksin) => {
@@ -104,20 +173,28 @@ const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
           new Date().getTime() < timeStampBerakrhir
         );
       });
-      setListDataVaksinToShow(tempListVaksin);
+      setDataVaksinFiltered(tempListVaksin);
+      setListDataVaksinToShow(tempListVaksin.slice(0, 5));
+      // setListDataVaksinToShow(tempListVaksin);
     } else if (event.target.value === FILTER_VAKSIN_KEY.FINISHED) {
       const tempListVaksin: IVaksin[] = props.data.filter((vaksin: IVaksin) => {
         const timeStampBerakrhir = vaksin?.waktu_berakhir_timestamp ?? 0;
         return new Date().getTime() > timeStampBerakrhir;
       });
-      setListDataVaksinToShow(tempListVaksin);
+      setDataVaksinFiltered(tempListVaksin);
+      setListDataVaksinToShow(tempListVaksin.slice(0, 5));
+      // setListDataVaksinToShow(tempListVaksin);
     } else if (event.target.value === FILTER_VAKSIN_KEY.COMMING_SOON) {
       const tempListVaksin: IVaksin[] = props.data.filter((vaksin: IVaksin) => {
         return new Date().getTime() < vaksin.timestamp;
       });
-      setListDataVaksinToShow(tempListVaksin);
+      setDataVaksinFiltered(tempListVaksin);
+      setListDataVaksinToShow(tempListVaksin.slice(0, 5));
+      // setListDataVaksinToShow(tempListVaksin);
     } else {
-      setListDataVaksinToShow(props.data);
+      setDataVaksinFiltered(props.data);
+      setListDataVaksinToShow(props.data.slice(0, 5));
+      // setListDataVaksinToShow(props.data);
     }
   };
 
@@ -199,10 +276,20 @@ const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
             {listDataVaksinToShow.length === 0 ? (
               <div className={classes.containerEmptyVaksin}>
                 <Typography className={classes.textInfoEmptyVaksin}>
-                  Maaf jadwal vaksin yang kamu cari tidak tersedia
+                  Maaf jadwal vaksin yang kamu cari tidak tersedia 🥺
                 </Typography>
-                <Typography className={classes.textInfoEmptyVaksin}>
-                  🥺
+                {/* <Typography className={classes.textInfoEmptyVaksin}> */}
+                <Typography className={classes.descriptionNoMoreVaksin}>
+                  Jika kamu mempunyai informasi Vaksin Covid-19 di Sumba Timur
+                  silakan hubungi admin agar dimasukan ke dalam database{' '}
+                  <Link
+                    href={`https://api.whatsapp.com/send?phone=6282217971133&text=${MESSAGE_WHATSSAPP}`}
+                    target='_blank'
+                    rel='noopener'
+                  >
+                    WA Admin Untuk Memberikan Informasi Vaksin Covid-19
+                  </Link>
+                  {/* </Typography> */}
                 </Typography>
               </div>
             ) : (
@@ -214,6 +301,39 @@ const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
                 ))}
               </Grid>
             )}
+            {listDataVaksinToShow.length > 0 &&
+              (isMoreVaksinData ? (
+                <Button
+                  endIcon={<AiOutlineReload size={20} />}
+                  className={classes.btnMoreVaksin}
+                  onClick={handleLoadMoreVaksin}
+                >
+                  Lihat lebih banyak
+                </Button>
+              ) : (
+                <div className={classes.containerInfoNoMoreVaksin}>
+                  <Typography className={classes.titleNoMoreVaksin}>
+                    Kamu telah melihat semua data vaksin untuk jadwal{' '}
+                    <q
+                      style={{ textTransform: 'capitalize', color: '#28DF99' }}
+                    >
+                      {selectedFilterVaksinType.split('_').join(' ')}
+                    </q>{' '}
+                    di database 🤗
+                  </Typography>
+                  <Typography className={classes.descriptionNoMoreVaksin}>
+                    Jika kamu mempunyai informasi Vaksin Covid-19 di Sumba Timur
+                    silakan hubungi admin agar dimasukan ke dalam database{' '}
+                    <Link
+                      href={`https://api.whatsapp.com/send?phone=6282217971133&text=${MESSAGE_WHATSSAPP}`}
+                      target='_blank'
+                      rel='noopener'
+                    >
+                      WA Admin Untuk Memberikan Informasi Vaksin Covid-19
+                    </Link>
+                  </Typography>
+                </div>
+              ))}
           </div>
         </div>
       </div>

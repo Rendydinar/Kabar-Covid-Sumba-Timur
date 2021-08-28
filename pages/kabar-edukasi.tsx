@@ -96,8 +96,12 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     btnMoreQnA: {
+      color: '#fff',
       backgroundColor: '#28DF99',
       marginTop: '30px',
+      '&:hover': {
+        backgroundColor: '#28DF99',
+      },
     },
   })
 );
