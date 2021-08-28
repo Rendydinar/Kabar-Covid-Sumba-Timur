@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "image": "/images/lambang-sumba-timur.png",
+      "name": "Pemerintah Kabupaten Sumba Timur",
+      "website": "https://www.sumbatimurkab.go.id/"
+    },
+    {
+      "image": "/images/kodam_udayana.png",
+      "name": "Kodim 1601/Sumba Timur",
+      "website": "https://www.kodam-udayana.mil.id/"
+    },
+    {
+      "image": "/images/kepolisian-resor-polres-sumba-timur.png",
+      "name": "Polres Sumba Timur",
+      "website": "https://tribratanewsntt.com/"
+    },
+    {
+      "image": "/images/satgas_covid19.png",
+      "name": "Satgas COVID-19",
+      "website": "https://covid19.go.id/"
+    }
+  ]
+}

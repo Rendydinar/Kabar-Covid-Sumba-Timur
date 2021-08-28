@@ -12,6 +12,8 @@ import Jumbotron from '../components/Jumbotron';
 import Layout from '../components/Layout';
 import { LINK_FEEDBACK, MESSAGE_WHATSSAPP } from '../constant';
 import { useTrail, animated as a } from 'react-spring';
+import DataMediaPathner from '../data/mediaPathner.json';
+import CardMediaPathner from '../components/CardMediaPathner';
 
 interface IProps {
   data: any;
@@ -21,7 +23,7 @@ const items = [
   'Pemerintah Kabupaten Sumba Timur',
   'Kodim 1601/Sumba Timur',
   'Polres Sumba Timur',
-  'Satuan Tugas Penanganan COVID-19',
+  'Satgas COVID-19',
 ];
 const config = { mass: 5, tension: 2000, friction: 200 };
 
@@ -64,19 +66,25 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: '10px',
       marginBottom: '25px',
       fontWeight: 700,
-    },
-    mediaPather: {
-      '& > div': {
-        height: '80px',
-        display: 'flex',
-        alignItems: 'center',
-        fontSize: '20px',
-        textAlign: 'center',
-        justifyContent: 'space-around',
-        padding: '5px',
-        boxShadow:
-          'rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px',
+      '&:hover': {
+        cursor: 'pointer',
       },
+    },
+    containerMediaPathner: {
+      marginTop: '40px',
+      display: 'flex',
+      gap: '10px',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      [theme.breakpoints.down('sm')]: {
+        gap: '15px',
+      },
+    },
+    thanksText: {
+      marginBottom: '25px',
+      textAlign: 'center',
+      fontSize: '24px',
+      fontWeight: 'bold',
     },
   })
 );
@@ -88,7 +96,7 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
     config,
     opacity: toggle ? 1 : 0,
     x: toggle ? 0 : 20,
-    height: toggle ? 80 : 0,
+    height: toggle ? 150 : 0,
     from: { opacity: 0, x: 20, height: 0 },
   });
 
@@ -221,26 +229,44 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
               Terimaksih Untuk
             </Typography>
 
-            <div className='trails-main' onClick={() => set((state) => !state)}>
-              <div>
-                {trail.map(({ x, height, ...rest }: any, index) => (
-                  <a.div
-                    key={items[index]}
-                    className={classes.mediaPather}
-                    style={{
-                      ...rest,
-                      transform: x.interpolate(
-                        (x: any) => `translate3d(0,${x}px,0)`
-                      ),
-                    }}
-                  >
-                    <a.div style={{ height }}>{items[index]}</a.div>
-                  </a.div>
-                ))}
-              </div>
+            <div
+              className={classes.containerMediaPathner}
+              onClick={() => set((state) => !state)}
+            >
+              {toggle
+                ? trail.map(({ x, height, ...rest }: any, index) => (
+                    <a.div
+                      key={items[index]}
+                      style={{
+                        ...rest,
+                        transform: x.interpolate(
+                          (x: any) => `translate3d(0,${x}px,0)`
+                        ),
+                      }}
+                    >
+                      <a.div style={{ height }}>
+                        <CardMediaPathner
+                          pathner={DataMediaPathner.data[index]}
+                        />
+                      </a.div>
+                    </a.div>
+                  ))
+                : trail.map(({ x, height, ...rest }: any, index) => (
+                    <a.div
+                      key={items[index]}
+                      style={{
+                        ...rest,
+                        transform: x.interpolate(
+                          (x: any) => `translate3d(0,${x}px,0)`
+                        ),
+                      }}
+                    >
+                      <a.div style={{ height }}></a.div>
+                    </a.div>
+                  ))}
             </div>
 
-            <Typography className={classes.descriptionSection}>
+            <Typography className={classes.thanksText}>
               Yang sudah saling berbagi informasi
             </Typography>
 
