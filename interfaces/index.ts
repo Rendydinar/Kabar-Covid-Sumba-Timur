@@ -35,6 +35,7 @@ export interface IVaksin {
   kouta?:number;
   waktu_berakhir_timestamp?:number
   isShow: boolean;
+  place_maps?: string[];
 }
 
 export interface IBerita {

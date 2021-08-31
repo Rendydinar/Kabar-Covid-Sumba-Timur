@@ -1,6 +1,6 @@
 import { Collapse, IconButton, Typography } from '@material-ui/core';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { IVaksin } from '../../interfaces';
 import { classNames } from '../../lib/classNames';
 import useStyles from './styles';
@@ -139,7 +139,7 @@ const CardVaksin: React.FC<IProps> = (props) => {
             ))}
           </>
         )}
-        {props.vaksin.place_map && (
+        {(props.vaksin.place_map || props.vaksin.place_maps) && (
           <>
             <div className={classes.containerCardAction}>
               <Button
@@ -172,9 +172,21 @@ const CardVaksin: React.FC<IProps> = (props) => {
               </Button>
             </div>
             <Collapse in={expanded} timeout='auto' unmountOnExit>
-              <div
-                dangerouslySetInnerHTML={{ __html: props.vaksin.place_map }}
-              />
+              {props.vaksin.place_maps ? (
+                props.vaksin.place_maps.map(
+                  (placeMap: string, index: number) => (
+                    <Fragment key={index}>
+                      <div dangerouslySetInnerHTML={{ __html: placeMap }} />
+                      <br />
+                      <br />
+                    </Fragment>
+                  )
+                )
+              ) : (
+                <div
+                  dangerouslySetInnerHTML={{ __html: props.vaksin.place_map }}
+                />
+              )}
             </Collapse>
           </>
         )}
