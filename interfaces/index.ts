@@ -138,3 +138,10 @@ export interface IMediaPathner {
   name: string;
   website:string;
 }
+
+export interface IDataCovidYesterday {
+  dataTotalCovid: number;
+  penambahanKasusHarian: number;
+  rapidAntigen: number;
+  tcmPcr: number;
+}
