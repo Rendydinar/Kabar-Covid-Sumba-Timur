@@ -1,15 +1,19 @@
 import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
+import { findIndex } from 'lodash';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import React, { ReactElement, useEffect, useState } from 'react';
+import Badge from '../components/Badge';
 import CardIsolasi from '../components/CardIsolasi';
 import Jumbotron from '../components/Jumbotron';
 import Layout from '../components/Layout';
 import { getIsolasiData } from '../fetchData/getIsolasiData';
 import { IIsolasi } from '../interfaces';
+import { comparasionData } from '../utils';
 
 interface IProps {
   data: any;
+  dataYesterday: any;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -27,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     containerContent: {
+      position: 'relative',
       padding: '0 130px',
       display: 'flex',
       flexDirection: 'column',
@@ -36,6 +41,9 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     cardKasusAktif: {
+      alignItems: 'center',
+      position: 'relative',
+      display: 'flex',
       fontSize: '20px',
       fontWeight: 600,
       textAlign: 'center',
@@ -51,6 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     totalKasusAktif: {
+      marginRight: '5px',
       fontSize: '26px',
       fontWeight: 'bold',
       color: '#e44933',
@@ -58,22 +67,55 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: '22px',
       },
     },
+    badge: {
+      top: '0px !important',
+      left: '90% !important',
+    },
   })
 );
 
 const KabarIsolasi: React.FC<IProps> = (props): ReactElement => {
   const classes = useStyles();
-  const [totalKasus, setTotalKasus] = useState<number>(0);
+  const [totalKasusToday, setTotalKasusToday] = useState<number>(0);
+  const [totalKasusYesterday, setTotalKasusYesterday] = useState<number>(0);
+
   useEffect(() => {
     let tempTotalKasus: number = 0;
-    props.data.data.isolasi_terpusat.data.map((isolasi: IIsolasi) => {
+    props.data.isolasi_terpusat.data.map((isolasi: IIsolasi) => {
       tempTotalKasus += isolasi.kasus_terkonfirmasi;
     });
-    tempTotalKasus += props.data.data.rawat_rsud.terkonfirmasi;
-    // tempTotalKasus += props.data.data.rawat_rsud.menunggu_hasil_pcr;
-    tempTotalKasus += props.data.data.isolasi_mandiri.kasus_terkonfirmasi;
-    setTotalKasus(tempTotalKasus);
+    tempTotalKasus += props.data.rawat_rsud.terkonfirmasi;
+    // tempTotalKasus += props.data.rawat_rsud.menunggu_hasil_pcr;
+    tempTotalKasus += props.data.isolasi_mandiri.kasus_terkonfirmasi;
+    setTotalKasusToday(tempTotalKasus);
+
+    let tempTotalKasusYesterday: number = 0;
+    props.dataYesterday.data.isolasi_terpusat.data.map((isolasi: IIsolasi) => {
+      tempTotalKasusYesterday += isolasi.kasus_terkonfirmasi;
+    });
+    tempTotalKasusYesterday +=
+      props.dataYesterday.data.rawat_rsud.terkonfirmasi;
+    // tempTotalKasusYesterday += props.dataYesterday.data.rawat_rsud.menunggu_hasil_pcr;
+    tempTotalKasusYesterday +=
+      props.dataYesterday.data.isolasi_mandiri.kasus_terkonfirmasi;
+    setTotalKasusYesterday(tempTotalKasusYesterday);
   }, []);
+
+  const getComparasionIsolasiTerpusat = (
+    placeName: string,
+    total: number
+  ): number => {
+    const indexIsolasiYesterday = findIndex(props.data.isolasi_terpusat.data, {
+      nama_tempat: placeName,
+    });
+    if (indexIsolasiYesterday != -1) {
+      const isolasiYesterday =
+        props.data.isolasi_terpusat.data[indexIsolasiYesterday];
+      return comparasionData(total, isolasiYesterday.kasus_terkonfirmasi ?? 0);
+    } else {
+      return 0;
+    }
+  };
 
   return (
     <Layout>
@@ -130,21 +172,48 @@ const KabarIsolasi: React.FC<IProps> = (props): ReactElement => {
         </Typography>
         <div className={classes.containerContent}>
           <Typography className={classes.cardKasusAktif}>
-            <span className={classes.totalKasusAktif}>{totalKasus}</span> Kasus
-            Aktif
+            <span className={classes.totalKasusAktif}>{totalKasusToday}</span>{' '}
+            Kasus Aktif
+            <Badge
+              total={comparasionData(totalKasusToday, totalKasusYesterday)}
+              className={classes.badge}
+            ></Badge>
           </Typography>
+
           <div
             style={{
               width: '100%',
             }}
           >
-            {props.data.data.isolasi_terpusat.data.map(
+            {props.data.isolasi_terpusat.data.map(
               (isolasi: IIsolasi, index: number) => (
-                <CardIsolasi isolasi={isolasi} key={index} />
+                <CardIsolasi
+                  isolasi={isolasi}
+                  key={index}
+                  isolasiYesterday={getComparasionIsolasiTerpusat(
+                    isolasi.nama_tempat,
+                    isolasi.kasus_terkonfirmasi
+                  )}
+                  dateYesterday={props.dataYesterday.date}
+                />
               )
             )}
-            <CardIsolasi isolasi={props.data.data.rawat_rsud} />
-            <CardIsolasi isolasi={props.data.data.isolasi_mandiri} />
+            <CardIsolasi
+              isolasi={props.data.rawat_rsud}
+              isolasiYesterday={comparasionData(
+                props.data.rawat_rsud.terkonfirmasi,
+                props.dataYesterday.data.rawat_rsud.terkonfirmasi
+              )}
+              dateYesterday={props.dataYesterday.date}
+            />
+            <CardIsolasi
+              isolasi={props.data.isolasi_mandiri}
+              isolasiYesterday={comparasionData(
+                props.data.isolasi_mandiri.kasus_terkonfirmasi,
+                props.dataYesterday.data.isolasi_mandiri.kasus_terkonfirmasi
+              )}
+              dateYesterday={props.dataYesterday.date}
+            />
           </div>
         </div>
       </div>
@@ -159,8 +228,9 @@ export const getStaticProps: GetStaticProps = async () => {
     const responseGetIsolasiData: any = await getIsolasiData();
     return {
       props: {
-        success: true,
-        data: responseGetIsolasiData,
+        date: responseGetIsolasiData.date,
+        data: responseGetIsolasiData.data,
+        dataYesterday: responseGetIsolasiData.dataYesterday,
       },
       // Next.js will attempt to re-generate the page:
       // - When a request comes in
@@ -170,8 +240,9 @@ export const getStaticProps: GetStaticProps = async () => {
   } catch (err) {
     return {
       props: {
-        success: false,
-        data: [],
+        date: '',
+        data: null,
+        dataYesterday: null,
       },
       // Next.js will attempt to re-generate the page:
       // - When a request comes in

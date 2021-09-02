@@ -24,3 +24,8 @@ export const milisecondToDay = (milisecond: number): number => {
 export const milisecondToMinutes = (milisecond: number): number => {
   return Math.floor((milisecond % (1000 * 60 * 60)) / (1000 * 60))
 };
+
+export const convertMetaDateToJavascriptDateFormated = (metaDate:string):string => {
+  const metaDateToday = metaDate.split('-')
+  return `${metaDateToday[1]}-${metaDateToday[0]}-${metaDateToday[2]}`
+}
