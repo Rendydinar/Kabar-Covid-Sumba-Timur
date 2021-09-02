@@ -10,7 +10,7 @@ import sortBy from 'lodash/sortBy';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import React, { ReactElement } from 'react';
-import Card from '../components/Card';
+import CardDataCovid from '../components/CardDataCovid';
 import DataCovidPerkecamatan from '../components/DataCovidPerkecamatan';
 import Header from '../components/Header';
 import Jumbotron from '../components/Jumbotron';
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '80vh',
     },
     typeMonitoring: {
-      fontSize: '26px',
+      fontSize: '30px',
       fontWeight: 700,
       textAlign: 'center',
       [theme.breakpoints.down('md')]: {
@@ -51,10 +51,13 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     monitoringTitle: {
-      fontSize: '20px',
+      backgroundColor: '#F0FDF4',
+      padding: '5px',
+      borderTopRightRadius: '8px',
+      borderTopLeftRadius: '8px',
+      fontSize: '24px',
       fontWeight: 500,
       textTransform: 'uppercase',
-      textDecoration: 'underline',
       [theme.breakpoints.down('sm')]: {
         fontSize: '18px',
       },
@@ -73,10 +76,19 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       marginTop: '10px',
     },
+    lineTypeMonitoring: {
+      width: '100%',
+      marginBottom: '15px',
+      height: '5px',
+      // background: 'rgb(64,255,72)',
+      background:
+        'linear-gradient(0deg, rgba(64,255,72,1) 8%, rgba(86,243,82,1) 15%, rgba(123,223,99,1) 40%, rgba(105,233,91,1) 46%, rgba(65,253,45,1) 95%)',
+    },
   })
 );
 interface IProps {
   data: any;
+  yesterdayData: any;
 }
 
 const images = [
@@ -96,6 +108,7 @@ const imageStyle = (src: string) => ({
 
 const Home: React.FC<IProps> = (props): ReactElement => {
   const classes = useStyles();
+
   return (
     <Layout>
       <Head>
@@ -159,23 +172,48 @@ const Home: React.FC<IProps> = (props): ReactElement => {
             <Typography className={classes.monitoringTitle}>
               TCM / PCR
             </Typography>
+            <Divider className={classes.lineTypeMonitoring} />
             <div className={classes.monitoringSectionContainer}>
-              <Card
+              <CardDataCovid
                 icon='😟'
-                title='Positif'
-                total={props.data.data_covid_sumba_timur.data.tcm_pcr.positif}
+                title='Positif TCM/PCR'
+                totalNow={
+                  props.data.data_covid_sumba_timur.data.tcm_pcr.positif
+                }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.tcm_pcr
+                    .positif
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data positif hasil test TCM/PCR covid-19 di Sumba Timur'
               />
-              <Card
+              <CardDataCovid
                 icon='😊'
-                title='Negatif'
-                total={props.data.data_covid_sumba_timur.data.tcm_pcr.negatif}
+                title='Negatif TCM/PCR'
+                totalNow={
+                  props.data.data_covid_sumba_timur.data.tcm_pcr.negatif
+                }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.tcm_pcr
+                    .negatif
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data negatif hasil test TCM/PCR covid-19 di Sumba Timur'
               />
-              <Card
-                title='Total'
-                total={
+              <CardDataCovid
+                title='Total Test TCM/PCR'
+                totalNow={
                   props.data.data_covid_sumba_timur.data.tcm_pcr.positif +
                   props.data.data_covid_sumba_timur.data.tcm_pcr.negatif
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.tcm_pcr
+                    .positif +
+                  props.yesterdayData.data_covid_sumba_timur.data.tcm_pcr
+                    .negatif
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data total test TCM/PCR covid-19 di Sumba Timur'
               />
             </div>
           </div>
@@ -184,27 +222,49 @@ const Home: React.FC<IProps> = (props): ReactElement => {
             <Typography className={classes.monitoringTitle}>
               Rapid Antigen
             </Typography>
+            <Divider className={classes.lineTypeMonitoring} />
             <div className={classes.monitoringSectionContainer}>
-              <Card
+              <CardDataCovid
                 icon='😟'
-                title='Positif'
-                total={
+                title='Positif Rapid Antigen'
+                totalNow={
                   props.data.data_covid_sumba_timur.data.rapid_antigen.positif
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.rapid_antigen
+                    .positif
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data positif hasil test Rapid Antigen covid-19 di Sumba Timur'
               />
-              <Card
+
+              <CardDataCovid
                 icon='😊'
-                title='Negatif'
-                total={
+                title='Negatif Rapid Antigen'
+                totalNow={
                   props.data.data_covid_sumba_timur.data.rapid_antigen.negatif
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.rapid_antigen
+                    .negatif
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data negatif hasil test Rapid Antigen covid-19 di Sumba Timur'
               />
-              <Card
-                title='Total'
-                total={
+              <CardDataCovid
+                title='Total Test Rapid Antigen'
+                totalNow={
                   props.data.data_covid_sumba_timur.data.rapid_antigen.positif +
                   props.data.data_covid_sumba_timur.data.rapid_antigen.negatif
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.rapid_antigen
+                    .positif +
+                  props.yesterdayData.data_covid_sumba_timur.data.rapid_antigen
+                    .negatif
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data total test Rapid Antigen covid-19 harian di Sumba Timur'
               />
             </div>
           </div>
@@ -226,20 +286,33 @@ const Home: React.FC<IProps> = (props): ReactElement => {
             <Typography className={classes.monitoringTitle}>
               Penambahan Kasus Hari Ini
             </Typography>
+            <Divider className={classes.lineTypeMonitoring} />
             <div className={classes.monitoringSectionContainer}>
-              <Card
+              <CardDataCovid
                 title='Antigen'
-                total={
+                totalNow={
                   props.data.data_covid_sumba_timur.data.positif_covid
                     .penambahan_kasus_harian.antigen
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.positif_covid
+                    .penambahan_kasus_harian.antigen
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data penambahan kasus positif covid-19 harian melalui hasil test Rapid Antigen di Sumba Timur'
               />
-              <Card
+              <CardDataCovid
                 title='PCR / TCM'
-                total={
+                totalNow={
                   props.data.data_covid_sumba_timur.data.positif_covid
                     .penambahan_kasus_harian.pcr_tcm
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.positif_covid
+                    .penambahan_kasus_harian.pcr_tcm
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data penambahan kasus positif covid-19 harian melalui hasil test PCR/TCM Antigen di Sumba Timur'
               />
             </div>
           </div>
@@ -247,38 +320,63 @@ const Home: React.FC<IProps> = (props): ReactElement => {
             <Typography className={classes.monitoringTitle}>
               Data Total Positif
             </Typography>
+            <Divider className={classes.lineTypeMonitoring} />
             <div className={classes.monitoringSectionContainer}>
-              <Card
+              <CardDataCovid
                 icon='😟'
                 title='Total Positif'
-                total={
+                totalNow={
                   props.data.data_covid_sumba_timur.data.positif_covid
                     .total_positif
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.positif_covid
+                    .total_positif
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data total kasus positif covid-19 di Sumba Timur'
               />
-              <Card
+              <CardDataCovid
                 icon='🤒'
                 title='Total Dirawat'
-                total={
+                totalNow={
                   props.data.data_covid_sumba_timur.data.positif_covid
                     .total_dirawat
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.positif_covid
+                    .total_dirawat
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data total passien covid-19 yang dirawat di Sumba Timur'
               />
-              <Card
+              <CardDataCovid
                 icon='😃'
                 title='Total Sembuh'
-                total={
+                totalNow={
                   props.data.data_covid_sumba_timur.data.positif_covid
                     .total_sembuh
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.positif_covid
+                    .total_sembuh
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data total passien sembuh covid-19 di Sumba Timur'
               />
-              <Card
+              <CardDataCovid
                 icon='😢'
                 title='Total Meninggal'
-                total={
+                totalNow={
                   props.data.data_covid_sumba_timur.data.positif_covid
                     .total_meninggal
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.positif_covid
+                    .total_meninggal
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data total passien meninggal covid-19 di Sumba Timur'
               />
             </div>
           </div>
@@ -287,9 +385,17 @@ const Home: React.FC<IProps> = (props): ReactElement => {
 
       <DataCovidPerkecamatan
         dataPerkecamatan={props.data.data_covid_perkecamatan_sumba_timur}
+        dataPerkecamatanYesterday={
+          props.yesterdayData.data_covid_perkecamatan_sumba_timur
+        }
+        dataPerKelurahanYesterday={props.yesterdayData.data_kelurahan_yesterday}
       />
       <Top10Kecamatan
         top10Kelurahan={props.data.top_10_kelurahan_kasus_covid}
+        dateYesterday={
+          props.yesterdayData.data_covid_perkecamatan_sumba_timur.date
+        }
+        dataPerKelurahanYesterday={props.yesterdayData.data_kelurahan_yesterday}
       />
     </Layout>
   );
@@ -310,13 +416,32 @@ export const getStaticProps: GetStaticProps = async () => {
     });
     listkelurahan = sortBy(listkelurahan, 'total').reverse();
 
+    const dataKelurahanYesterday: IKelurahan[] = [];
+    responseGetCovidDataPerkecamatan.dataYesterday.data.map(
+      (kecamatan: IKecamatan) => {
+        kecamatan.kelurahan.map((kelurahan) => {
+          dataKelurahanYesterday.push(kelurahan);
+        });
+      }
+    );
+
     return {
       props: {
         data: {
           date: responseGetCovidData.date,
           data_covid_sumba_timur: responseGetCovidData,
-          data_covid_perkecamatan_sumba_timur: responseGetCovidDataPerkecamatan,
+          data_covid_perkecamatan_sumba_timur: {
+            date: responseGetCovidDataPerkecamatan.date,
+            data: responseGetCovidDataPerkecamatan.data,
+          },
           top_10_kelurahan_kasus_covid: listkelurahan.slice(0, 10),
+        },
+        yesterdayData: {
+          date: responseGetCovidData.data.dataYesterday.date,
+          data_covid_sumba_timur: responseGetCovidData.data.dataYesterday,
+          data_covid_perkecamatan_sumba_timur:
+            responseGetCovidDataPerkecamatan.dataYesterday,
+          data_kelurahan_yesterday: dataKelurahanYesterday,
         },
       },
       // Next.js will attempt to re-generate the page:

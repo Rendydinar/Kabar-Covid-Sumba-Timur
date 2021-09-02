@@ -54,3 +54,17 @@ Terimakasih 🙏
 #Covid19
 #VaksinCovid19
 #SumbaTimurGoVaksin
+
+
+
+date: "02-09-2021"
+img_url: "https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/data-vaksin%2FWhatsApp%20Image%202021-08-31%20at%2020.39.29.jpeg?alt=media&token=c0179126-fe93-4646-a626-107c60f121aa"
+isShow: true
+jenis_vaksin: "Sinovac"
+keterangan: "Informasi DPD Golkar Sumba Timur akan melakukan vaksin covid-19 tahap 1 Sinovac untuk 1000 orang pada hari Kamis 02 September 2021 Di 2 Tempat: Sekretariat DPD Partai Golkar & Gedung Serba Guna (MPL)"
+kewajiban: ["Menyelesaikan Pendaftaran", "Membawa foto kopi KTP", "Memiliki nomor telepon"]
+kouta: 1000
+place_maps: ["<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d983.3173967509358!2d120.26876382920136!3d-9.657990999567883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcKwMzknMjguOCJTIDEyMMKwMTYnMDkuNSJF!5e0!3m2!1sen!2sid!4v1630417255154!5m2!1sen!2sid" width="600" height="450" style="border:0;width:100%;" allowfullscreen="" loading="lazy"></iframe>", "<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.3870256277296!2d120.25919381460425!3d-9.647933293093043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c4c9b663b96f331%3A0xd1ed670618c5bd56!2sKantor%20DPC%20Partai%20Golkar!5e0!3m2!1sen!2sid!4v1630417324911!5m2!1sen!2sid" width="600" height="450" style="border:0;width:100%;" allowfullscreen="" loading="lazy"></iframe>"]
+sumber: "Ketua Harian Partai Golkar Sumba Timur"
+timestamp: 1630540800000
+waktu_berakhir_timestamp: 1630576800000

@@ -6,20 +6,59 @@ import {
   TableCell,
   TableRow,
 } from '@material-ui/core';
+import { findIndex } from 'lodash';
 import React, { Fragment, useState } from 'react';
 import { MdExpandMore } from 'react-icons/md';
 import { IKecamatan, IKelurahan } from '../../../interfaces/index';
 import { classNames } from '../../../lib/classNames';
+import { comparasionData } from '../../../utils';
+import Badge from '../../Badge';
 import useStyles from './styles';
 
 interface IProps {
   index: number;
   kecamatan: IKecamatan;
+  dataKecamatanYesterday: IKecamatan[];
+  dataPerKelurahanYesterday: IKelurahan[];
 }
 
 const Row: React.FC<IProps> = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState<boolean>(false);
+
+  const findTotalKecamatanComparasion = (
+    kecamatanName: string,
+    total: number
+  ): number => {
+    const indexKecamatanYesterday = findIndex(props.dataKecamatanYesterday, {
+      name: kecamatanName,
+    });
+    if (indexKecamatanYesterday != -1) {
+      const kecamatanYesterday =
+        props.dataKecamatanYesterday[indexKecamatanYesterday];
+      const difference = comparasionData(total, kecamatanYesterday.total ?? 0);
+      return difference;
+    } else {
+      return 0;
+    }
+  };
+
+  const findTotalKelurahanComparasion = (
+    kelurahanName: string,
+    total: number
+  ): number => {
+    const indexKelurahanYesterday = findIndex(props.dataPerKelurahanYesterday, {
+      name: kelurahanName,
+    });
+    if (indexKelurahanYesterday != -1) {
+      const kelurahanYesterday =
+        props.dataPerKelurahanYesterday[indexKelurahanYesterday];
+      const difference = comparasionData(total, kelurahanYesterday.total ?? 0);
+      return difference;
+    } else {
+      return 0;
+    }
+  };
 
   return (
     <Fragment>
@@ -50,9 +89,17 @@ const Row: React.FC<IProps> = (props) => {
         style={{
           fontSize: '16px',
           fontWeight: 800,
+          position: 'relative',
         }}
       >
         {props.kecamatan.total}
+        <Badge
+          total={findTotalKecamatanComparasion(
+            props.kecamatan.name,
+            props.kecamatan.total ?? 0
+          )}
+          className={classes.badge}
+        ></Badge>
       </TableCell>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -86,7 +133,19 @@ const Row: React.FC<IProps> = (props) => {
                             {kelurahan.isDesa ? '(Desa)' : '(Kelurahan)'}
                           </span>
                         </TableCell>
-                        <TableCell align='right'>{kelurahan.total}</TableCell>
+                        <TableCell
+                          align='right'
+                          style={{ position: 'relative' }}
+                        >
+                          {kelurahan.total}
+                          <Badge
+                            total={findTotalKelurahanComparasion(
+                              kelurahan.name,
+                              kelurahan.total
+                            )}
+                            className={classes.badge}
+                          ></Badge>
+                        </TableCell>
                       </TableRow>
                     )
                 )}

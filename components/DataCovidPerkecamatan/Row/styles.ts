@@ -17,6 +17,10 @@ const useStyles = makeStyles((theme:Theme) => createStyles({
     display: 'flex',
     alignItems: 'center',
     width: '50px'
+  },
+  badge: {
+    top: '6px !important',
+    left: '100% !important',
   }
 }));
 
