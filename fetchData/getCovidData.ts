@@ -10,10 +10,9 @@ export const getCovidData =  () => new Promise(async(resolve, reject) => {
     const penambahanKasusHarian = await DATA_COVID_COLLECTION.doc('data').collection(`${lastUpdatedData}`).doc('positif_covid').collection('data').doc('penambahan_kasus_harian').get();
     const rapidAntigen = await DATA_COVID_COLLECTION.doc('data').collection(`${lastUpdatedData}`).doc('rapid_antigen').get();
     const tcmPcr = await DATA_COVID_COLLECTION.doc('data').collection(`${lastUpdatedData}`).doc('tcm_pcr').get();
+
     let yesterdayDate:string = "";
     const handleGetDataYesterday = (stringDateNow: string) => new Promise(async(resolve) => {
-      // get data yesterday
-      // use momement to handle date
       let StopGetYesterdayData:boolean = false;
       let dataCovidYesterday:any = {}
       let yesterday = new Date(convertMetaDateToJavascriptDateFormated(stringDateNow));

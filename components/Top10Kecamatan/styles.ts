@@ -11,6 +11,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     [theme.breakpoints.down('sm')]: {
       padding: '0 10px',
     },
+  },
+  tabelCellTotal: {
+    color: '#e44933',
+    fontWeight: 'bold',
+    fontSize: '16px',
+    position: 'relative',
+    // paddingRight: '55px !important'
+  },
+  badge: {
+    top: '6px !important',
+    left: '100% !important',
   }
 }));
 
