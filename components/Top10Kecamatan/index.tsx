@@ -7,16 +7,39 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
+import { findIndex } from 'lodash';
 import React from 'react';
 import { IKelurahan } from '../../interfaces';
+import { comparasionData } from '../../utils';
+import Badge from '../Badge';
 import useStyles from './styles';
 
 interface IProps {
   top10Kelurahan: IKelurahan[];
+  dateYesterday: string;
+  dataPerKelurahanYesterday: IKelurahan[];
 }
 
 const Top10Kecamatan: React.FC<IProps> = (props) => {
   const classes = useStyles();
+
+  const findTotalKelurahanComparasion = (
+    kelurahanName: string,
+    total: number
+  ): number => {
+    const indexKelurahanYesterday = findIndex(props.dataPerKelurahanYesterday, {
+      name: kelurahanName,
+    });
+    if (indexKelurahanYesterday != -1) {
+      const kelurahanYesterday =
+        props.dataPerKelurahanYesterday[indexKelurahanYesterday];
+      const difference = comparasionData(total, kelurahanYesterday.total ?? 0);
+      return difference;
+    } else {
+      return 0;
+    }
+  };
+
   return (
     <div className={classes.root}>
       <Typography
@@ -62,15 +85,15 @@ const Top10Kecamatan: React.FC<IProps> = (props) => {
                   >
                     {kelurahan.name}
                   </TableCell>
-                  <TableCell
-                    align='right'
-                    style={{
-                      color: '#e44933',
-                      fontWeight: 'bold',
-                      fontSize: '16px',
-                    }}
-                  >
+                  <TableCell align='right' className={classes.tabelCellTotal}>
                     {kelurahan.total}
+                    <Badge
+                      total={findTotalKelurahanComparasion(
+                        kelurahan.name,
+                        kelurahan.total
+                      )}
+                      className={classes.badge}
+                    ></Badge>
                   </TableCell>
                 </TableRow>
               )

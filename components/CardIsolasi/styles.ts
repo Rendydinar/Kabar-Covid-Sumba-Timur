@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme:Theme) => createStyles({
       fontSize: '18px',
       fontWeight: 'bold',
     },
-
   },
   cardKasus: {
     fontWeight: 700,
@@ -46,6 +45,10 @@ const useStyles = makeStyles((theme:Theme) => createStyles({
   kasusSedangDiProses: {
     fontWeight: 700,
     color: '#ffb74d',
+  },
+  badge: {
+    top: '0px !important',
+    left: '105% !important',
   }
 }));
 

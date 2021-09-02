@@ -17,12 +17,20 @@ interface IProps {
     date: string;
     data: IKecamatan[];
   };
+  dataPerkecamatanYesterday: {
+    date: string;
+    data: IKecamatan[];
+  };
+  dataPerKelurahanYesterday: IKelurahan[];
 }
 
 const DataCovidPerkecamatan: React.FC<IProps> = (props) => {
   const classes = useStyles();
 
-  const [dataKecamatan, setDataKecamatan] = useState<any[]>([]);
+  const [dataKecamatan, setDataKecamatan] = useState<IKecamatan[]>([]);
+  const [dataKecamatanYesterday, setDataKecamatanYesterday] = useState<
+    IKecamatan[]
+  >([]);
   useEffect(() => {
     let tempDataKecamatan: IKecamatan[] = [];
     props.dataPerkecamatan.data.map((kecamatan: IKecamatan) => {
@@ -39,6 +47,21 @@ const DataCovidPerkecamatan: React.FC<IProps> = (props) => {
     });
     tempDataKecamatan = sortBy(tempDataKecamatan, 'total').reverse();
     setDataKecamatan(tempDataKecamatan);
+
+    let tempDataKecamatanYesterday: IKecamatan[] = [];
+    props.dataPerkecamatanYesterday.data.map((kecamatan: IKecamatan) => {
+      if (kecamatan.isShow) {
+        let tempTotal: number = 0;
+        kecamatan.kelurahan.map((kelurahan: IKelurahan) => {
+          tempTotal += kelurahan.isShow ? kelurahan.total : 0;
+        });
+        tempDataKecamatanYesterday.push({
+          ...kecamatan,
+          total: tempTotal,
+        });
+      }
+    });
+    setDataKecamatanYesterday(tempDataKecamatanYesterday);
   }, [props.dataPerkecamatan]);
   return (
     <div
@@ -55,11 +78,6 @@ const DataCovidPerkecamatan: React.FC<IProps> = (props) => {
           <Table size='small' aria-label='a dense table'>
             <TableHead>
               <TableRow>
-                {/* <TableCell
-                  style={{
-                    width: '10px',
-                  }}
-                ></TableCell> */}
                 <TableCell
                   style={{
                     width: '10px',
@@ -80,7 +98,15 @@ const DataCovidPerkecamatan: React.FC<IProps> = (props) => {
               {dataKecamatan.map(
                 (kecamatan: IKecamatan, index: number) =>
                   kecamatan.isShow && (
-                    <Row kecamatan={kecamatan} index={index} key={index} />
+                    <Row
+                      kecamatan={kecamatan}
+                      dataKecamatanYesterday={dataKecamatanYesterday}
+                      dataPerKelurahanYesterday={
+                        props.dataPerKelurahanYesterday
+                      }
+                      index={index}
+                      key={index}
+                    />
                   )
               )}
             </TableBody>
