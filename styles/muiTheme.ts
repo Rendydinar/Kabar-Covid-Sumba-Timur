@@ -45,7 +45,7 @@ const theme = createTheme({
         },
         cellLeft: {},
       },
-      colCellSortable: {},
+      // colCellSortable: {},
     },
     MuiSnackbarContent: {
       root: {

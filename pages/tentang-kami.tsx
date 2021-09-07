@@ -167,7 +167,7 @@ const Tentang: React.FC<IProps> = (): ReactElement => {
             Sumba Timur untuk berbagi informasi dan saling membantu bagi
             masyarakat yang membutuhkan informasi seputar Covid-19 baik itu
             informasi jadwal vaksin, data covid harian, berita dari pemerintah
-            daerah dan edukasi tentang Covid-19 (dalam pengerjaan).
+            daerah dan edukasi tentang Covid-19.
           </Typography>
           <Typography className={classes.titleSection}>
             Sumber Kabar Covid Sumba Timur ?{' '}
