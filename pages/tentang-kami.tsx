@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: '30px',
       padding: '0 40px',
       [theme.breakpoints.down('sm')]: {
-        padding: '0 15px',
+        padding: '0 10px',
       },
     },
     titleSection: {

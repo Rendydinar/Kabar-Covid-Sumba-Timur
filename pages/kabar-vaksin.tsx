@@ -4,14 +4,18 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import sortBy from 'lodash/sortBy';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import React, { ReactElement, useState } from 'react';
-import CardVaksin from '../components/CardVaksin';
+import React, { ReactElement, useState, useEffect } from 'react';
+import CardVaksin, {
+  LoadingSkeletonCardVaksin,
+} from '../components/CardVaksin';
 import Jumbotron from '../components/Jumbotron';
 import Layout from '../components/Layout';
 import { MESSAGE_WHATSSAPP } from '../constant';
 import { getDataVaksin } from '../fetchData/getDataVaksin';
 import { AiOutlineReload } from 'react-icons/ai';
 import { IVaksin } from '../interfaces';
+import Skeleton from '@material-ui/lab/Skeleton';
+import { Widgets } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -95,12 +99,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-interface IProps {
-  data: IVaksin[];
-  success: boolean;
-  revalidate: number;
-  fallback: boolean;
-}
+interface IProps {}
 
 enum FILTER_VAKSIN_KEY {
   ALL_EVENT = 'semua',
@@ -114,15 +113,18 @@ interface IFilterVaksinType {
   label: string;
 }
 
-const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
+const KabarVaksin: React.FC<IProps> = (): ReactElement => {
   const classes = useStyles();
-  const [dataVaksinFiltered, setDataVaksinFiltered] = useState<IVaksin[]>(
-    props.data
-  );
+  const [dataVaksinFiltered, setDataVaksinFiltered] = useState<IVaksin[]>([]);
   const [isMoreVaksinData, setIsMoreVaksinData] = useState<boolean>(true);
-  const [listDataVaksinToShow, setListDataVaksinToShow] = useState<IVaksin[]>(
-    props.data.slice(0, 5)
+  const [staticListDataVaksin, setStaticListDataVaksin] = useState<IVaksin[]>(
+    []
   );
+  const [listDataVaksinToShow, setListDataVaksinToShow] = useState<IVaksin[]>(
+    []
+  );
+  const [isLoadingFecthDataVaksin, setIsLoadingFecthDataVaksin] =
+    useState<boolean>(false);
   const [selectedFilterVaksinType, setSelectedFilterVaksinType] =
     useState<string>(FILTER_VAKSIN_KEY.ALL_EVENT);
   const [filterVaksinType] = useState<IFilterVaksinType[]>([
@@ -166,37 +168,73 @@ const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
     setIsMoreVaksinData(true);
     setSelectedFilterVaksinType(event.target.value);
     if (event.target.value === FILTER_VAKSIN_KEY.ONGOING) {
-      const tempListVaksin: IVaksin[] = props.data.filter((vaksin: IVaksin) => {
-        const timeStampBerakrhir = vaksin?.waktu_berakhir_timestamp ?? 0;
-        return (
-          new Date().getTime() > vaksin.timestamp &&
-          new Date().getTime() < timeStampBerakrhir
-        );
-      });
+      const tempListVaksin: IVaksin[] = staticListDataVaksin.filter(
+        (vaksin: IVaksin) => {
+          const timeStampBerakrhir = vaksin?.waktu_berakhir_timestamp ?? 0;
+          return (
+            new Date().getTime() > vaksin.timestamp &&
+            new Date().getTime() < timeStampBerakrhir
+          );
+        }
+      );
       setDataVaksinFiltered(tempListVaksin);
       setListDataVaksinToShow(tempListVaksin.slice(0, 5));
       // setListDataVaksinToShow(tempListVaksin);
     } else if (event.target.value === FILTER_VAKSIN_KEY.FINISHED) {
-      const tempListVaksin: IVaksin[] = props.data.filter((vaksin: IVaksin) => {
-        const timeStampBerakrhir = vaksin?.waktu_berakhir_timestamp ?? 0;
-        return new Date().getTime() > timeStampBerakrhir;
-      });
+      const tempListVaksin: IVaksin[] = staticListDataVaksin.filter(
+        (vaksin: IVaksin) => {
+          const timeStampBerakrhir = vaksin?.waktu_berakhir_timestamp ?? 0;
+          return new Date().getTime() > timeStampBerakrhir;
+        }
+      );
       setDataVaksinFiltered(tempListVaksin);
       setListDataVaksinToShow(tempListVaksin.slice(0, 5));
       // setListDataVaksinToShow(tempListVaksin);
     } else if (event.target.value === FILTER_VAKSIN_KEY.COMMING_SOON) {
-      const tempListVaksin: IVaksin[] = props.data.filter((vaksin: IVaksin) => {
-        return new Date().getTime() < vaksin.timestamp;
-      });
+      const tempListVaksin: IVaksin[] = staticListDataVaksin.filter(
+        (vaksin: IVaksin) => {
+          return new Date().getTime() < vaksin.timestamp;
+        }
+      );
       setDataVaksinFiltered(tempListVaksin);
       setListDataVaksinToShow(tempListVaksin.slice(0, 5));
       // setListDataVaksinToShow(tempListVaksin);
     } else {
-      setDataVaksinFiltered(props.data);
-      setListDataVaksinToShow(props.data.slice(0, 5));
+      setDataVaksinFiltered(staticListDataVaksin);
+      setListDataVaksinToShow(staticListDataVaksin.slice(0, 5));
       // setListDataVaksinToShow(props.data);
     }
   };
+
+  const handleFetchDataVaksin = async (): Promise<void> => {
+    setIsLoadingFecthDataVaksin(true);
+    try {
+      let dataVaksin: IVaksin[] = [];
+      let responseGetDataVaksin: any = await getDataVaksin();
+      responseGetDataVaksin.map((vaksin: any) => {
+        if (vaksin.data().isShow === true) {
+          dataVaksin.push({
+            ...vaksin.data(),
+            id: vaksin.id,
+          });
+        }
+      });
+      dataVaksin = sortBy(dataVaksin, 'timestamp').reverse();
+      setStaticListDataVaksin(dataVaksin);
+      setListDataVaksinToShow(dataVaksin.slice(0, 5));
+      setDataVaksinFiltered(dataVaksin);
+    } catch (err) {
+      // handle error fetch data vaksin
+    }
+    setIsLoadingFecthDataVaksin(false);
+  };
+
+  useEffect(() => {
+    async function funcAsyncDefault() {
+      await handleFetchDataVaksin();
+    }
+    funcAsyncDefault();
+  }, []);
 
   return (
     <Layout>
@@ -273,12 +311,19 @@ const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
             </NativeSelect>
           </FormControl>
           <div className={classes.containerContent}>
-            {listDataVaksinToShow.length === 0 ? (
+            {isLoadingFecthDataVaksin ? (
+              <Grid container spacing={2} justifyContent='center'>
+                {[0, 2, 3, 4, 5].map((item: number) => (
+                  <Grid item key={item} xl={4} lg={4} md={4} sm={6} xs={12}>
+                    <LoadingSkeletonCardVaksin />
+                  </Grid>
+                ))}
+              </Grid>
+            ) : listDataVaksinToShow.length === 0 ? (
               <div className={classes.containerEmptyVaksin}>
                 <Typography className={classes.textInfoEmptyVaksin}>
                   Maaf jadwal vaksin yang kamu cari tidak tersedia 🥺
                 </Typography>
-                {/* <Typography className={classes.textInfoEmptyVaksin}> */}
                 <Typography className={classes.descriptionNoMoreVaksin}>
                   Jika kamu mempunyai informasi Vaksin Covid-19 di Sumba Timur
                   silakan hubungi admin agar dimasukan ke dalam database{' '}
@@ -289,7 +334,6 @@ const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
                   >
                     WA Admin Untuk Memberikan Informasi Vaksin Covid-19
                   </Link>
-                  {/* </Typography> */}
                 </Typography>
               </div>
             ) : (
@@ -343,38 +387,38 @@ const KabarVaksin: React.FC<IProps> = (props): ReactElement => {
 
 export default KabarVaksin;
 
-export const getStaticProps: GetStaticProps = async () => {
-  try {
-    let dataVaksin: IVaksin[] = [];
-    let responseGetDataVaksin: any = await getDataVaksin();
-    responseGetDataVaksin.map((vaksin: any) => {
-      if (vaksin.data().isShow === true) {
-        dataVaksin.push({
-          ...vaksin.data(),
-        });
-      }
-    });
-    dataVaksin = sortBy(dataVaksin, 'timestamp').reverse();
-    return {
-      props: {
-        success: true,
-        data: dataVaksin,
-      },
-      // Next.js will attempt to re-generate the page:
-      // - When a request comes in
-      // - At most once every 180 seconds (3 minutes)
-      revalidate: 180, // In seconds
-    };
-  } catch (err) {
-    return {
-      props: {
-        success: false,
-        data: [],
-      },
-      // Next.js will attempt to re-generate the page:
-      // - When a request comes in
-      // - At most once every 180 seconds (3 minutes)
-      revalidate: 180, // In seconds
-    };
-  }
-};
+// export const getStaticProps: GetStaticProps = async () => {
+//   try {
+//     let dataVaksin: IVaksin[] = [];
+//     let responseGetDataVaksin: any = await getDataVaksin();
+//     responseGetDataVaksin.map((vaksin: any) => {
+//       if (vaksin.data().isShow === true) {
+//         dataVaksin.push({
+//           ...vaksin.data(),
+//         });
+//       }
+//     });
+//     dataVaksin = sortBy(dataVaksin, 'timestamp').reverse();
+//     return {
+//       props: {
+//         success: true,
+//         data: dataVaksin,
+//       },
+//       // Next.js will attempt to re-generate the page:
+//       // - When a request comes in
+//       // - At most once every 180 seconds (3 minutes)
+//       revalidate: 180, // In seconds
+//     };
+//   } catch (err) {
+//     return {
+//       props: {
+//         success: false,
+//         data: [],
+//       },
+//       // Next.js will attempt to re-generate the page:
+//       // - When a request comes in
+//       // - At most once every 180 seconds (3 minutes)
+//       revalidate: 180, // In seconds
+//     };
+//   }
+// };
