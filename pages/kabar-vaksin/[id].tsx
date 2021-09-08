@@ -15,6 +15,7 @@ import { DATA_VAKSIN_COLLECTION } from '../../firebase/firestore/collection';
 import { getDateFormated } from '../../utils/date';
 import { PUBLIC_PATH } from '../../constant';
 import { classNames } from '../../lib/classNames';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -95,16 +96,12 @@ export default function KabarVaksinDetail() {
   };
 
   const getVaksin = async (): Promise<void> => {
-    console.log('router.query', router.query);
     setIsLoadingFetchData(true);
     try {
-      console.log('id', id);
       const responseGetDataVaksin: any = await DATA_VAKSIN_COLLECTION.doc(
         id
       ).get();
-      console.log('responseGetDataVaksin', responseGetDataVaksin.data());
       if (responseGetDataVaksin.data().isShow) {
-        console.log('responseGetDataVaksin', responseGetDataVaksin.data());
         setDataVaksin({
           ...responseGetDataVaksin.data(),
           id: responseGetDataVaksin.id,
@@ -208,99 +205,137 @@ export default function KabarVaksinDetail() {
           <TiArrowBack />
         </IconButton>
         {isLoadingFetchData ? (
-          <></>
-        ) : (
-          dataVaksin && (
-            <article>
-              <div className={classes.imageVaksinContainer}>
-                <Image
-                  priority
-                  src={dataVaksin.img_url ?? ''}
-                  alt={'image banner'}
-                  layout='fill'
-                  className={'imageVaksin'}
-                  placeholder='blur'
-                  blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                    shimmer(700, 700)
-                  )}`}
-                />
-              </div>
-              <div style={{ display: 'flex', marginBottom: '10px' }}>
-                <Typography variant='h5'>
-                  {`${getDateFormated(new Date(dataVaksin.timestamp))} ${
-                    new Date(dataVaksin.timestamp).getHours() < 10
-                      ? `0${new Date(dataVaksin.timestamp).getHours()}`
-                      : `${new Date(dataVaksin.timestamp).getHours()}`
-                  }:${
-                    new Date(dataVaksin.timestamp).getMinutes() < 10
-                      ? `0${new Date(dataVaksin.timestamp).getMinutes()}`
-                      : `${new Date(dataVaksin.timestamp).getMinutes()}`
-                  } WITA`}
-                </Typography>
-                <Typography
-                  className={classNames(
-                    classes.dateCountDownVaksin,
-                    timeCountDown === 'Sedang Berlangsung' &&
-                      'sedangBerlangsung',
-                    timeCountDown === 'Akan Berlangsung' && 'akanHadir',
-                    timeCountDown === 'Sudah Selesai' && 'sudahSelesai'
-                  )}
-                >
-                  {timeCountDown}
-                </Typography>
-              </div>
-              <Typography variant='h6'>Keterangan:</Typography>
-              <Typography variant='body2'>{dataVaksin.keterangan}</Typography>
-              <Typography variant='h6'>Waktu:</Typography>
-              <Typography variant='body2'>
-                {getDateFormated(new Date(dataVaksin.timestamp))}
-                {' - '}
-                {getDateFormated(
-                  new Date(dataVaksin?.waktu_berakhir_timestamp ?? 0)
-                )}
-              </Typography>
-              <Typography variant='h6'>Jenis Vaksin:</Typography>
-              <Typography variant='body2'>{dataVaksin.jenis_vaksin}</Typography>
-              <Typography variant='h6'>Kouta:</Typography>
-              <Typography variant='body2'>
-                {dataVaksin.kouta !== 0 ? dataVaksin.kouta : 'Tidak diketahui'}
-              </Typography>
-              <Typography variant='h6'>Kewajiban:</Typography>
-              {dataVaksin?.kewajiban?.length === 0
-                ? 'Tidak diketahui'
-                : dataVaksin?.kewajiban?.map(
-                    (kewajiban: string, index: number) => (
-                      <Typography key={index} variant='body2'>
-                        {'- '}
-                        {kewajiban}
-                      </Typography>
-                    )
-                  )}
-              <div style={{ marginTop: '20px' }}>
-                {dataVaksin.place_maps ? (
-                  dataVaksin.place_maps.map(
-                    (placeMap: string, index: number) => (
-                      <Fragment key={index}>
-                        <div dangerouslySetInnerHTML={{ __html: placeMap }} />
-                        <br />
-                        <br />
-                      </Fragment>
-                    )
-                  )
-                ) : (
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: dataVaksin.place_map ?? '',
-                    }}
-                  />
-                )}
-              </div>
-              <SharePost
-                link={`${PUBLIC_PATH}/kabar-vaksin/${id}`}
-                titlePost='Informasi jadwal vaksinasi Sumba Timur'
+          <>
+            <Box marginTop={2}>
+              <Skeleton variant='rect' width='100%' height={300} />
+            </Box>
+            <Box display='flex' justifyContent='space-between' gridGap={2}>
+              <Skeleton variant='text' width='45%' height={30} />
+              <Skeleton variant='text' width='40%' height={30} />
+            </Box>
+            <Box marginTop={2}>
+              <Skeleton variant='text' width='85%' />
+              <Skeleton variant='text' width='80%' />
+              <Skeleton variant='text' width='95%' />
+            </Box>
+            <Box marginTop={1}>
+              <Skeleton variant='text' width='65%' />
+            </Box>
+            <Box>
+              <Skeleton variant='text' width='65%' />
+            </Box>
+            <Box>
+              <Skeleton variant='text' width='65%' />
+            </Box>
+            <Box marginTop={1}>
+              <Skeleton variant='text' width='35%' />
+              <Box marginLeft={2}>
+                <Skeleton variant='text' width='55%' />
+                <Skeleton variant='text' width='55%' />
+                <Skeleton variant='text' width='55%' />
+              </Box>
+            </Box>
+            <Box display='flex' justifyContent='space-between' gridGap={2}>
+              <Skeleton variant='text' width={80} height={50} />
+              <Skeleton variant='text' width={80} height={50} />
+            </Box>
+            <Box marginTop={2}>
+              <Skeleton variant='rect' width='100%' height={300} />
+            </Box>
+          </>
+        ) : dataVaksin ? (
+          <article>
+            <div className={classes.imageVaksinContainer}>
+              <Image
+                priority
+                src={dataVaksin.img_url ?? ''}
+                alt={'image banner'}
+                layout='fill'
+                className={'imageVaksin'}
+                placeholder='blur'
+                blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                  shimmer(700, 700)
+                )}`}
               />
-            </article>
-          )
+            </div>
+            <div style={{ display: 'flex', marginBottom: '10px' }}>
+              <Typography variant='h5'>
+                {`${getDateFormated(new Date(dataVaksin.timestamp))} ${
+                  new Date(dataVaksin.timestamp).getHours() < 10
+                    ? `0${new Date(dataVaksin.timestamp).getHours()}`
+                    : `${new Date(dataVaksin.timestamp).getHours()}`
+                }:${
+                  new Date(dataVaksin.timestamp).getMinutes() < 10
+                    ? `0${new Date(dataVaksin.timestamp).getMinutes()}`
+                    : `${new Date(dataVaksin.timestamp).getMinutes()}`
+                } WITA`}
+              </Typography>
+              <Typography
+                className={classNames(
+                  classes.dateCountDownVaksin,
+                  timeCountDown === 'Sedang Berlangsung' && 'sedangBerlangsung',
+                  timeCountDown === 'Akan Berlangsung' && 'akanHadir',
+                  timeCountDown === 'Sudah Selesai' && 'sudahSelesai'
+                )}
+              >
+                {timeCountDown}
+              </Typography>
+            </div>
+            <Typography variant='h6'>Keterangan:</Typography>
+            <Typography variant='body2'>{dataVaksin.keterangan}</Typography>
+            <Typography variant='h6'>Waktu:</Typography>
+            <Typography variant='body2'>
+              {getDateFormated(new Date(dataVaksin.timestamp))}
+              {' - '}
+              {getDateFormated(
+                new Date(dataVaksin?.waktu_berakhir_timestamp ?? 0)
+              )}
+            </Typography>
+            <Typography variant='h6'>Jenis Vaksin:</Typography>
+            <Typography variant='body2'>{dataVaksin.jenis_vaksin}</Typography>
+            <Typography variant='h6'>Kouta:</Typography>
+            <Typography variant='body2'>
+              {dataVaksin.kouta !== 0
+                ? `${dataVaksin.kouta} Orang`
+                : 'Tidak diketahui'}
+            </Typography>
+            <Typography variant='h6'>Kewajiban:</Typography>
+            {dataVaksin?.kewajiban?.length === 0
+              ? 'Tidak diketahui'
+              : dataVaksin?.kewajiban?.map(
+                  (kewajiban: string, index: number) => (
+                    <Typography key={index} variant='body2'>
+                      {'- '}
+                      {kewajiban}
+                    </Typography>
+                  )
+                )}
+            <div style={{ marginTop: '20px' }}>
+              {dataVaksin.place_maps ? (
+                dataVaksin.place_maps.map((placeMap: string, index: number) => (
+                  <Fragment key={index}>
+                    <div dangerouslySetInnerHTML={{ __html: placeMap }} />
+                    <br />
+                    <br />
+                  </Fragment>
+                ))
+              ) : (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: dataVaksin.place_map ?? '',
+                  }}
+                />
+              )}
+            </div>
+            <SharePost
+              link={`${PUBLIC_PATH}/kabar-vaksin/${id}`}
+              titlePost='Informasi jadwal vaksinasi Sumba Timur'
+            />
+          </article>
+        ) : (
+          <Typography variant='h6'>
+            Jadwal informasi vaksin tidak ditemukan
+          </Typography>
         )}
       </div>
     </Layout>

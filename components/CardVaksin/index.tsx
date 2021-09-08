@@ -93,111 +93,6 @@ const CardVaksin: React.FC<IProps> = (props) => {
         <Link href={`/kabar-vaksin/${props.vaksin.id}`}>
           <Button className={classes.btnBaca}>Informasi Selengkapnya</Button>
         </Link>
-
-        {/* {(props.vaksin.keterangan || props.vaksin.sumber) && (
-          <>
-            {props.vaksin.keterangan && (
-              <>
-                <Typography className={classes.info}>Keterangan:</Typography>
-                <Typography className={classes.textInfoDescirption}>
-                  {props.vaksin.keterangan}
-                </Typography>
-              </>
-            )}
-            {props.vaksin.sumber && (
-              <>
-                <Typography className={classes.info}>Sumber:</Typography>
-                <Typography className={classes.textInfoDescirption}>
-                  {props.vaksin.sumber}
-                </Typography>
-              </>
-            )}
-          </>
-        )}
-        {props.vaksin.jenis_vaksin && (
-          <>
-            <Typography className={classes.info}>Jenis Vaksin:</Typography>
-            <Typography className={classes.textInfoDescirption}>
-              {props.vaksin.jenis_vaksin}
-            </Typography>
-          </>
-        )}
-        {props.vaksin.kouta && props.vaksin.kouta !== 0 ? (
-          <>
-            <Typography className={classes.info}>Kouta:</Typography>
-            <Typography className={classes.textInfoDescirption}>
-              {props.vaksin.kouta}
-              {' Orang'}
-            </Typography>
-          </>
-        ) : (
-          <></>
-        )}
-
-        {props.vaksin.kewajiban && props.vaksin.kewajiban.length > 0 && (
-          <>
-            <Typography className={classes.info}>Kewajiban:</Typography>
-            {props.vaksin.kewajiban.map((kewajiban: string, index: number) => (
-              <Typography key={index} className={classes.textInfoDescirption}>
-                {'- '}
-                {kewajiban}
-              </Typography>
-            ))}
-          </>
-        )}
-        {(props.vaksin.place_map || props.vaksin.place_maps) && (
-          <>
-            <div className={classes.containerCardAction}>
-              <Button
-                onClick={handleExpandClick}
-                className={classes.btnActionCard}
-              >
-                <Typography className={classes.labelBtnAction}>
-                  Lokasi Vaksin
-                </Typography>
-                <IconButton
-                  className={classNames(classes.expand, {
-                    [classes.expandOpen]: expanded,
-                  })}
-                  aria-expanded={expanded}
-                  aria-label='show more'
-                >
-                  <MdExpandMore />
-                </IconButton>
-              </Button>
-              <Button
-                onClick={handleSendReport}
-                className={classes.btnActionCardReport}
-              >
-                <Typography className={classes.labelBtnAction}>
-                  Lapor Kesalahan
-                </Typography>
-                <IconButton>
-                  <RiErrorWarningLine />
-                </IconButton>
-              </Button>
-            </div>
-            <Collapse in={expanded} timeout='auto' unmountOnExit>
-              {props.vaksin.place_maps ? (
-                props.vaksin.place_maps.map(
-                  (placeMap: string, index: number) => (
-                    <Fragment key={index}>
-                      <div dangerouslySetInnerHTML={{ __html: placeMap }} />
-                      <br />
-                      <br />
-                    </Fragment>
-                  )
-                )
-              ) : (
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: props.vaksin.place_map ?? '',
-                  }}
-                />
-              )}
-            </Collapse>
-          </>
-        )} */}
       </div>
     </div>
   );
@@ -220,27 +115,8 @@ export const LoadingSkeletonCardVaksin: React.FC<IPropsLoadingSkeletonCardVaksin
         <Box marginTop={2}>
           <Skeleton variant='rect' width='100%' height={300} />
         </Box>
-        <Box marginTop={2}>
-          <Skeleton variant='text' width='85%' />
-          <Skeleton variant='text' width='80%' />
-          <Skeleton variant='text' width='95%' />
-        </Box>
-        <Box marginTop={1}>
-          <Skeleton variant='text' width='65%' />
-        </Box>
         <Box>
-          <Skeleton variant='text' width='65%' />
-        </Box>
-        <Box>
-          <Skeleton variant='text' width='65%' />
-        </Box>
-        <Box marginTop={1}>
-          <Skeleton variant='text' width='35%' />
-          <Box marginLeft={2}>
-            <Skeleton variant='text' width='55%' />
-            <Skeleton variant='text' width='55%' />
-            <Skeleton variant='text' width='55%' />
-          </Box>
+          <Skeleton variant='text' height={50} width='100%' />
         </Box>
         <Box display='flex' justifyContent='space-between' gridGap={2}>
           <Skeleton variant='text' width={80} height={50} />
