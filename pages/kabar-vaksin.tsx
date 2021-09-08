@@ -5,7 +5,9 @@ import sortBy from 'lodash/sortBy';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import React, { ReactElement, useState, useEffect } from 'react';
-import CardVaksin from '../components/CardVaksin';
+import CardVaksin, {
+  LoadingSkeletonCardVaksin,
+} from '../components/CardVaksin';
 import Jumbotron from '../components/Jumbotron';
 import Layout from '../components/Layout';
 import { MESSAGE_WHATSSAPP } from '../constant';
@@ -213,6 +215,7 @@ const KabarVaksin: React.FC<IProps> = (): ReactElement => {
         if (vaksin.data().isShow === true) {
           dataVaksin.push({
             ...vaksin.data(),
+            id: vaksin.id,
           });
         }
       });
@@ -227,7 +230,10 @@ const KabarVaksin: React.FC<IProps> = (): ReactElement => {
   };
 
   useEffect(() => {
-    handleFetchDataVaksin();
+    async function funcAsyncDefault() {
+      await handleFetchDataVaksin();
+    }
+    funcAsyncDefault();
   }, []);
 
   return (
@@ -306,15 +312,18 @@ const KabarVaksin: React.FC<IProps> = (): ReactElement => {
           </FormControl>
           <div className={classes.containerContent}>
             {isLoadingFecthDataVaksin ? (
-              [0, 1, 2, 3].map((item: number) => (
-                <Skeleton key={item} height={20} width={30} />
-              ))
+              <Grid container spacing={2} justifyContent='center'>
+                {[0, 2, 3, 4, 5].map((item: number) => (
+                  <Grid item key={item} xl={4} lg={4} md={4} sm={6} xs={12}>
+                    <LoadingSkeletonCardVaksin />
+                  </Grid>
+                ))}
+              </Grid>
             ) : listDataVaksinToShow.length === 0 ? (
               <div className={classes.containerEmptyVaksin}>
                 <Typography className={classes.textInfoEmptyVaksin}>
                   Maaf jadwal vaksin yang kamu cari tidak tersedia 🥺
                 </Typography>
-                {/* <Typography className={classes.textInfoEmptyVaksin}> */}
                 <Typography className={classes.descriptionNoMoreVaksin}>
                   Jika kamu mempunyai informasi Vaksin Covid-19 di Sumba Timur
                   silakan hubungi admin agar dimasukan ke dalam database{' '}
@@ -325,7 +334,6 @@ const KabarVaksin: React.FC<IProps> = (): ReactElement => {
                   >
                     WA Admin Untuk Memberikan Informasi Vaksin Covid-19
                   </Link>
-                  {/* </Typography> */}
                 </Typography>
               </div>
             ) : (
@@ -337,70 +345,40 @@ const KabarVaksin: React.FC<IProps> = (): ReactElement => {
                 ))}
               </Grid>
             )}
-{listDataVaksinToShow.length > 0 &&
-              (isMoreVaksinData ? ()
-            {listDataVaksinToShow.length === 0 ? (
-              <div className={classes.containerEmptyVaksin}>
-                <Typography className={classes.textInfoEmptyVaksin}>
-                  Maaf jadwal vaksin yang kamu cari tidak tersedia 🥺
-                </Typography>
-                {/* <Typography className={classes.textInfoEmptyVaksin}> */}
-                <Typography className={classes.descriptionNoMoreVaksin}>
-                  Jika kamu mempunyai informasi Vaksin Covid-19 di Sumba Timur
-                  silakan hubungi admin agar dimasukan ke dalam database{' '}
-                  <Link
-                    href={`https://api.whatsapp.com/send?phone=6282217971133&text=${MESSAGE_WHATSSAPP}`}
-                    target='_blank'
-                    rel='noopener'
-                  >
-                    WA Admin Untuk Memberikan Informasi Vaksin Covid-19
-                  </Link>
-                  {/* </Typography> */}
-                </Typography>
-              </div>
-            ) : (
-              <Grid container spacing={2} justifyContent='center'>
-                {listDataVaksinToShow.map((vaksin: IVaksin, index: number) => (
-                  <Grid item key={index}>
-                    <CardVaksin vaksin={vaksin} key={index} />
-                  </Grid>
-                ))}
-              </Grid>
-            )}
-            // {listDataVaksinToShow.length > 0 &&
-            //   (isMoreVaksinData ? (
-            //     <Button
-            //       endIcon={<AiOutlineReload size={20} />}
-            //       className={classes.btnMoreVaksin}
-            //       onClick={handleLoadMoreVaksin}
-            //     >
-            //       Lihat lebih banyak
-            //     </Button>
-            //   ) : (
-            //     <div className={classes.containerInfoNoMoreVaksin}>
-            //       <Typography className={classes.titleNoMoreVaksin}>
-            //         Kamu telah melihat semua data vaksin untuk jadwal{' '}
-            //         <q
-            //           style={{ textTransform: 'capitalize', color: '#28DF99' }}
-            //         >
-            //           {selectedFilterVaksinType.split('_').join(' ')}
-            //         </q>{' '}
-            //         di database 🤗
-            //       </Typography>
-            //       <Typography className={classes.descriptionNoMoreVaksin}>
-            //         Jika kamu mempunyai informasi Vaksin Covid-19 di Sumba Timur
-            //         silakan hubungi admin agar dimasukan ke dalam database{' '}
-            //         <Link
-            //           href={`https://api.whatsapp.com/send?phone=6282217971133&text=${MESSAGE_WHATSSAPP}`}
-            //           target='_blank'
-            //           rel='noopener'
-            //         >
-            //           WA Admin Untuk Memberikan Informasi Vaksin Covid-19
-            //         </Link>
-            //       </Typography>
-            //     </div>
-            //   ))}
-          // </div>
+            {listDataVaksinToShow.length > 0 &&
+              (isMoreVaksinData ? (
+                <Button
+                  endIcon={<AiOutlineReload size={20} />}
+                  className={classes.btnMoreVaksin}
+                  onClick={handleLoadMoreVaksin}
+                >
+                  Lihat lebih banyak
+                </Button>
+              ) : (
+                <div className={classes.containerInfoNoMoreVaksin}>
+                  <Typography className={classes.titleNoMoreVaksin}>
+                    Kamu telah melihat semua data vaksin untuk jadwal{' '}
+                    <q
+                      style={{ textTransform: 'capitalize', color: '#28DF99' }}
+                    >
+                      {selectedFilterVaksinType.split('_').join(' ')}
+                    </q>{' '}
+                    di database 🤗
+                  </Typography>
+                  <Typography className={classes.descriptionNoMoreVaksin}>
+                    Jika kamu mempunyai informasi Vaksin Covid-19 di Sumba Timur
+                    silakan hubungi admin agar dimasukan ke dalam database{' '}
+                    <Link
+                      href={`https://api.whatsapp.com/send?phone=6282217971133&text=${MESSAGE_WHATSSAPP}`}
+                      target='_blank'
+                      rel='noopener'
+                    >
+                      WA Admin Untuk Memberikan Informasi Vaksin Covid-19
+                    </Link>
+                  </Typography>
+                </div>
+              ))}
+          </div>
         </div>
       </div>
     </Layout>
