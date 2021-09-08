@@ -20,27 +20,27 @@ const SharePost: React.FC<IProps> = (props) => {
       <Typography className={classes.titleSection}>Bagikan:</Typography>
       <div className={classes.wrapperSosialMediaShare}>
         <a
-          href={`http://www.facebook.com/sharer.php?u=${PUBLIC_PATH}/kabar-berita/${props.link}`}
+          href={`http://www.facebook.com/sharer.php?u=${props.link}`}
           target='_blank'
           rel='noopener'
         >
           <ImFacebook2 size={24} fill='#4267B2' />
         </a>
         <a
-          href={`whatsapp://send?text=${PUBLIC_PATH}/kabar-berita/${props.link}`}
+          href={`whatsapp://send?text=${props.link}`}
           // data-action='share/whatsapp/share'
         >
           <IoLogoWhatsapp size={24} fill='#25d366' />
         </a>
         <a
-          href={`https://twitter.com/share?url=${PUBLIC_PATH}/kabar-berita/${props.link}&text=${props.titlePost}&hashtags=KabarCovidSumbaTimur`}
+          href={`https://twitter.com/share?url=${props.link}&text=${props.titlePost}&hashtags=KabarCovidSumbaTimur`}
           target='_blank'
           rel='noopener'
         >
           <ImTwitter size={24} fill='#1da1f2' />
         </a>
         <a
-          href={`http://www.linkedin.com/shareArticle?mini=true&url=${PUBLIC_PATH}/kabar-berita/${props.link}&title=${props.titlePost}&summary=${props.titlePost}&source=kabar-covid-sumba-timur.vercel.app/`}
+          href={`http://www.linkedin.com/shareArticle?mini=true&url=${props.link}&title=${props.titlePost}&summary=${props.titlePost}&source=kabar-covid-sumba-timur.vercel.app/`}
           target='_blank'
           rel='noopener'
         >

@@ -13,13 +13,14 @@ import Jumbotron from '../../components/Jumbotron';
 import { IBerita, IEdukasi } from '../../interfaces';
 import Header from '../../components/CardEdukasi/header';
 import SharePost from '../../components/SharePost';
+import { PUBLIC_PATH } from '../../constant';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: '10px 60px',
       [theme.breakpoints.down('sm')]: {
-        padding: '10px   20px',
+        padding: '10px',
       },
     },
     titlePost: {
@@ -135,7 +136,10 @@ export default function Post({ postData }: { postData: IEdukasi }) {
             dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
           />
         </article>
-        <SharePost link={postData.id} titlePost={postData.title} />
+        <SharePost
+          link={`${PUBLIC_PATH}/kabar-edukasi/${postData.id}`}
+          titlePost={postData.title}
+        />
       </div>
     </Layout>
   );
