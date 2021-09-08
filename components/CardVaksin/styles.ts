@@ -17,6 +17,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       width: '100%',
     },
   },
+  rootLoadingSkeleton: {
+    marginTop: '30px',
+    padding: '10px',
+    backgroundColor: '#28DF99',
+    borderRadius: '8px',
+    boxShadow:
+      'rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: '10px',
+    },
+  },
   dateVaksin: {
     fontSize: '16px',
     color: '#111827',
@@ -114,8 +125,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     [theme.breakpoints.down('sm')]: {
       fontSize: '13px',
     },
+  },
+  btnBaca: {
+    backgroundColor: '#28DF99',    
+    width: '100%',
   }
-
 }));
 
 export default useStyles;

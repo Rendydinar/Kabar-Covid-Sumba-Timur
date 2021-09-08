@@ -15,13 +15,14 @@ import Jumbotron from '../../components/Jumbotron';
 import { IBerita } from '../../interfaces';
 import Header from '../../components/CardBerita/header';
 import SharePost from '../../components/SharePost';
+import { PUBLIC_PATH } from '../../constant';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: '10px 60px',
       [theme.breakpoints.down('sm')]: {
-        padding: '10px   20px',
+        padding: '10px',
       },
     },
     titlePost: {
@@ -145,7 +146,10 @@ export default function Post({ postData }: { postData: IBerita }) {
             />
           </MDXProvider>
         </article>
-        <SharePost link={postData.id} titlePost={postData.title} />
+        <SharePost
+          link={`${PUBLIC_PATH}/kabar-berita/${postData.id}`}
+          titlePost={postData.title}
+        />
       </div>
     </Layout>
   );

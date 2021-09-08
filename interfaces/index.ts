@@ -23,6 +23,7 @@ export interface IIsolasi {
 }
 
 export interface IVaksin {
+  id:string;
   date: string;
   img_url: string;
   timestamp: number;
