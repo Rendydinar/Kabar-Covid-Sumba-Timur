@@ -28,7 +28,7 @@ interface IProps {
   hintText?: string;
   maxLength?: number;
   name?: string;
-  type?: 'text' | 'password';
+  type?: 'text' | 'password' | 'number';
   value?: any;
   required?: boolean;
   defaultValue?: any;

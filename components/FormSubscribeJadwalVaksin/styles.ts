@@ -90,6 +90,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     imgUser: {
       borderRadius: '100%'
+    },
+    textiField: {
+      height: '45px'
     }
   })
 );

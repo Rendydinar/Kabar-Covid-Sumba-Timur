@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react';
-// import TextField from '../TextField';
-import { IconButton, TextField, Typography } from '@material-ui/core';
+import TextField from '../TextField';
+import { IconButton, Typography } from '@material-ui/core';
 import { IndonesiaPhoneNumberRex } from '../../utils/reqex';
 import { IFormSubscribe } from '../../interfaces';
 import { subscribeJadwalVaksin } from '../../fetchData/subscribeJadwalVaksin';
@@ -12,6 +12,8 @@ import Dialog from '../Dialog';
 import CloseRoundedIcon from '../../icons/closeRounded.svg';
 import SadIcon from '../../icons/sad-icon.svg';
 import SmileIcon from '../../icons/smile-icon.svg';
+import { IoLogoWhatsapp } from 'react-icons/io';
+import { FaUserCircle } from 'react-icons/fa';
 import Image from 'next/image';
 import { shimmer, toBase64 } from '../../utils';
 
@@ -73,13 +75,14 @@ const FormSubscribeJadwalVaksin: React.FC<IProps> = (): ReactElement => {
         ).get();
       if (!listPhoneNumber.empty) {
         // show dialog phone number already exist
-        if (listPhoneNumber.docs[0].data().isSubscription !== false) {
+        if (listPhoneNumber.docs[0].data().isSubscription === true) {
           handleOpenDialogFailedAddPhoneNumber();
         } else {
           // update to active subscribe
           await DATA_SUBSCRIBE_JADWAL_VAKSIN_COLLECTION.doc(
             listPhoneNumber.docs[0].id ?? ''
           ).update({
+            username: formSubscribe.username,
             isSubscription: true,
           });
           // show dialog success subscribe
@@ -143,17 +146,20 @@ const FormSubscribeJadwalVaksin: React.FC<IProps> = (): ReactElement => {
           label='Username'
           name='username'
           value={formSubscribe.username}
+          className={classes.textiField}
           onChange={handleChangeForm}
-          // startAdornment={<PersonIcon />}
+          startAdornment={<FaUserCircle size={24} fill='#28DF99' />}
         />
         <TextField
           required
-          label='Nomor Telfon'
+          placeholder='62821217971133'
+          label='Nomor Telepon'
           type='number'
+          className={classes.textiField}
           name='phoneNumber'
           value={formSubscribe.phoneNumber}
           onChange={handleChangeForm}
-          // startAdornment={<WhatsAppIcon />}
+          startAdornment={<IoLogoWhatsapp size={24} fill='#28DF99' />}
         />
 
         <Button

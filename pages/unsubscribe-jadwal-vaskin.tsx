@@ -6,7 +6,6 @@ import {
   CardContent,
   CardMedia,
   createStyles,
-  Link,
   makeStyles,
   Theme,
   Typography,
@@ -145,8 +144,7 @@ const UnsubscribeJadwalVaksin: React.FC<IProps> = (): ReactElement => {
   useEffect(() => {
     const { phone, token }: any = router.query;
     if (!phone && !token) {
-      // goToMainApp();
-      alert('goto main page');
+      goToMainApp();
     } else {
       getDataUser(phone, token);
     }
