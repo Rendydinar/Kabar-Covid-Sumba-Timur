@@ -74,12 +74,12 @@ const KabarEdukasi: React.FC<IProps> = (props): ReactElement => {
         />
         <meta
           property='og:description'
-          content='Kumpulan informasi COVID-19, tips menjaga kesehatan selama pandemi, vaksinasi, hingga penanganan jika Anda terkonfirmasi positif COVID-19 yang disesuaikan dengan kondisi di Sumba Timur.'
+          content='Dapatkan informasi jadwal vaksinasi Covid-19 di Sumba Timur melalui pesan yang dikirimkan ke Whatsapp kamu.'
         />
         <meta name='twitter:title' content='Kabar Covid Sumba Timur' />
         <meta
           name='twitter:description'
-          content='Kumpulan informasi COVID-19, tips menjaga kesehatan selama pandemi, vaksinasi, hingga penanganan jika Anda terkonfirmasi positif COVID-19 yang disesuaikan dengan kondisi di Sumba Timur.'
+          content='Dapatkan informasi jadwal vaksinasi Covid-19 di Sumba Timur melalui pesan yang dikirimkan ke Whatsapp kamu.'
         />
         <meta
           property='og:image'
@@ -96,11 +96,11 @@ const KabarEdukasi: React.FC<IProps> = (props): ReactElement => {
 
         <meta
           property='og:url'
-          content='https://kabar-covid-sumba-timur.vercel.app/kabar-edukasi'
+          content='https://kabar-covid-sumba-timur.vercel.app/kawal-jadwal-vaksin'
         />
         <meta
           name='twitter:site'
-          content='https://kabar-covid-sumba-timur.vercel.app/kabar-edukasi'
+          content='https://kabar-covid-sumba-timur.vercel.app/kawal-jadwal-vaksin'
         />
         <title>Kabar Covid Sumba Timur | Kawal Jadwal Vaksin</title>
         <link rel='icon' href='/favicon.ico' />
