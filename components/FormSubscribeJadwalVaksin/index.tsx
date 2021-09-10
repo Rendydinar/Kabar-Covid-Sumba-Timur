@@ -125,10 +125,12 @@ const FormSubscribeJadwalVaksin: React.FC<IProps> = (): ReactElement => {
       )}
     >
       <Image
+        priority
         src='/images/user-add-contact.png'
         alt='add contact'
-        width={80}
-        height={80}
+        width={60}
+        height={60}
+        className={'imageBanner'}
         placeholder='blur'
         blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 700))}`}
       />

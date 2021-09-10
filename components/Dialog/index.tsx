@@ -4,7 +4,7 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import CloseIcon from '@material-ui/icons/Close';
+// import CloseIcon from '@material-ui/icons/Close';
 import React, { Fragment, ReactNode } from 'react';
 import { classNames } from '../../lib/classNames';
 import useStyles from './styles';
@@ -88,13 +88,13 @@ const Dialog: React.FC<IProps> = (props) => {
             <Typography className={classes.dialogTitle}>
               {props.title}
             </Typography>
-            <IconButton
+            {/* <IconButton
               aria-label='close'
               className={classes.closeButton}
               onClick={props.onClose}
             >
               <CloseIcon />
-            </IconButton>
+            </IconButton> */}
           </MuiDialogTitle>
           <MuiDialogContent
             dividers
