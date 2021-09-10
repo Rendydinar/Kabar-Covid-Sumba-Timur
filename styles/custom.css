@@ -5,7 +5,9 @@
   --color-black: #111827;
   --color-black-2: #050505;
   --font-primary: 'Assistant', sans-serif;
+  --color-mercury: #e8e8e8;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -280,4 +282,11 @@ button:focus {
   border: 5px solid;
   padding: 4px;
   border-radius: 5px;
+}
+
+.imageBanner {
+  object-fit: fill;
+  width: 100% !important;
+  position: relative !important;
+  height: auto !important;
 }

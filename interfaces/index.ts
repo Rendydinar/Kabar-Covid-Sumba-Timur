@@ -147,3 +147,8 @@ export interface IDataCovidYesterday {
   rapidAntigen: number;
   tcmPcr: number;
 }
+
+export interface IFormSubscribe {
+  username: string;
+  phoneNumber: string;
+}
