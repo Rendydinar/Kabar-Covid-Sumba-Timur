@@ -134,33 +134,40 @@ const KabarEdukasi: React.FC<IProps> = (props): ReactElement => {
                 <Typography variant='body2'>
                   Kawal Jadwal Vaksin adalah Fitur baru Kabar Covid Sumba Timur
                   yang mengirimkan pesan whatsapp secara otomatis kepada
-                  masyarakat terkait informasi jadwal vaksin.
+                  masyarakat terkait informasi jadwal vaksin. Di Kawal Jadwal
+                  Vaksin ini kamu akan mendapatkan pesan terkait jadwal
+                  vaksinasi Covid-19 di Sumba Timur yang baru diperoleh oleh Tim
+                  Pencari Kabar Vaksin yang dikirimkan melalui WhatsApp.
                 </Typography>
+                <br />
                 <Typography variant='body2'>
-                  Kawal Jadwal Vaksin adalah Fitur baru Kabar Covid Sumba Timur
-                  yang mengirimkan pesan whatsapp secara otomatis kepada
-                  masyarakat terkait informasi jadwal vaksin.
+                  Kawal Jadwal Vaksin dibuat agar kamu tidak kehilangan setiap
+                  informasi terkait Jadwal Vaksin Covid-19 Di Sumba Timur. Fitur
+                  ini juga hadir untuk mendukung percepatan pencapaian{' '}
+                  <a
+                    target='_blank'
+                    rel='noopener'
+                    href='https://id.wikipedia.org/wiki/Kekebalan_kelompok'
+                  >
+                    Herd Immunity
+                  </a>{' '}
+                  Covid-19 "Semakin banyak orang yang kebal terhadap suatu
+                  penyakit, semakin sulit bagi penyakit tersebut untuk menyebar
+                  karena tidak banyak orang yang dapat terinfeksi."
                 </Typography>
-                <Typography variant='body2'>
-                  Kawal Jadwal Vaksin adalah Fitur baru Kabar Covid Sumba Timur
-                  yang mengirimkan pesan whatsapp secara otomatis kepada
-                  masyarakat terkait informasi jadwal vaksin.
-                </Typography>
-                <Typography variant='body2'>
-                  Kawal Jadwal Vaksin adalah Fitur baru Kabar Covid Sumba Timur
-                  yang mengirimkan pesan whatsapp secara otomatis kepada
-                  masyarakat terkait informasi jadwal vaksin.
-                </Typography>
-                <Typography variant='body2'>
-                  Kawal Jadwal Vaksin adalah Fitur baru Kabar Covid Sumba Timur
-                  yang mengirimkan pesan whatsapp secara otomatis kepada
-                  masyarakat terkait informasi jadwal vaksin.
-                </Typography>
+                <Typography variant='body2'></Typography>
               </div>
             </Grid>
           </Grid>
-          <div style={{ marginTop: '40px' }}>
-            <Typography variant='h5'>
+          <div
+            style={{
+              marginTop: '40px',
+              borderStyle: 'inset',
+              padding: '15px',
+              marginBottom: '20px',
+            }}
+          >
+            <Typography variant='h6' align='center'>
               Formulir Langganan Kawal Jadwal Vaksin
             </Typography>
             <div className={classes.containerFormSubscribe}>
@@ -168,26 +175,6 @@ const KabarEdukasi: React.FC<IProps> = (props): ReactElement => {
             </div>
           </div>
           <SubscribeJadwalVaksinAction />
-          <div>
-            <Typography variant='h5'>
-              Bagaimana Cara Bekerja ? (Howw 🤔)
-            </Typography>
-            {/* <div className={classes.imageVaksinContainer}> */}
-            <Image
-              priority
-              src='/images/flow-kawal-kabar-vaksin.png'
-              alt='flow-kawal-kabar-vaksin'
-              width={740}
-              height={690}
-              // layout='fill'
-              // className={'imageBanner'}
-              placeholder='blur'
-              blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                shimmer(700, 700)
-              )}`}
-            />
-            {/* </div> */}
-          </div>
         </div>
       </div>
     </Layout>

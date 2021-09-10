@@ -12,4 +12,8 @@ export const MESSAGE_WHATSSAPP_TO_JOIN_IN_TEAM_EDITOR_GAMBAR: string = `
   Hallo Rendy Admin *Kabar Covid Sumba Timur* saya mau bergabung menjadi bagian dalam Tim Kabar Covid Sumba Timur pada bagian *Editor Gambar*. (Lanjut dengan pesan permintaan bergabung kamu)`;
 export const MESSAGE_WHATSSAPP_TO_JOIN_IN_TEAM_PENCARI_INFORMASI_VAKSIN: string = `
   Hallo Rendy Admin *Kabar Covid Sumba Timur* saya mau bergabung menjadi bagian dalam Tim Kabar Covid Sumba Timur pada bagian *Pencari Informasi Vaksin*. (Lanjut dengan pesan permintaan bergabung kamu)`;
-
+export const MESSAGE_WHATSSAPP_TO_REPORT_KAWAL_VAKSIN: string = `
+  Hallo Rendy Admin *Kabar Covid Sumba Timur*. Saya ingin menyampaikan permasalahan yang terjadi pada bagian *Kawal Jadwal Vaksin*. (Lanjut dengan pesan permasalahan kamu)`;
+  export const MESSAGE_WHATSSAPP_TO_STOP_SUBSCRIPTION_JADWAL_VAKSIN: string = `
+  Hallo Rendy Admin *Kabar Covid Sumba Timur* Saya *ingin berhenti langganan Kawal Jadwal Vaksin*. Terimakasih`;
+  

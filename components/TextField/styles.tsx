@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   },
   inputLabel: {
     position: 'initial',
-    color: 'var(--color-mine-shaft)',
+    color: '#2c2b2b',
     fontSize: 16,
     fontWeight: 600,
     transform: 'none',
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: 11,
     },
     '&.Mui-focused': {
-      color: 'var(--color-mine-shaft)',
+      color: '#2c2b2b',
     },
   },
   charCounter: {
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   rootInputFilled: {
-    backgroundColor: 'var(--color-gallery)',
+    backgroundColor: '#f0f0f0',
     '&.MuiAutocomplete-inputRoot[class*="MuiFilledInput-root"]': {
       padding: 0,
       paddingLeft: 16,
@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     },
     '&::placeholder': {
       fontSize: '14px',
-      color: 'var(--color-grey-4)',
+      color: '#cacaca',
       opacity: 1,
       // padding: 8,
     },
@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
   rootInputOutlined: {
     backgroundColor: 'white',
     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      borderColor: 'var(--color-mine-shaft)',
+      borderColor: '#2c2b2b',
     },
     '&.MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"]': {
       padding: 0,
