@@ -9,7 +9,8 @@ import {
 import sortBy from 'lodash/sortBy';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import CardDataCovid from '../components/CardDataCovid';
 import DataCovidPerkecamatan from '../components/DataCovidPerkecamatan';
 import Header from '../components/Header';
@@ -19,6 +20,16 @@ import Top10Kecamatan from '../components/Top10Kecamatan';
 import { getCovidData } from '../fetchData/getCovidData';
 import { getCovidDataPerkecamatan } from '../fetchData/getCovidDataPerkecamatan';
 import { IKecamatan, IKelurahan } from '../interfaces';
+import { ICombinedState } from '../provider/redux/store';
+import {
+  actionHideSubscriptionPopup,
+  actionShowSubscriptionPopup,
+} from '../provider/redux/Subscription/SubscriptionActions';
+import { ISubscriptionState } from '../provider/redux/Subscription/SubscriptionReducer';
+
+interface IReduxState {
+  subscription: ISubscriptionState;
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -108,6 +119,22 @@ const imageStyle = (src: string) => ({
 
 const Home: React.FC<IProps> = (props): ReactElement => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const { subscription } = useSelector<ICombinedState, IReduxState>((state) => {
+    return {
+      subscription: state.subscription,
+    };
+  });
+
+  // useEffect(() => {
+  //   if (subscription.isShow) {
+  //     alert('show popup subscription kawal vaksin');
+  //     dispatch(actionHideSubscriptionPopup());
+  //   } else {
+  //     dispatch(actionShowSubscriptionPopup());
+  //   }
+  // }, []);
 
   return (
     <Layout>

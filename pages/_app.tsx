@@ -8,6 +8,8 @@ import '../styles/normalize.css';
 import '../styles/suitcss-base.css';
 import theme from '../styles/muiTheme';
 import { FirebaseAnalytics } from '../firebase/clientApp';
+import { Provider } from 'react-redux';
+import { store } from '../provider/redux/store';
 
 export default function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
@@ -33,11 +35,13 @@ export default function MyApp(props: AppProps) {
           content='minimum-scale=1, initial-scale=1, width=device-width'
         />
       </Head>
-      <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </Provider>
     </React.Fragment>
   );
 }

@@ -1,0 +1,1 @@
+export const IndonesiaPhoneNumberRex = new RegExp(/^(^\+62|62)(\d{3,4}-?){2}\d{3,4}$/g);

@@ -18,6 +18,7 @@ import { ImNewspaper } from 'react-icons/im';
 import { FaHandHoldingHeart } from 'react-icons/fa';
 import { GiGiftOfKnowledge } from 'react-icons/gi';
 import { FaHandsHelping } from 'react-icons/fa';
+import { MdSchedule } from 'react-icons/md';
 import { LINK_FEEDBACK, MESSAGE_WHATSSAPP } from '../../constant';
 import useStyles from './styles';
 import Link from 'next/link';
@@ -29,12 +30,19 @@ interface IListMore {
   value: string;
   icon: JSX.Element;
 }
-const ListMore: IListMore[] = [
+const ListMoreFeature: IListMore[] = [
   {
     label: 'Kabar Edukasi',
     value: 'kabar-edukasi',
     icon: <GiGiftOfKnowledge size={26} />,
   },
+  {
+    label: 'Kawal Jadwal Vaksin',
+    value: 'kawal-jadwal-vaksin',
+    icon: <MdSchedule size={26} />,
+  },
+];
+const ListMoreUs: IListMore[] = [
   {
     label: 'Kontributor',
     value: 'kontributor',
@@ -45,16 +53,6 @@ const ListMore: IListMore[] = [
     value: 'bergabung',
     icon: <FaHandsHelping size={26} />,
   },
-  // {
-  //   label: 'Lapor Info Vaksin',
-  //   value: 'lapor-info-vaksin',
-  //   icon: <VscFeedback size={26} />,
-  // },
-  // {
-  //   label: 'Umpan Balik',
-  //   value: 'umpan-balik',
-  //   icon: <MdContactPhone size={26} />,
-  // },
   {
     label: 'Tentang Kami',
     value: 'tentang-kami',
@@ -115,7 +113,7 @@ const Footer: React.FC<IProps> = (): ReactElement => {
   const list = () => (
     <div className={classes.list} role='presentation'>
       <List className={classes.containerList}>
-        {ListMore.map((list: IListMore, index: number) => (
+        {ListMoreFeature.map((list: IListMore, index: number) => (
           <Link href={`/${list.value}`} key={index}>
             <ListItem button key={index}>
               <ListItemIcon>{list.icon}</ListItemIcon>
@@ -124,6 +122,15 @@ const Footer: React.FC<IProps> = (): ReactElement => {
           </Link>
         ))}
         <Divider />
+        {ListMoreUs.map((list: IListMore, index: number) => (
+          <Link href={`/${list.value}`} key={index}>
+            <ListItem button key={index}>
+              <ListItemIcon>{list.icon}</ListItemIcon>
+              <ListItemText primary={list.label} />
+            </ListItem>
+          </Link>
+        ))}
+        <Divider />{' '}
         <div onClick={() => changeNavigation('', 'umpan-balik')}>
           <ListItem button>
             <ListItemIcon>
