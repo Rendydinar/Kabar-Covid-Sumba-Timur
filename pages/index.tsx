@@ -299,13 +299,7 @@ const Home: React.FC<IProps> = (props): ReactElement => {
         <Divider className={classes.divider} />
 
         {/* Positif Covid-19 */}
-        <div
-          style={{
-            marginTop: '15px',
-            padding: '0 30px',
-            // paddingBottom: '50pc',
-          }}
-        >
+        <div className={classes.wrapper}>
           <Typography className={classes.typeMonitoring}>
             Positif Covid-19
           </Typography>
