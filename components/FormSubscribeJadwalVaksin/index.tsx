@@ -1,4 +1,5 @@
 import React, { ReactElement, useState } from 'react';
+import cryptoRandomString from 'crypto-random-string';
 import TextField from '../TextField';
 import { IconButton, Typography } from '@material-ui/core';
 import { IndonesiaPhoneNumberRex } from '../../utils/reqex';
@@ -84,6 +85,7 @@ const FormSubscribeJadwalVaksin: React.FC<IProps> = (): ReactElement => {
           ).update({
             username: formSubscribe.username,
             isSubscription: true,
+            token: cryptoRandomString(10),
           });
           // show dialog success subscribe
           handleOpenDialogSuccessAddPhoneNumber();
