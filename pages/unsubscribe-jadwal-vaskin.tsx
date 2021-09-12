@@ -129,6 +129,7 @@ const UnsubscribeJadwalVaksin: React.FC<IProps> = (): ReactElement => {
       await DATA_SUBSCRIBE_JADWAL_VAKSIN_COLLECTION.doc(
         userData?.id ?? ''
       ).update({
+        unSubscriptionAt: new Date(),
         isSubscription: false,
       });
       goToMainApp();

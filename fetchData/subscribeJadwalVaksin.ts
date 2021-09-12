@@ -9,7 +9,8 @@ export const subscribeJadwalVaksin = (dataSubscribe: IFormSubscribe) => new Prom
       token: cryptoRandomString(10),
       phoneNumber: dataSubscribe.phoneNumber,
       isSubscription: true,
-      createdAt: new Date()
+      createdAt: new Date(),
+      unSubscriptionAt: null
     });
     resolve(true)
   } catch(err) {
