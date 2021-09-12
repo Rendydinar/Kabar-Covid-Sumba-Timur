@@ -142,11 +142,14 @@ const UnsubscribeJadwalVaksin: React.FC<IProps> = (): ReactElement => {
   };
 
   useEffect(() => {
-    const { phone, token }: any = router.query;
-    if (!phone && !token) {
+    const queryParams = new URLSearchParams(window.location.search);
+    if (!queryParams.get('phone') && !queryParams.get('token')) {
       goToMainApp();
     } else {
-      getDataUser(phone, token);
+      getDataUser(
+        queryParams.get('phone') ?? '',
+        queryParams.get('token') ?? ''
+      );
     }
   }, []);
 
@@ -192,6 +195,13 @@ const UnsubscribeJadwalVaksin: React.FC<IProps> = (): ReactElement => {
       {error.isShow && (
         <div className={classes.containerError}>
           <Typography variant='body1'>{error.message}</Typography>
+          <Button
+            size='small'
+            className={classes.btnAction}
+            onClick={goToMainApp}
+          >
+            Kembali
+          </Button>
         </div>
       )}
     </div>
