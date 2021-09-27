@@ -12,6 +12,9 @@ import { REPORT_INFO_VAKSIN_MESSAGE } from '../../constant';
 import { shimmer, toBase64 } from '../../utils';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Link from 'next/link';
+import { Tooltip } from '@material-ui/core';
+import { GoVerified } from 'react-icons/go';
+import { GoUnverified } from 'react-icons/go';
 
 interface IProps {
   vaksin: IVaksin;
@@ -32,6 +35,9 @@ const CardVaksin: React.FC<IProps> = (props) => {
       'noopener noreferrer' // <- This is what makes it open in a new window.
     );
   };
+
+  const longText =
+    'Informasi jadwal vaksin ini sudah dikonfirmasi oleh pihak penyelenggara dan telah dinyatakan Benar';
 
   useEffect(() => {
     const now = new Date().getTime();
@@ -94,6 +100,32 @@ const CardVaksin: React.FC<IProps> = (props) => {
           <Button className={classes.btnBaca}>Informasi Selengkapnya</Button>
         </Link>
       </div>
+      <Tooltip
+        title={
+          props.vaksin.is_verified
+            ? 'Informasi jadwal vaksin ini sudah dikonfirmasi oleh pihak penyelenggara dan telah dinyatakan benar'
+            : 'Informasi jadwal vaksin ini belum dikonfirmasi oleh pihak penyelenggara dan belum dapat dibuktikan kebenarannya'
+        }
+        arrow
+      >
+        <Button
+          variant='outlined'
+          startIcon={
+            props.vaksin.is_verified ? (
+              <GoVerified size={24} color='#1976d2' />
+            ) : (
+              <GoUnverified size={24} color='red' />
+            )
+          }
+          style={{ margin: '10px 0px', width: '100%' }}
+        >
+          <Typography style={{ fontSize: 12 }}>
+            {props.vaksin.is_verified
+              ? 'Sudah dikonfirmasi oleh pihak penyelenggara'
+              : 'Belum dikonfirmasi oleh pihak penyelenggara'}
+          </Typography>
+        </Button>
+      </Tooltip>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 export interface IKelurahan {
   name: string;
@@ -18,25 +18,26 @@ export interface IIsolasi {
   nama_tempat: string;
   kasus_terkonfirmasi: number;
   place_map: string;
-  terkonfirmasi?:number;
-  menunggu_hasil_pcr?:number;
+  terkonfirmasi?: number;
+  menunggu_hasil_pcr?: number;
 }
 
 export interface IVaksin {
-  id:string;
+  id: string;
   date: string;
   img_url: string;
   timestamp: number;
   keterangan?: string;
   sumber?: string;
-  jenis_vaksin?: string;  
-  place_map?:string;
-  link_map?:string;
-  kewajiban?:string[];
-  kouta?:number;
-  waktu_berakhir_timestamp?:number
+  jenis_vaksin?: string;
+  place_map?: string;
+  link_map?: string;
+  kewajiban?: string[];
+  kouta?: number;
+  waktu_berakhir_timestamp?: number;
   isShow: boolean;
   place_maps?: string[];
+  is_verified: boolean;
 }
 
 export interface IBerita {
@@ -48,9 +49,9 @@ export interface IBerita {
   description: string;
   contentHtml: string;
   img: string;
-  link_site?: string[] | undefined; 
+  link_site?: string[] | undefined;
   type: string;
-  id:string;
+  id: string;
 }
 export interface IBeritaCard {
   date: string;
@@ -64,16 +65,15 @@ export interface IBeritaCard {
 }
 
 export interface IEdukasiCard {
-  title:string;
+  title: string;
   id: string;
-  target:string[];
-  date:string;
-  author:string;
-  sumber:string;
-  description:string;
-  img:string;
+  target: string[];
+  date: string;
+  author: string;
+  sumber: string;
+  description: string;
+  img: string;
 }
-
 
 export interface IEdukasi {
   title: string;
@@ -83,14 +83,14 @@ export interface IEdukasi {
   description: string;
   contentHtml: string;
   img: string;
-  link_site?: string[] | undefined; 
-  target:string[];
-  id:string;
+  link_site?: string[] | undefined;
+  target: string[];
+  id: string;
 }
 
 export interface IContentQnA {
   title: string;
-  content: string;  
+  content: string;
 }
 
 export interface IQnA {
@@ -98,33 +98,33 @@ export interface IQnA {
   content: string;
   content_list: string[];
   sumber: string;
-  type:string;
+  type: string;
   list_content: IContentQnA[];
   content_list_content: IContentQnA[];
 }
 
 export interface IFormTambahDataVaksin {
   keterangan: string;
-  sumber:string;
+  sumber: string;
   img_uri: string;
   jenis_vaksin: string;
   date: string;
   image_name: string;
-  timestamp?:number
-  place_map?:string;
-  kewajiban?:string[];
-  kouta?:number;
-  waktu_berakhir_timestamp?:number
+  timestamp?: number;
+  place_map?: string;
+  kewajiban?: string[];
+  kouta?: number;
+  waktu_berakhir_timestamp?: number;
 }
 
 export interface IKontributor {
   name: string;
-  img_url:string;
+  img_url: string;
   facebook: string;
   instagram: string;
   twitter: string;
   bio: string;
-  position:string;
+  position: string;
 }
 
 export interface IJoinKontributor {
@@ -138,7 +138,7 @@ export interface IJoinKontributor {
 export interface IMediaPathner {
   image: string;
   name: string;
-  website:string;
+  website: string;
 }
 
 export interface IDataCovidYesterday {

@@ -7,9 +7,11 @@ import {
   Typography,
 } from '@material-ui/core';
 import sortBy from 'lodash/sortBy';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import React, { ReactElement, useEffect, useState } from 'react';
-import Card from '../components/Card';
+import React, { ReactElement, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import CardDataCovid from '../components/CardDataCovid';
 import DataCovidPerkecamatan from '../components/DataCovidPerkecamatan';
 import Header from '../components/Header';
 import Jumbotron from '../components/Jumbotron';
@@ -18,7 +20,22 @@ import Top10Kecamatan from '../components/Top10Kecamatan';
 import { getCovidData } from '../fetchData/getCovidData';
 import { getCovidDataPerkecamatan } from '../fetchData/getCovidDataPerkecamatan';
 import { IKecamatan, IKelurahan } from '../interfaces';
-import { getHariIni } from '../utils/date';
+import { ICombinedState } from '../provider/redux/store';
+import {
+  actionHideSubscriptionPopup,
+  actionShowSubscriptionPopup,
+} from '../provider/redux/Subscription/SubscriptionActions';
+import { ISubscriptionState } from '../provider/redux/Subscription/SubscriptionReducer';
+import { getLocal } from '../lib/local/localStorage';
+import {
+  LOCAL_STORAGE_DATA_LAST_UPDATE_DATA_COVID_TOTAL,
+  LOCAL_STORAGE_DATE_LAST_UPDATE_DATA_COVID_TOTAL,
+} from '../constant';
+import { DATA_COVID_COLLECTION } from '../firebase/firestore/collection';
+
+interface IReduxState {
+  subscription: ISubscriptionState;
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '80vh',
     },
     typeMonitoring: {
-      fontSize: '26px',
+      fontSize: '30px',
       fontWeight: 700,
       textAlign: 'center',
       [theme.breakpoints.down('md')]: {
@@ -42,6 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     containerTypeMonitoring: {
       padding: '0 125px',
+      margin: '30px 0',
       [theme.breakpoints.down('md')]: {
         padding: '0 50px',
       },
@@ -50,10 +68,13 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     monitoringTitle: {
-      fontSize: '20px',
-      fontWeight: 700,
+      backgroundColor: '#F0FDF4',
+      padding: '5px',
+      borderTopRightRadius: '8px',
+      borderTopLeftRadius: '8px',
+      fontSize: '24px',
+      fontWeight: 500,
       textTransform: 'uppercase',
-      textDecoration: 'underline',
       [theme.breakpoints.down('sm')]: {
         fontSize: '18px',
       },
@@ -72,89 +93,115 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       marginTop: '10px',
     },
+    lineTypeMonitoring: {
+      width: '100%',
+      marginBottom: '15px',
+      height: '5px',
+      // background: 'rgb(64,255,72)',
+      background:
+        'linear-gradient(0deg, rgba(64,255,72,1) 8%, rgba(86,243,82,1) 15%, rgba(123,223,99,1) 40%, rgba(105,233,91,1) 46%, rgba(65,253,45,1) 95%)',
+    },
   })
 );
 interface IProps {
   data: any;
+  yesterdayData: any;
 }
 
 const images = [
-  'https://images.pexels.com/photos/3740695/pexels-photo-3740695.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-  'https://images.pexels.com/photos/3740446/pexels-photo-3740446.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-  'https://images.pexels.com/photos/351265/pexels-photo-351265.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-  'https://images.pexels.com/photos/924675/pexels-photo-924675.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+  'https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2Fcovid19.png?alt=media&token=7fff4ed4-df18-42ac-8e46-30bbd82b7a56',
+  'https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2F3m-covid.png?alt=media&token=63eb8f5b-4171-42a8-b561-dc5d967baad2',
+  'https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2Fpresiden-jokowi-disuntik-vaksin-corona-covid-19.jpeg?alt=media&token=e6334922-78c8-441b-b737-fcd5d28faaee',
+  'https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2Fisolasi_mandiri.jpg?alt=media&token=1b205a78-fa83-4c05-a33d-90d31c99e8fc',
 ];
 
 const imageStyle = (src: string) => ({
-  backgroundSize: 'cover',
   backgroundImage: `url(${src})`,
   height: '100%',
   width: '100%',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: 'cover',
 });
-interface IData {
-  success: boolean;
-  data: {
-    data_covid_sumba_timur: any;
-    data_covid_perkecamatan_sumba_timur: {
-      date: string;
-      data: IKecamatan[];
-    };
-    top_10_kelurahan_kasus_covid: IKelurahan[];
-  };
-}
 
-const Home: React.FC<IProps> = (): ReactElement => {
+const Home: React.FC<IProps> = (props): ReactElement => {
   const classes = useStyles();
-  const [data, setData] = useState<IData>();
-  const [loading, setLoading] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
-  const getData = async () => {
-    setLoading(true);
-    try {
-      const responseGetCovidData: any = await getCovidData();
-      const responseGetCovidDataPerkecamatan: any =
-        await getCovidDataPerkecamatan();
-      let listkelurahan: IKelurahan[] = [];
-      responseGetCovidDataPerkecamatan.data.map((kecamatan: IKecamatan) => {
-        kecamatan.kelurahan.map((kelurahan) => {
-          listkelurahan.push(kelurahan);
-        });
-      });
-      listkelurahan = sortBy(listkelurahan, 'total').reverse();
-      setData({
-        success: true,
-        data: {
-          data_covid_sumba_timur: responseGetCovidData,
-          data_covid_perkecamatan_sumba_timur: responseGetCovidDataPerkecamatan,
-          top_10_kelurahan_kasus_covid: listkelurahan.slice(0, 10),
-        },
-      });
-    } catch (err) {
-      setData({
-        success: false,
-        data: {
-          data_covid_sumba_timur: {},
-          data_covid_perkecamatan_sumba_timur: {
-            date: '',
-            data: [],
-          },
-          top_10_kelurahan_kasus_covid: [],
-        },
-      });
-    }
-    setLoading(false);
-  };
+  const [dataCovidTotal, setDataTotalCovid] = useState<any[]>([]);
+  const [dataCovidPerkecamatan, setDataCovidPerkecamatan] = useState<any[]>([]);
+  const { subscription } = useSelector<ICombinedState, IReduxState>((state) => {
+    return {
+      subscription: state.subscription,
+    };
+  });
+
+  // useEffect(() => {
+  //   if (subscription.isShow) {
+  //     alert('show popup subscription kawal vaksin');
+  //     dispatch(actionHideSubscriptionPopup());
+  //   } else {
+  //     dispatch(actionShowSubscriptionPopup());
+  //   }
+  // }, []);
 
   useEffect(() => {
     async function asyncFuncDefault() {
-      await getData();
+      const localDateLastUpdateDataCovidTotal = getLocal(
+        LOCAL_STORAGE_DATE_LAST_UPDATE_DATA_COVID_TOTAL
+      );
+      if (localDateLastUpdateDataCovidTotal) {
+        const lastUpdate = await DATA_COVID_COLLECTION.doc('data').get();
+        if (lastUpdate !== localDateLastUpdateDataCovidTotal) {
+          // update data local storage data covid total
+        } else {
+          // use data local storage data covid total
+          const localDateLastUpdateDataCovidTotal = getLocal(
+            LOCAL_STORAGE_DATA_LAST_UPDATE_DATA_COVID_TOTAL
+          );
+        }
+      } else {
+        // for first use local storage feature
+      }
     }
-    asyncFuncDefault();
   }, []);
 
   return (
     <Layout>
       <Head>
+        <meta name='og:keywords' content='Kabar Covid Sumba Timur' />
+        <meta name='og:title' content='Kabar Covid Sumba Timur' />
+        <meta property='og:site_name' content='Kabar Covid Sumba Timur' />
+        <meta
+          property='og:description'
+          content='Situs yang menampilkan seputar informasi COVID-19 Di Daerah Sumba Timur & Sekitarnya'
+        />
+        <meta name='twitter:title' content='Kabar Covid Sumba Timur' />
+        <meta
+          name='twitter:description'
+          content='Situs yang menampilkan seputar informasi COVID-19 Di Daerah Sumba Timur & Sekitarnya'
+        />
+        <meta
+          property='og:url'
+          content='https://kabar-covid-sumba-timur.vercel.app/'
+        />
+
+        <meta
+          name='twitter:site'
+          content='https://kabar-covid-sumba-timur.vercel.app/'
+        />
+        <meta
+          property='og:image'
+          content='https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2Flarge-logo.png?alt=media&token=aa2f190e-2d4f-4bf7-998f-b57c23dfec6c'
+        />
+        <meta
+          name='twitter:image:src'
+          content='https://firebasestorage.googleapis.com/v0/b/kabar-covid-sumba-timur.appspot.com/o/assets%2Flarge-logo.png?alt=media&token=aa2f190e-2d4f-4bf7-998f-b57c23dfec6c'
+        />
+        <meta property='og:image:width' content='1000' />
+        <meta property='og:image:height' content='667' />
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta name='twitter:image:alt' content='Kabar Covid Sumba Timur' />
+
         <title>Kabar Covid Sumba Timur</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
@@ -169,7 +216,7 @@ const Home: React.FC<IProps> = (): ReactElement => {
       <div>
         <Jumbotron
           title='Data Monitoring Harian'
-          description={`Update: ${getHariIni()}`}
+          description={`Update: ${props.data.date}`}
         />
         {/* Sampel Dikirim / Diperiksa */}
         <div className={classes.wrapper}>
@@ -181,34 +228,48 @@ const Home: React.FC<IProps> = (): ReactElement => {
             <Typography className={classes.monitoringTitle}>
               TCM / PCR
             </Typography>
+            <Divider className={classes.lineTypeMonitoring} />
             <div className={classes.monitoringSectionContainer}>
-              <Card
+              <CardDataCovid
                 icon='😟'
-                title='Positif'
-                total={
-                  loading
-                    ? data?.data.data_covid_sumba_timur?.data?.tcm_pcr
-                        ?.positif ?? 0
-                    : 0
+                title='Positif TCM/PCR'
+                totalNow={
+                  props.data.data_covid_sumba_timur.data.tcm_pcr.positif
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.tcm_pcr
+                    .positif
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data positif hasil test TCM/PCR covid-19 di Sumba Timur'
               />
-              <Card
+              <CardDataCovid
                 icon='😊'
-                title='Negatif'
-                total={
-                  data?.data?.data_covid_sumba_timur?.data?.tcm_pcr?.negatif ??
-                  0
+                title='Negatif TCM/PCR'
+                totalNow={
+                  props.data.data_covid_sumba_timur.data.tcm_pcr.negatif
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.tcm_pcr
+                    .negatif
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data negatif hasil test TCM/PCR covid-19 di Sumba Timur'
               />
-              <Card
-                title='Total'
-                total={
-                  data?.data?.data_covid_sumba_timur?.data?.tcm_pcr?.positif ??
-                  0 +
-                    data?.data?.data_covid_sumba_timur?.data?.tcm_pcr
-                      ?.negatif ??
-                  0
+              <CardDataCovid
+                title='Total Test TCM/PCR'
+                totalNow={
+                  props.data.data_covid_sumba_timur.data.tcm_pcr.positif +
+                  props.data.data_covid_sumba_timur.data.tcm_pcr.negatif
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.tcm_pcr
+                    .positif +
+                  props.yesterdayData.data_covid_sumba_timur.data.tcm_pcr
+                    .negatif
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data total test TCM/PCR covid-19 di Sumba Timur'
               />
             </div>
           </div>
@@ -217,33 +278,49 @@ const Home: React.FC<IProps> = (): ReactElement => {
             <Typography className={classes.monitoringTitle}>
               Rapid Antigen
             </Typography>
+            <Divider className={classes.lineTypeMonitoring} />
             <div className={classes.monitoringSectionContainer}>
-              <Card
+              <CardDataCovid
                 icon='😟'
-                title='Positif'
-                total={
-                  data?.data?.data_covid_sumba_timur?.data?.rapid_antigen
-                    ?.positif ?? 0
+                title='Positif Rapid Antigen'
+                totalNow={
+                  props.data.data_covid_sumba_timur.data.rapid_antigen.positif
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.rapid_antigen
+                    .positif
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data positif hasil test Rapid Antigen covid-19 di Sumba Timur'
               />
-              <Card
+
+              <CardDataCovid
                 icon='😊'
-                title='Negatif'
-                total={
-                  data?.data?.data_covid_sumba_timur?.data?.rapid_antigen
-                    ?.negatif ?? 0
+                title='Negatif Rapid Antigen'
+                totalNow={
+                  props.data.data_covid_sumba_timur.data.rapid_antigen.negatif
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.rapid_antigen
+                    .negatif
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data negatif hasil test Rapid Antigen covid-19 di Sumba Timur'
               />
-              <Card
-                title='Total'
-                total={
-                  data?.data?.data_covid_sumba_timur?.data?.rapid_antigen
-                    ?.positif ??
-                  0 +
-                    data?.data?.data_covid_sumba_timur?.data?.rapid_antigen
-                      ?.negatif ??
-                  0
+              <CardDataCovid
+                title='Total Test Rapid Antigen'
+                totalNow={
+                  props.data.data_covid_sumba_timur.data.rapid_antigen.positif +
+                  props.data.data_covid_sumba_timur.data.rapid_antigen.negatif
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.rapid_antigen
+                    .positif +
+                  props.yesterdayData.data_covid_sumba_timur.data.rapid_antigen
+                    .negatif
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data total test Rapid Antigen covid-19 harian di Sumba Timur'
               />
             </div>
           </div>
@@ -251,13 +328,7 @@ const Home: React.FC<IProps> = (): ReactElement => {
         <Divider className={classes.divider} />
 
         {/* Positif Covid-19 */}
-        <div
-          style={{
-            marginTop: '15px',
-            padding: '0 30px',
-            // paddingBottom: '50pc',
-          }}
-        >
+        <div className={classes.wrapper}>
           <Typography className={classes.typeMonitoring}>
             Positif Covid-19
           </Typography>
@@ -265,20 +336,33 @@ const Home: React.FC<IProps> = (): ReactElement => {
             <Typography className={classes.monitoringTitle}>
               Penambahan Kasus Hari Ini
             </Typography>
+            <Divider className={classes.lineTypeMonitoring} />
             <div className={classes.monitoringSectionContainer}>
-              <Card
+              <CardDataCovid
                 title='Antigen'
-                total={
-                  data?.data?.data_covid_sumba_timur?.data?.positif_covid
-                    ?.penambahan_kasus_harian?.antigen ?? 0
+                totalNow={
+                  props.data.data_covid_sumba_timur.data.positif_covid
+                    .penambahan_kasus_harian.antigen
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.positif_covid
+                    .penambahan_kasus_harian.antigen
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data penambahan kasus positif covid-19 harian melalui hasil test Rapid Antigen di Sumba Timur'
               />
-              <Card
+              <CardDataCovid
                 title='PCR / TCM'
-                total={
-                  data?.data?.data_covid_sumba_timur?.data?.positif_covid
-                    ?.penambahan_kasus_harian?.pcr_tcm ?? 0
+                totalNow={
+                  props.data.data_covid_sumba_timur.data.positif_covid
+                    .penambahan_kasus_harian.pcr_tcm
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.positif_covid
+                    .penambahan_kasus_harian.pcr_tcm
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data penambahan kasus positif covid-19 harian melalui hasil test PCR/TCM Antigen di Sumba Timur'
               />
             </div>
           </div>
@@ -286,38 +370,63 @@ const Home: React.FC<IProps> = (): ReactElement => {
             <Typography className={classes.monitoringTitle}>
               Data Total Positif
             </Typography>
+            <Divider className={classes.lineTypeMonitoring} />
             <div className={classes.monitoringSectionContainer}>
-              <Card
+              <CardDataCovid
                 icon='😟'
                 title='Total Positif'
-                total={
-                  data?.data?.data_covid_sumba_timur?.data?.positif_covid
-                    ?.total_positif ?? 0
+                totalNow={
+                  props.data.data_covid_sumba_timur.data.positif_covid
+                    .total_positif
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.positif_covid
+                    .total_positif
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data total kasus positif covid-19 di Sumba Timur'
               />
-              <Card
+              <CardDataCovid
                 icon='🤒'
                 title='Total Dirawat'
-                total={
-                  data?.data?.data_covid_sumba_timur?.data?.positif_covid
-                    ?.total_dirawat ?? 0
+                totalNow={
+                  props.data.data_covid_sumba_timur.data.positif_covid
+                    .total_dirawat
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.positif_covid
+                    .total_dirawat
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data total passien covid-19 yang dirawat di Sumba Timur'
               />
-              <Card
+              <CardDataCovid
                 icon='😃'
                 title='Total Sembuh'
-                total={
-                  data?.data?.data_covid_sumba_timur?.data?.positif_covid
-                    ?.total_sembuh ?? 0
+                totalNow={
+                  props.data.data_covid_sumba_timur.data.positif_covid
+                    .total_sembuh
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.positif_covid
+                    .total_sembuh
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data total passien sembuh covid-19 di Sumba Timur'
               />
-              <Card
+              <CardDataCovid
                 icon='😢'
                 title='Total Meninggal'
-                total={
-                  data?.data?.data_covid_sumba_timur?.data?.positif_covid
-                    ?.total_meninggal ?? 0
+                totalNow={
+                  props.data.data_covid_sumba_timur.data.positif_covid
+                    .total_meninggal
                 }
+                totalYesterday={
+                  props.yesterdayData.data_covid_sumba_timur.data.positif_covid
+                    .total_meninggal
+                }
+                dateYesterday={props.yesterdayData.date}
+                description='Data total passien meninggal covid-19 di Sumba Timur'
               />
             </div>
           </div>
@@ -325,15 +434,18 @@ const Home: React.FC<IProps> = (): ReactElement => {
       </div>
 
       <DataCovidPerkecamatan
-        dataPerkecamatan={
-          data?.data?.data_covid_perkecamatan_sumba_timur ?? {
-            date: '',
-            data: [],
-          }
+        dataPerkecamatan={props.data.data_covid_perkecamatan_sumba_timur}
+        dataPerkecamatanYesterday={
+          props.yesterdayData.data_covid_perkecamatan_sumba_timur
         }
+        dataPerKelurahanYesterday={props.yesterdayData.data_kelurahan_yesterday}
       />
       <Top10Kecamatan
-        top10Kelurahan={data?.data?.top_10_kelurahan_kasus_covid ?? []}
+        top10Kelurahan={props.data.top_10_kelurahan_kasus_covid}
+        dateYesterday={
+          props.yesterdayData.data_covid_perkecamatan_sumba_timur.date
+        }
+        dataPerKelurahanYesterday={props.yesterdayData.data_kelurahan_yesterday}
       />
     </Layout>
   );
@@ -341,34 +453,62 @@ const Home: React.FC<IProps> = (): ReactElement => {
 
 export default Home;
 
-// export const getStaticProps: GetStaticProps = async () => {
-//   try {
-//     const responseGetCovidData: any = await getCovidData();
-//     const responseGetCovidDataPerkecamatan: any =
-//       await getCovidDataPerkecamatan();
-//     let listkelurahan: IKelurahan[] = [];
-//     responseGetCovidDataPerkecamatan.data.map((kecamatan: IKecamatan) => {
-//       kecamatan.kelurahan.map((kelurahan) => {
-//         listkelurahan.push(kelurahan);
-//       });
-//     });
-//     listkelurahan = sortBy(listkelurahan, 'total').reverse();
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const responseGetCovidData: any = await getCovidData();
+    const responseGetCovidDataPerkecamatan: any =
+      await getCovidDataPerkecamatan();
+    let listkelurahan: IKelurahan[] = [];
+    responseGetCovidDataPerkecamatan.data.map((kecamatan: IKecamatan) => {
+      kecamatan.kelurahan.map((kelurahan) => {
+        listkelurahan.push(kelurahan);
+      });
+    });
+    listkelurahan = sortBy(listkelurahan, 'total').reverse();
 
-//     return {
-//       props: {
-//         data: {
-//           data_covid_sumba_timur: responseGetCovidData,
-//           data_covid_perkecamatan_sumba_timur: responseGetCovidDataPerkecamatan,
-//           top_10_kelurahan_kasus_covid: listkelurahan.slice(0, 10),
-//         },
-//       },
-//     };
-//   } catch (err) {
-//     return {
-//       props: {
-//         success: false,
-//         data: [],
-//       },
-//     };
-//   }
-// };
+    const dataKelurahanYesterday: IKelurahan[] = [];
+    responseGetCovidDataPerkecamatan.dataYesterday.data.map(
+      (kecamatan: IKecamatan) => {
+        kecamatan.kelurahan.map((kelurahan) => {
+          dataKelurahanYesterday.push(kelurahan);
+        });
+      }
+    );
+
+    return {
+      props: {
+        data: {
+          date: responseGetCovidData.date,
+          data_covid_sumba_timur: responseGetCovidData,
+          data_covid_perkecamatan_sumba_timur: {
+            date: responseGetCovidDataPerkecamatan.date,
+            data: responseGetCovidDataPerkecamatan.data,
+          },
+          top_10_kelurahan_kasus_covid: listkelurahan.slice(0, 10),
+        },
+        yesterdayData: {
+          date: responseGetCovidData.data.dataYesterday.date,
+          data_covid_sumba_timur: responseGetCovidData.data.dataYesterday,
+          data_covid_perkecamatan_sumba_timur:
+            responseGetCovidDataPerkecamatan.dataYesterday,
+          data_kelurahan_yesterday: dataKelurahanYesterday,
+        },
+      },
+      // Next.js will attempt to re-generate the page:
+      // - When a request comes in
+      // - At most once every 10800 seconds (3 hours)
+      revalidate: 10800, // In seconds
+    };
+  } catch (err) {
+    return {
+      props: {
+        success: false,
+        data: [],
+      },
+      // Next.js will attempt to re-generate the page:
+      // - When a request comes in
+      // - At most once every 10800 seconds (3 hours)
+      revalidate: 10800, // In seconds
+    };
+  }
+};

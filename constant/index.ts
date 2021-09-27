@@ -16,4 +16,8 @@ export const MESSAGE_WHATSSAPP_TO_REPORT_KAWAL_VAKSIN: string = `
   Hallo Rendy Admin *Kabar Covid Sumba Timur*. Saya ingin menyampaikan permasalahan yang terjadi pada bagian *Kawal Jadwal Vaksin*. (Lanjut dengan pesan permasalahan kamu)`;
   export const MESSAGE_WHATSSAPP_TO_STOP_SUBSCRIPTION_JADWAL_VAKSIN: string = `
   Hallo Rendy Admin *Kabar Covid Sumba Timur* Saya *ingin berhenti langganan Kawal Jadwal Vaksin*. Terimakasih`;
-  
+
+export const LOCAL_STORAGE_DATE_LAST_UPDATE_DATA_COVID_TOTAL = 'date_last_update_data_covid_total';
+export const LOCAL_STORAGE_DATE_LAST_UPDATE_DATA_COVID_PERKECAMATAN = 'date_last_update_data_covid_perkecamatan';
+export const LOCAL_STORAGE_DATA_LAST_UPDATE_DATA_COVID_TOTAL = 'data_last_update_data_covid_total';
+export const LOCAL_STORAGE_DATA_LAST_UPDATE_DATA_COVID_PERKECAMATAN = 'data_last_update_data_covid_perkecamatan';

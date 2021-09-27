@@ -2,7 +2,6 @@ import { Button, Grid, Link, Typography } from '@material-ui/core';
 import { FormControl, InputLabel, NativeSelect } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import sortBy from 'lodash/sortBy';
-import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import React, { ReactElement, useState, useEffect } from 'react';
 import CardVaksin, {
@@ -14,8 +13,6 @@ import { MESSAGE_WHATSSAPP } from '../constant';
 import { getDataVaksin } from '../fetchData/getDataVaksin';
 import { AiOutlineReload } from 'react-icons/ai';
 import { IVaksin } from '../interfaces';
-import Skeleton from '@material-ui/lab/Skeleton';
-import { Widgets } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -216,6 +213,7 @@ const KabarVaksin: React.FC<IProps> = (): ReactElement => {
           dataVaksin.push({
             ...vaksin.data(),
             id: vaksin.id,
+            is_verified: vaksin.data().isVerified ?? false,
           });
         }
       });
@@ -386,39 +384,3 @@ const KabarVaksin: React.FC<IProps> = (): ReactElement => {
 };
 
 export default KabarVaksin;
-
-// export const getStaticProps: GetStaticProps = async () => {
-//   try {
-//     let dataVaksin: IVaksin[] = [];
-//     let responseGetDataVaksin: any = await getDataVaksin();
-//     responseGetDataVaksin.map((vaksin: any) => {
-//       if (vaksin.data().isShow === true) {
-//         dataVaksin.push({
-//           ...vaksin.data(),
-//         });
-//       }
-//     });
-//     dataVaksin = sortBy(dataVaksin, 'timestamp').reverse();
-//     return {
-//       props: {
-//         success: true,
-//         data: dataVaksin,
-//       },
-//       // Next.js will attempt to re-generate the page:
-//       // - When a request comes in
-//       // - At most once every 180 seconds (3 minutes)
-//       revalidate: 180, // In seconds
-//     };
-//   } catch (err) {
-//     return {
-//       props: {
-//         success: false,
-//         data: [],
-//       },
-//       // Next.js will attempt to re-generate the page:
-//       // - When a request comes in
-//       // - At most once every 180 seconds (3 minutes)
-//       revalidate: 180, // In seconds
-//     };
-//   }
-// };

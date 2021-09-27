@@ -1,7 +1,13 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
-import { Box, createStyles, makeStyles, Theme } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  createStyles,
+  makeStyles,
+  Theme,
+} from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import { TiArrowBack } from 'react-icons/ti';
@@ -16,6 +22,9 @@ import { getDateFormated } from '../../utils/date';
 import { PUBLIC_PATH } from '../../constant';
 import { classNames } from '../../lib/classNames';
 import Skeleton from '@material-ui/lab/Skeleton';
+import { Tooltip } from '@material-ui/core';
+import { GoVerified } from 'react-icons/go';
+import { GoUnverified } from 'react-icons/go';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -92,7 +101,7 @@ export default function KabarVaksinDetail() {
   const [timeCountDown, setTimeCountDown] = useState<string>('');
 
   const handleBack = () => {
-    router.back();
+    router.push('/kabar-vaksin');
   };
 
   const getVaksin = async (): Promise<void> => {
@@ -105,6 +114,7 @@ export default function KabarVaksinDetail() {
         setDataVaksin({
           ...responseGetDataVaksin.data(),
           id: responseGetDataVaksin.id,
+          is_verified: responseGetDataVaksin.data().isVerified ?? false,
         });
         const now = new Date().getTime();
         if (responseGetDataVaksin.data().waktu_berakhir_timestamp) {
@@ -258,6 +268,32 @@ export default function KabarVaksinDetail() {
                 )}`}
               />
             </div>
+            <Tooltip
+              title={
+                dataVaksin.is_verified
+                  ? 'Informasi jadwal vaksin ini sudah dikonfirmasi oleh pihak penyelenggara dan telah dinyatakan benar'
+                  : 'Informasi jadwal vaksin ini belum dikonfirmasi oleh pihak penyelenggara dan belum dapat dibuktikan kebenarannya'
+              }
+              arrow
+            >
+              <Button
+                variant='outlined'
+                startIcon={
+                  dataVaksin.is_verified ? (
+                    <GoVerified size={24} color='#1976d2' />
+                  ) : (
+                    <GoUnverified size={24} color='red' />
+                  )
+                }
+                style={{ margin: '10px 0px 20px 0', width: '100%' }}
+              >
+                <Typography style={{ fontSize: 12 }} align='left'>
+                  {dataVaksin.is_verified
+                    ? 'Sudah dikonfirmasi oleh pihak penyelenggara'
+                    : 'Belum dikonfirmasi oleh pihak penyelenggara'}
+                </Typography>
+              </Button>
+            </Tooltip>
             <div style={{ display: 'flex', marginBottom: '10px' }}>
               <Typography variant='h5'>
                 {`${getDateFormated(new Date(dataVaksin.timestamp))} ${
