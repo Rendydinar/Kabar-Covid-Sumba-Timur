@@ -327,6 +327,8 @@ export default function KabarVaksinDetail() {
                 new Date(dataVaksin?.waktu_berakhir_timestamp ?? 0)
               )}
             </Typography>
+            <Typography variant='h6'>Sumber:</Typography>
+            <Typography variant='body2'>{dataVaksin.sumber}</Typography>
             <Typography variant='h6'>Jenis Vaksin:</Typography>
             <Typography variant='body2'>{dataVaksin.jenis_vaksin}</Typography>
             <Typography variant='h6'>Kouta:</Typography>
