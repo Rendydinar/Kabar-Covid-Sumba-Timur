@@ -424,7 +424,7 @@ const Home: React.FC<IProps> = (props): ReactElement => {
 
 export default Home;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps = async () => {
   try {
     const responseGetCovidData: any = await getCovidData();
     const responseGetCovidDataPerkecamatan: any =
@@ -468,7 +468,6 @@ export const getStaticProps: GetStaticProps = async () => {
       // Next.js will attempt to re-generate the page:
       // - When a request comes in
       // - At most once every 10800 seconds (3 hours)
-      revalidate: 10800, // In seconds
     };
   } catch (err) {
     return {
@@ -479,7 +478,6 @@ export const getStaticProps: GetStaticProps = async () => {
       // Next.js will attempt to re-generate the page:
       // - When a request comes in
       // - At most once every 10800 seconds (3 hours)
-      revalidate: 10800, // In seconds
     };
   }
 };
